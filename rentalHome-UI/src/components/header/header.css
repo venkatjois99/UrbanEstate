@@ -1,0 +1,60 @@
+.logo-cont{
+    height: 50px;
+    background-color: inherit;
+    
+
+}
+.nav-link{
+    color: black !important;
+}
+.nav-link:hover {
+    border-bottom: 2px solid rgb(83, 83, 83); /* Disable hover border on larger screens */
+}
+.nav-link.active {
+    border-bottom: 2px solid rgb(0, 0, 0); /* Disable hover border on larger screens */
+}
+
+
+
+@media (max-width: 992px) {
+    .nav-link:hover {
+        border-bottom: none; /* Disable hover border on larger screens */
+    }
+
+    .nav-link.active {
+        border-bottom: none !important; /* Disable active border on larger screens */
+    }
+    .navbar-nav {
+        display: block !important; /* Change display to block for smaller screens */
+    }
+    .hide-at-lg {
+        flex-direction: column;
+        /* Hide the spacer div on screens 992px and larger */
+    }
+    .header-dropdown .dropdown-menu {
+        width: 30%;
+        
+    }
+
+}
+
+@media (min-width: 992px) {
+.signUp{
+    background-color: #C82021 !important;
+    color: white !important;
+    font-weight: 500 !important;
+    border-radius: 20px !important;
+    width: 7vw;
+    text-align: center;
+    border-bottom:none !important;
+}
+.header-dropdown .dropdown-menu {
+    left: -69% !important;
+    top: 110% !important;
+}
+}
+
+.dropdown-toggle::after {
+    content: none !important; /* Removes the arrow */
+    border: none !important;  /* Removes the border style */
+}

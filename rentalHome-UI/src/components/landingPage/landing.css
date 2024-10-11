@@ -1,0 +1,119 @@
+/*------------------- landing container holder----------------------------- */
+.landing-cont-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+  align-items: center;
+}
+.info-text-cont {
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
+  width: 50%;
+}
+/* -----------------Carousal component styles ------------------------------- */
+.carousal-container {
+  width: calc(100% - 10vh);
+  margin: 0 auto; /* Centers it horizontally */
+  box-sizing: border-box; /* Ensure margins are included in width calculation */
+}
+.img-holder {
+  height: 500px; /* Set the height of the div */
+  width: 100%; /* Make it responsive to the container */
+  background-size: cover; /* Ensure the background image covers the div */
+  background-position: center; /* Center the background image */
+  border-radius: 16px;
+}
+.carousel-caption {
+  position: absolute !important;
+  top: 20%;
+  left: 50%;
+  text-align: center !important; /* Center the text inside the caption */
+}
+h2 {
+  font-weight: bold;
+  margin: 0; /* Remove default margins */
+}
+p {
+  margin: 0; /* Remove default margins */
+}
+
+.bg-image-1 {
+  background-image: url("src/assets/Background1.svg");
+}
+
+.bg-image-2 {
+  background-image: url("src/assets/Background2.svg");
+}
+
+.bg-image-3 {
+  background-image: url("src/assets/Background3.svg");
+}
+
+/*----------------------- Count details styles --------------------- */
+.count-card-cont {
+  display: flex;
+  gap: 2vw;
+}
+.count-card {
+  width: 20vw;
+  height: 12vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #eae8e8;
+  border-radius: 12px;
+  padding: 3px;
+}
+
+.card-title {
+  font-size: 3vw;
+  color: #c82021 !important;
+  font-weight: 500;
+}
+
+.card-text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* ---------------------- property list styles ----------------------- */
+.property-list-cont{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 2vw;
+}
+
+.property-list-cont h3{
+  font-weight: 700;
+}
+
+/* ----------------------- email subscription container styles */
+.subs-cont{
+  background-color: #c82021;
+  width: 87%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  height: 40vh;
+  text-align: center;
+}
+
+
+
+@media (max-width: 992px) {
+  .card-text {
+    font-size: 2vw;
+    font-weight: 500;
+  }
+  .subs-cont{
+    font-size: 2vw;
+    padding: 20px;
+  }
+}
