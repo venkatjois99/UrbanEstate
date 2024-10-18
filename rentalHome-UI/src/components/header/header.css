@@ -1,17 +1,29 @@
+
+.navBar-body{
+ background-color: rgba(255, 255, 255, 0.518) ;
+ backdrop-filter: blur(4px) ;
+}
+
+.navBar-body.scrolled {
+    background-color: rgb(204 235 255 / 47%); /* New color after scrolling */
+    backdrop-filter: blur(4px) ;
+  }
+
 .logo-cont{
-    height: 50px;
+    
     background-color: inherit;
     
 
 }
 .nav-link{
     color: black !important;
+    border-color: #216B9B;
 }
 .nav-link:hover {
-    border-bottom: 2px solid rgb(83, 83, 83); /* Disable hover border on larger screens */
+    border-bottom: 2px solid grey !important; /* Disable hover border on larger screens */
 }
 .nav-link.active {
-    border-bottom: 2px solid rgb(0, 0, 0); /* Disable hover border on larger screens */
+    border-bottom: 2px solid #216B9B /* Disable hover border on larger screens */
 }
 
 
@@ -40,10 +52,10 @@
 
 @media (min-width: 992px) {
 .signUp{
-    background-color: #C82021 !important;
+    background-color: #216B9B !important;
     color: white !important;
     font-weight: 500 !important;
-    border-radius: 20px !important;
+    border-radius: 10px !important;
     width: 7vw;
     text-align: center;
     border-bottom:none !important;

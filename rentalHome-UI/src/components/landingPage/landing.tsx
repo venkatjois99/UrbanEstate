@@ -3,72 +3,206 @@ import Carousel from "react-bootstrap/Carousel";
 import NavBars from "../header/header";
 import "./landing.css";
 
+import ApartmentIcon from "../../assets/icons/apartmentIcon";
+import HouseIcon from "../../assets/icons/houseIcon";
+import PgIcon from "../../assets/icons/pgIcon";
+import HotelRoomIcon from "../../assets/icons/hotelRoomIcon";
+import MyMap from "../map/myMap";
+import { LatLngExpression } from "leaflet";
+import { useState } from "react";
+import MapSearch from "../map/mapSearch";
+import CommentCard from "../additional-Components/commentCard/commentCard";
+import Footer from "../footer/footer";
+
 export default function Landing() {
+  const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
+  const [selectedCity, setSelectedCity] = useState<string>(""); // State for selected city
+  const comments = [
+    {
+      name: "Alice Johnson",
+      location: "San Francisco",
+      comment:
+        "RentBro made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+    },
+    {
+      name: "Bob Smith",
+      location: "New York",
+      comment:
+        "RentBro made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+    },
+  ];
+
+  // Locations array for each city
+  const cityLocations: Record<string, LatLngExpression[]> = {
+    Bangalore: [
+      [12.9715987, 77.5945627], // Bangalore City Center
+      [12.935192, 77.6244807], // Koramangala
+      [12.914641935578215, 77.5565153360094],
+      [12.849954307349948, 77.65718400475636],
+      [13.0057, 76.096],
+    ],
+    Chennai: [
+      [13.0827, 80.2707], // Chennai City Center
+      [13.067439, 80.237617], // Anna Nagar
+      [13.0825, 80.2705], // T Nagar
+    ],
+    Delhi: [
+      [28.6139, 77.209], // Delhi City Center
+      [28.7041, 77.1025], // New Delhi
+      [28.5355, 77.391], // Noida
+    ],
+  };
+
+  const handleCitySelect = (city: string) => {
+    if (city && cityLocations[city]) {
+      const locations = cityLocations[city];
+      setMapCenter(locations[0]); // Focus on the first location of the selected city
+      setSelectedCity(city); // Set the selected city
+    } else {
+      setMapCenter(null); // Reset the center if no city is selected
+    }
+  };
+
   return (
     <>
       <NavBars />
 
       <div className="landing-cont-2">
-        <CarousalItemLanding />
+        <div className="hero-cont">
+          <div className="header-caption">
+            <h1>Find a Room, Make It Home</h1>
+            <p>Discover Your Next Home Away from Home</p>
+          </div>
+          <div className="count-card-cont">
+            <div className="count-card">
+              <p className="card-title">165+</p>
+              <p className="card-text">Private Flat</p>
+            </div>
+            <div className="count-card">
+              <p className="card-title">165+</p>
+              <p className="card-text">PG Rooms</p>
+            </div>
+            <div className="count-card">
+              <p className="card-title">165</p>
+              <p className="card-text">Shared Rooms</p>
+            </div>
+            <div className="count-card">
+              <p className="card-title">165</p>
+              <p className="card-text">Hotel Rooms</p>
+            </div>
+          </div>
+        </div>
         <div className="info-text-cont">
-          <h2>What’s Happening in Your Area</h2>
-          <p>
-            Whether you're in search of a new residence, an investment
-            opportunity, or simply exploring the area, we are here to assist you
-            in discovering precisely what meets your needs.
-          </p>
-          <p>Bengaluru, India</p>
+          <div className="info-img"></div>
+          <div className="info-text">
+            <h3>
+              How It works?
+              <br />
+              Find a perfect home
+            </h3>
+            <div className="icon-text-cont">
+              <img
+                src="src\assets\icons\searchFilterIcon.svg"
+                alt="search"
+              ></img>
+              <div>
+                <h5>Search & Filter</h5>
+                <p>
+                  Easily find your ideal room by using our advanced search
+                  options and filters to narrow down results based on location,
+                  price, and amenities.
+                </p>
+              </div>
+            </div>
+            <div className="icon-text-cont">
+              <img
+                src="src\assets\icons\verifyChooseIcon.svg"
+                alt="verify"
+              ></img>
+              <div>
+                <h5>Verify & Choose</h5>
+                <p>
+                  Explore verified listings to ensure authenticity and make your
+                  choice with confidence from a range of options that match your
+                  preferences.
+                </p>
+              </div>
+            </div>
+            <div className="icon-text-cont">
+              <img src="src\assets\icons\payment.svg" alt="secure"></img>
+              <div>
+                <h5>Secure Payment</h5>
+                <p>
+                  Complete your booking with secure payment options and receive
+                  instant confirmation, ensuring a smooth and trustworthy
+                  transaction.
+                </p>
+              </div>
+            </div>
+            <div className="icon-text-cont">
+              <img src="src\assets\icons\enjoyIcon.svg" alt="enjoy"></img>
+              <div>
+                <h5>Enjoy & Manage</h5>
+                <p>
+                  Move in and enjoy your new space while managing your rental
+                  details, requests, and payments effortlessly through our
+                  user-friendly platform.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div></div>
         </div>
-        <div className="count-card-cont">
-          <div className="count-card">
-            <p className="card-title">165</p>
-            <p className="card-text">Independent Flat</p>
-          </div>
-          <div className="count-card">
-            <p className="card-title">165</p>
-            <p className="card-text">Shared Flat</p>
-          </div>
-          <div className="count-card">
-            <p className="card-title">165</p>
-            <p className="card-text">Available PG</p>
-          </div>
-          <div className="count-card">
-            <p className="card-title">165</p>
-            <p className="card-text">Hotel Rooms</p>
-          </div>
-        </div>
+
         <div className="property-list-cont">
-          <h3>How Can We Help?</h3>
           <div>
-            <a>
-              <img src="src\assets\icons\apartment.svg" />
-            </a>
-            <a>
-              <img src="src\assets\icons\house.svg" />
-            </a>
-            <a>
-              <img src="src\assets\icons\pg.svg" />
-            </a>
-            <a>
-              <img src="src\assets\icons\hotelRoom.svg" />
-            </a>
+            <h3>How Can We Help?</h3>
+            <div className="icon-cont">
+              <ApartmentIcon className="icon" />
+              <HouseIcon className="icon" />
+              <PgIcon className="icon" />
+              <HotelRoomIcon className="icon" />
+            </div>
+          </div>
+          <div className="card-cont">
+            <h3>Our most Popular Houses</h3>
+            <div></div>
           </div>
         </div>
-        <div className="subs-cont">
-          <h3>Get Listed Properties</h3>
-          <p>
-            Here is a compilation of the most memorable real estate company ever
-            created.
-            <p>
-              These engaging catchphrases are paired with the title "Greatest
-              Real-Estate of All Time”.
-            </p>
-          </p>
-         <div>
-         <input type="text" placeholder="enter your email id"></input>
-         <button type="submit">Subscribe</button>
-         </div>
+        <div className="review-cont">
+          <div className="comment-cont">
+            <h3>
+              What our
+              <br />
+              Customers say?
+            </h3>
+            {comments.map((comment, index) => (
+              <CommentCard
+                key={index}
+                name={comment.name}
+                location={comment.location}
+                comment={comment.comment}
+              />
+            ))}
+          </div>
+          <div className="sidebar-cont"></div>
         </div>
+        <div className="map-cont">
+          
+          
+          <MyMap
+            positions={
+              cityLocations[selectedCity] || cityLocations["Bangalore"]
+            } // Use all locations of selected city
+            center={mapCenter}
+            allowSelection={false}
+          />
+          <div className="map-search-container">
+          <MapSearch onCitySelect={handleCitySelect}  />
+  </div>
+        </div>
+      <Footer />
+       
       </div>
     </>
   );

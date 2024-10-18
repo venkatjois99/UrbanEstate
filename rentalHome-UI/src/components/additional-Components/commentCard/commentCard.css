@@ -1,0 +1,15 @@
+.comment-card {
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+}
+
+.comment-card h4 {
+  margin: 0;
+}
+
+.comment-card p {
+  margin: 5px 0;
+}

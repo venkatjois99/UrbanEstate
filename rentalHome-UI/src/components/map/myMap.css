@@ -1,0 +1,32 @@
+.map-container {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px;
+  /* border: 2px solid #216B9B; */
+  
+}
+/* .leaflet-container{
+  position: relative !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%, 39% 100%, 39% 68%, 0% 68%);
+} */
+.leaflet-control-attribution {
+  display: none !important; /*hide leaflet logo*/
+}
+
+/* .leaflet-popup{
+    display: none !important;
+}
+
+.leaflet-marker-icon:hover
+.leaflet-popup{
+    display: block !important;
+} */
+
+@media (max-width:600px){
+  .leaflet-container{
+    position: relative !important;
+    clip-path: none;
+  }
+}
