@@ -5,12 +5,7 @@ namespace AccountService.Models
 {
     public class UserModel
     {
-        public UserModel()
-        {
-            isAdmin = false;
-            isOwner = false;
-            isTenant = true;
-        }
+      
 
         [Key]
         public int UserId { get; set; }
@@ -20,14 +15,8 @@ namespace AccountService.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-        [DefaultValue(false)]
-        public bool isAdmin { get; set; }
-
-        [DefaultValue(false)]
-        public bool isOwner { get; set; }
-
-        [DefaultValue(true)]
-        public bool isTenant { get; set; }
+        [DefaultValue("tenant")]
+        public string UserRole { get; set; } = "tenant";
 
     }
 }

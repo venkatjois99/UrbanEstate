@@ -1,9 +1,10 @@
 ﻿using AccountService.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccountService.DAO
 {
-    public class AccountDBContext : DbContext
+    public class AccountDBContext : IdentityDbContext<ApplicationUser>
     {
         public AccountDBContext(DbContextOptions<AccountDBContext> options) : base(options)
         {

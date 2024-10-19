@@ -1,8 +1,11 @@
 
 using AccountService.DAO;
+using AccountService.Models;
 using AccountService.Repository;
 using AccountService.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using JWTAuthentication;
 
 namespace AccountService
 {
@@ -21,6 +24,11 @@ namespace AccountService
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IAccountRepository, AccountServices>();
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+              .AddEntityFrameworkStores<AccountDBContext>();
+
+            builder.Services.AddJwtAuthentication();
+
 
             var app = builder.Build();
 
