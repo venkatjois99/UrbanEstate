@@ -1,0 +1,46 @@
+/* listpage.css */
+
+/* .listPage {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+} */
+
+.listContainer {
+   
+        display: grid;
+        /* grid-template-columns: repeat(3, 1fr); 3 columns */
+        gap: 20px; /* Adjust gap between cards */
+        margin: 20px;
+    
+    
+}
+
+.wrapper1{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 3 columns */
+    gap: 20px; /* Adjust gap between cards */
+    margin: 20px;
+}
+
+.mapContainer {
+    flex: 2;
+    height: 100%;
+    margin-top: 20px;
+    height: 400px; /* Adjust based on your design */
+    background-color: #fcf5f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.filter {
+    margin-bottom: 20px;
+}
+
+
