@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PropertyService.DataAccess;
 
@@ -11,9 +12,11 @@ using PropertyService.DataAccess;
 namespace PropertyService.Migrations
 {
     [DbContext(typeof(PropertyDBContext))]
-    partial class PropertyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241016091343_properties")]
+    partial class properties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
