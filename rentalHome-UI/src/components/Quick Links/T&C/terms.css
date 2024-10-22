@@ -1,0 +1,49 @@
+.terms-wrapper {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .terms-wrapper h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .terms-wrapper p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .terms-wrapper ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+  
+  .terms-wrapper li {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .terms-wrapper li strong {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .terms-wrapper a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .terms-wrapper a:hover {
+    color: #0056b3;
+  }
+  
