@@ -9,7 +9,8 @@ const Footer: React.FC = () => {
     "Pune",
   ];
   const quickLinks: string[] = [
-    "About",
+    "About Us",
+    "Rent",
     "FAQ's",
     "Privacy Policy",
     "Terms & Conditions",
@@ -25,7 +26,7 @@ const Footer: React.FC = () => {
           <div className="email-sub-cont">
             <h6>Subscribe</h6>
             <div className="email-form">
-              <input type="email" placeholder="your email"></input>
+              <input type="email" placeholder="Your email"></input>
               <button type="submit">
                 Send <img src="src\assets\icons\arrowSubmit.svg"></img>
               </button>
@@ -53,7 +54,7 @@ const Footer: React.FC = () => {
                 <a
                   key={index}
                   href={href}
-                  style={{ display: "block", margin: "5px 0" }}
+                  style={{ display: "block", margin: "0 0 1rem 0 " }}
                 >
                   {link}
                 </a>

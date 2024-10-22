@@ -1,0 +1,70 @@
+.searchfilter {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.top,
+.bottom {
+  display: flex;
+  gap: 1vw;
+}
+
+.searchfilter select,
+.searchfilter select {
+  outline: none;
+  height: 44px;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+}
+
+.w1 {
+  width: 10vw;
+}
+
+.w2 {
+  width: 12vw;
+}
+
+.search-input-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 27vw;
+  background-color: white;
+  border-radius: 20px;
+  height: 44px;
+  gap: 5px;
+  padding: 10px;
+}
+.searchfilter input,
+.searchfilter input:focus {
+  outline: none;
+  width: 100%;
+  border-radius: 20px;
+  border: none;
+}
+.error {
+  font-size: x-small;
+  color: red;
+  font-weight: 500;
+}
+
+.searchfilter button {
+  border: none;
+  border-radius: 20px;
+  background-color: #216b9b;
+  color: white;
+}
+
+.searchfilter button:hover {
+  background-color: white;
+  color: #216b9b;
+  border: 2px solid #216b9b ;
+}
+
+.searchfilter select:hover {
+  color: #216b9b;
+ 
+}

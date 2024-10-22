@@ -56,7 +56,7 @@ function NavBars() {
 
        <div className="ms-auto d-flex hide-at-lg">
        <Nav.Link href="#about">About Us</Nav.Link>
-       <Nav.Link href="#rent">Rent</Nav.Link>
+       <Nav.Link href="/rent">Rent</Nav.Link>
        <Nav.Link href="#sell">Post Property</Nav.Link>
        </div>
         

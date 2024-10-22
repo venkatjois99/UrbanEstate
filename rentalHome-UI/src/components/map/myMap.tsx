@@ -8,7 +8,6 @@ import {
 import { LatLngExpression } from "leaflet";
 import "./myMap.css"; 
 import { useState } from "react";
-import MapSearch from "./mapSearch";
 
 interface MyMapProps {
   positions: LatLngExpression[]; 
@@ -64,7 +63,7 @@ setTimeout(() => {
       scrollWheelZoom={false}
       className="map-container"
       >
-      {/* <MapSearch onCitySelect={handleCitySelect} /> */}
+        
    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
    {/* <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" /> */}

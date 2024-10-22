@@ -17,7 +17,9 @@
     align-items: center;
     justify-content: center;
   }
-  input[type="text"] {
+  .dropdown-container input,
+  .dropdown-container input:focus {
+    outline: none;
     width: 90%;
     padding: 8px;
     box-sizing: border-box;

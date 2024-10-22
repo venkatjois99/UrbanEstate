@@ -13,6 +13,8 @@ import { useState } from "react";
 import MapSearch from "../map/mapSearch";
 import CommentCard from "../additional-Components/commentCard/commentCard";
 import Footer from "../footer/footer";
+import Filter from "../additional-Components/SearchFilter/Filter";
+import SearchFilter from "../additional-Components/SearchFilter/Filter";
 
 export default function Landing() {
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
@@ -90,6 +92,9 @@ export default function Landing() {
               <p className="card-title">165</p>
               <p className="card-text">Hotel Rooms</p>
             </div>
+          </div>
+          <div className="search-cont">
+            <SearchFilter/>
           </div>
         </div>
         <div className="info-text-cont">
