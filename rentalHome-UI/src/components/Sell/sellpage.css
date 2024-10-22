@@ -1,0 +1,146 @@
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #ffffff; /* White for contrast */
+  background: linear-gradient(90deg, #00509e, #003366); /* Gradient background */
+  padding: 10px; /* Optional padding for better visibility */
+  border-radius: 5px; /* Optional rounded corners */
+}
+
+.property-type label {
+  margin: 0 15px;
+  font-size: 18px;
+  color: #007bff; /* Medium blue for labels */
+}
+
+.property-form {
+  background: rgb(230 247 255 / 77%);; /* Light blue with reduced opacity */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 37vw!important;
+  margin: 0 auto;
+}
+
+.property-listing {
+  width: 40vw;
+  margin-left: auto;
+}
+
+.property-form label {
+  display: block;
+  /* margin-bottom: 10px; */
+  font-size: 16px;
+  color: #003366; /* Dark blue for labels */
+}
+
+.inputfield {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #007bff; /* Blue border */
+  border-radius: 4px !important;
+  font-size: 16px;
+}
+
+.inputfield:focus {
+  border-color: #0056b3; /* Darker blue on focus */
+  outline: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, #007bff, #0056b3); /* Blue gradient button */
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background: linear-gradient(90deg, #0056b3, #003366); /* Darker blue gradient on hover */
+}
+
+.property-type-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.property-type-button {
+  background: #CCEBFF;
+  border: none;
+  border-radius: 5px;
+  color: #003366; /* Dark blue for text */
+  padding: 10px 15px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.property-type-button:hover {
+  background: linear-gradient(90deg, #cce5ff, #b3d4ff); /* Slightly darker light blue on hover */
+}
+
+.property-type-button.active {
+  background: #216B9B;
+  color: white;
+}
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.image-preview-item {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.image-preview {
+  width: 100px; /* Adjust size as needed */
+  height: auto;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #007bff; /* Blue border */
+  border-radius: 4px; /* Optional rounded corners */
+}
+
+.property-type-button svg {
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+}
+
+.property-listing-container {
+  display: flex;
+  
+  justify-content: space-evenly;
+  background-size: cover;
+}
+
+.image-container {
+  margin-top: 40px;
+}
+
+.back-button,
+.next-button,
+.reset-button {
+  margin: 1vw;
+  border-color: #007bff; /* Blue border */
+}
+
+.proppage {
+  /* background-image: url(../../assets/apartment3.svg); */
+  
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
