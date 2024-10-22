@@ -38,15 +38,15 @@ namespace PropertyService.Controllers
 
         // POST: api/property
         [HttpPost]
-        public async Task<ActionResult<PropertyModel>> AddProperty([FromBody] PropertyModel property)
+        public async Task<ActionResult<(int,string)>> AddProperty([FromForm] PropertyDTOModel property)
         {
             if (property == null)
             {
                 return BadRequest(); // 400 Bad Request
             }
 
-            await _propertyRepository.AddProperty(property);
-            return CreatedAtAction(nameof(GetPropertyById), new { id = property.Id }, property); // 201 Created
+           var res = await _propertyRepository.AddProperty(property);
+            return res ; // 201 Created
         }
 
         // PUT: api/property/{id}

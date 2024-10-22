@@ -32,7 +32,7 @@ namespace PropertyService
                 Address = host,
                 Tags=taglist
             };
-            await _consulClient.Agent.ServiceRegister(register,cancellationToken);
+            //await _consulClient.Agent.ServiceRegister(register,cancellationToken);
 
         }
 

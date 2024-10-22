@@ -29,7 +29,7 @@ namespace PropertyService.Models
         [StringLength(1000)]
         public string Description { get; set; }
 
-        public List<string> Images { get; set; } = new List<string>(); // Store image URLs or paths
+        public List<string>? ImagesUrl { get; set; } // Store image URLs or paths
 
         // Allow nulls for these properties
         public string? BHKType { get; set; } // Nullable BHK type
@@ -41,8 +41,6 @@ namespace PropertyService.Models
         [Range(0, int.MaxValue, ErrorMessage = "Available rooms must be a non-negative number.")]
         public int? AvailableRooms { get; set; } // Nullable for optional entry
 
-        [StringLength(200)]
-        public string? Meals { get; set; } // Nullable meals description
 
         public int? SharedBedrooms { get; set; } // Nullable for optional entry
         public string? PreferredFlatmate { get; set; } // Nullable preferred flatmate

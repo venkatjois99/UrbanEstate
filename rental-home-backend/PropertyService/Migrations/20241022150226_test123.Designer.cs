@@ -12,8 +12,8 @@ using PropertyService.DataAccess;
 namespace PropertyService.Migrations
 {
     [DbContext(typeof(PropertyDBContext))]
-    [Migration("20241014070713_initial")]
-    partial class initial
+    [Migration("20241022150226_test123")]
+    partial class test123
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace PropertyService.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PropertyService.Models.PropertyListingModel", b =>
+            modelBuilder.Entity("PropertyService.Models.PropertyModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,19 +52,17 @@ namespace PropertyService.Migrations
                     b.Property<string>("Furnishing")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Images")
-                        .IsRequired()
+                    b.Property<string>("ImagesUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Meals")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<string>("PgLivingType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PgType")
+                    b.Property<string>("PgSharingType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PostingDate")
@@ -82,6 +80,10 @@ namespace PropertyService.Migrations
 
                     b.Property<int?>("SharedBedrooms")
                         .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

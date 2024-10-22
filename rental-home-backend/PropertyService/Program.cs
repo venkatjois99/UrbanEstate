@@ -16,6 +16,7 @@ builder.Services.AddSingleton<IConsulClient>(_ => new ConsulClient(config
     =>
 { config.Address = new Uri(consulHost); }));
 builder.Services.AddScoped<IPropertyRepository,PropertyServices >();
+builder.Services.AddScoped<IImageRepo, ImageRepository>();
 
 builder.Services.AddControllers();
 

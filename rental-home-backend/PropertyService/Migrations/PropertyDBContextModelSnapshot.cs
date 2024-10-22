@@ -49,19 +49,17 @@ namespace PropertyService.Migrations
                     b.Property<string>("Furnishing")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Images")
-                        .IsRequired()
+                    b.Property<string>("ImagesUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Meals")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<string>("PgLivingType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PgType")
+                    b.Property<string>("PgSharingType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PostingDate")

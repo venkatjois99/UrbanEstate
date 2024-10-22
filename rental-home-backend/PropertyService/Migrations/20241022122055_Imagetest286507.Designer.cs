@@ -12,8 +12,8 @@ using PropertyService.DataAccess;
 namespace PropertyService.Migrations
 {
     [DbContext(typeof(PropertyDBContext))]
-    [Migration("20241016091343_properties")]
-    partial class properties
+    [Migration("20241022122055_Imagetest286507")]
+    partial class Imagetest286507
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,19 +52,17 @@ namespace PropertyService.Migrations
                     b.Property<string>("Furnishing")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Images")
-                        .IsRequired()
+                    b.Property<string>("ImagesUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Meals")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<string>("PgLivingType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PgType")
+                    b.Property<string>("PgSharingType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PostingDate")
