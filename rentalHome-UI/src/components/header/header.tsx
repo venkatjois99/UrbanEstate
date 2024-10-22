@@ -6,9 +6,12 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 import { useEffect, useState } from "react";
 import Login from "../Accounts/login";
+import Register from "../Accounts/register";
 
 function NavBars() {
   const [showLoginModal, setShowLoginModal] = useState(false); // Manage modal state
+  const [showRegisterModal, setShowRegisterModal] = useState(false); // Manage modal state
+
   const [scrolled, setScrolled] = useState(false);
   
   const handleLoginClick = () => {
@@ -18,6 +21,15 @@ function NavBars() {
   const handleCloseModal = () => {
     setShowLoginModal(false); // Close modal when called
   };
+
+  const handleRegisterClick = () => {
+    setShowRegisterModal(true); // Open the modal when clicked
+  };
+
+  const handleCloseRegisterModal = () => {
+    setShowRegisterModal(false); // Close modal when called
+  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +77,7 @@ function NavBars() {
           {/* <Nav.Link href="#features">Features</Nav.Link>
           <Nav.Link href="#pricing">Pricing</Nav.Link> */}
           <Nav.Link onClick={handleLoginClick}>Log in</Nav.Link>
-          <Nav.Link className="signUp" onClick={handleLoginClick}>SignUp</Nav.Link>
+          <Nav.Link className="signUp" onClick={handleRegisterClick}>SignUp</Nav.Link>
 
           <NavDropdown title="Dropdown" id="collapsible-nav-dropdown" className="header-dropdown">
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -78,7 +90,7 @@ function NavBars() {
     </Navbar.Collapse>
   </Container>
 </Navbar>
-
+    <Register show={showRegisterModal} onClose={handleCloseRegisterModal}/>        
     <Login show={showLoginModal} onClose={handleCloseModal} />
     </>
   );
