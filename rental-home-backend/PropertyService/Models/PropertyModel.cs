@@ -9,7 +9,8 @@ namespace PropertyService.Models
         public int Id { get; set; }
         [Required]
         public int UserId {  get; set; }
-
+        [Required]
+        public string Title { get; set; }
         [Required]
         public string PropertyType { get; set; } // 'apartment', 'pg', 'flatmate'
 
@@ -33,7 +34,9 @@ namespace PropertyService.Models
         // Allow nulls for these properties
         public string? BHKType { get; set; } // Nullable BHK type
         public string? Furnishing { get; set; } // Nullable furnishing type
-        public string? PgType { get; set; } // Nullable PG type
+        public string? PgSharingType { get; set; } // Nullable PG type
+        public string? PgLivingType { get; set; } // Nullable PG type
+
 
         [Range(0, int.MaxValue, ErrorMessage = "Available rooms must be a non-negative number.")]
         public int? AvailableRooms { get; set; } // Nullable for optional entry
