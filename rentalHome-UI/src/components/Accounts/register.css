@@ -6,52 +6,52 @@
     justify-content: center;
     align-items: center;
     background-color: #f5f5f5; /* Light background to highlight the card */
-    padding: 20px; /* Ensures content is not too close to the edges */
-    box-sizing: border-box; /* Ensures padding is included in element's total width and height */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Registration card style */
 .register-card {
-    width: 24rem; /* Slightly wider for better content alignment */
-    padding: 2rem; /* More padding for comfortable spacing */
+    width: 24rem;
+    padding: 2rem;
     background-color: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Slightly more shadow for depth */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     border: 1px solid #e0e0e0;
-    border-radius: 1rem; /* Softer rounded corners for a modern look */
+    border-radius: 1rem;
     text-align: center;
 }
 
 /* Title inside the card */
 .register-title {
-    font-size: 1.5rem; /* Slightly larger for better readability */
+    font-size: 1.5rem;
     font-weight: 600;
     color: #2c3e50;
-    margin-bottom: 2rem; /* More space below the title for clean separation */
+    margin-bottom: 1.5rem; /* Slightly reduced space below the title */
 }
 
 /* Form styling */
 .register-form {
     display: grid;
-    gap: 1.5rem; /* Increased gap between form fields for better spacing */
+    gap: 1rem; /* Reduced gap between form fields */
 }
 
 /* Label styling */
 .register-label {
-    font-size: 1rem; /* Larger label for better readability */
+    font-size: 1rem;
     font-weight: 600;
     color: #2c3e50;
-    text-align: left; /* Align text to the left for consistency */
+    text-align: left;
     display: block;
-    margin-bottom: 0.5rem; /* Reduced space between label and input field */
+    margin-bottom: 0.25rem; /* Reduced space between label and input field */
 }
 
 /* Input field styling */
 .register-input {
     width: 100%;
-    padding: 0.75rem; /* More padding for better comfort */
+    padding: 0.75rem;
     font-size: 1rem;
     color: #2c3e50;
-    background-color: #fff; /* Ensure input background is always white */
+    background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 0.5rem;
     outline: none;
@@ -59,24 +59,58 @@
 }
 
 .register-input:focus {
-    border-color: #3f51b5; /* Highlight input border on focus */
-    box-shadow: 0 0 6px rgba(63, 81, 181, 0.2); /* Subtle shadow on focus for visual feedback */
+    border-color: #3f51b5;
+    box-shadow: 0 0 6px rgba(63, 81, 181, 0.2);
 }
 
 /* Error message styling */
 .error-message {
     color: #e74c3c;
-    font-size: 0.875rem; /* Slightly smaller font for error messages */
+    font-size: 0.875rem;
     font-weight: bold;
-    margin-top: -0.5rem; /* Adjusted margin for spacing under the input */
+    margin-top: -0.5rem;
     text-align: left;
+}
+
+/* Password strength bar */
+.password-strength-bar {
+    margin-top: 0.5rem;
+    height: 8px;
+    background-color: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.strength-bar {
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+}
+
+.strength-0 {
+    background-color: #e74c3c; /* Weak */
+}
+
+.strength-1 {
+    background-color: #e67e22; /* Medium */
+}
+
+.strength-2 {
+    background-color: #f1c40f; /* Fair */
+}
+
+.strength-3 {
+    background-color: #27ae60; /* Strong */
+}
+
+.strength-4 {
+    background-color: #2ecc71; /* Very Strong */
 }
 
 /* Button styling */
 .register-button {
     width: 100%;
     padding: 0.75rem;
-    font-size: 1.1rem; /* Slightly larger text for buttons */
+    font-size: 1.1rem;
     color: white;
     background-color: #216B9B;
     border: none;
@@ -87,7 +121,7 @@
 
 .register-button:hover {
     background-color: #053657;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Soft shadow on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .register-button.disabled {
@@ -101,7 +135,7 @@
     color: #3f51b5;
     text-decoration: none;
     transition: color 0.3s ease;
-    margin-top: 1.5rem; /* Added margin for separation from button */
+    margin-top: 1rem; /* Adjusted margin for better spacing from the button */
 }
 
 .register-link:hover {
@@ -112,11 +146,11 @@
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
     .register-card {
-        width: 90%; /* Card adapts to smaller screen sizes */
-        padding: 1.5rem; /* Adjusted padding for smaller devices */
+        width: 90%;
+        padding: 1.5rem;
     }
 
     .register-title {
-        font-size: 1.25rem; /* Reduced title size for better fit */
+        font-size: 1.25rem;
     }
 }

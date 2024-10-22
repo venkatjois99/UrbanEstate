@@ -3,15 +3,14 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import zxcvbn from "zxcvbn";
 import "./register.css";
 
 function Register(props: any) {
   const handleClose = () => props.onClose(); // Call parent function to close
-  const navigate = useNavigate();
   const [passwordStrength, setPasswordStrength] = useState(0);
+  const [showStrengthBar, setShowStrengthBar] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -49,10 +48,31 @@ function Register(props: any) {
   });
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
     formik.handleChange(e);
-    const strength = zxcvbn(e.target.value).score;
-    setPasswordStrength(strength);
+
+    // Show the password strength bar when typing starts
+    if (value.length > 0) {
+      setShowStrengthBar(true);
+    } else {
+      setShowStrengthBar(false);
+      setPasswordStrength(0); // Reset password strength when cleared
+    }
+
+    // Logic to set password strength
+    if (value.length <= 3) {
+      setPasswordStrength(0); // Weak
+    } else if (value.length <= 6) {
+      setPasswordStrength(1); // Medium
+    } else if (value.length <= 9) {
+      setPasswordStrength(2); // Fair
+    } else if (value.length <= 12) {
+      setPasswordStrength(3); // Strong
+    } else {
+      setPasswordStrength(4); // Very Strong
+    }
   };
+
   return (
     <>
       <Modal show={props.show} onHide={handleClose} centered>
@@ -108,9 +128,7 @@ function Register(props: any) {
                 placeholder="Enter your phone number"
               />
               {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                <span className="error-message">
-                  {formik.errors.phoneNumber}
-                </span>
+                <span className="error-message">{formik.errors.phoneNumber}</span>
               )}
             </Form.Group>
 
@@ -130,12 +148,14 @@ function Register(props: any) {
               )}
 
               {/* Password strength bar */}
-              <div className="password-strength-bar mt-2">
-                <div
-                  className={`strength-bar strength-${passwordStrength}`}
-                  style={{ width: `${(passwordStrength + 1) * 20}%` }}
-                ></div>
-              </div>
+              {showStrengthBar && (
+                <div className="password-strength-bar mt-2">
+                  <div
+                    className={`strength-bar strength-${passwordStrength}`}
+                    style={{ width: `${(passwordStrength + 1) * 20}%` }}
+                  ></div>
+                </div>
+              )}
             </Form.Group>
 
             {/* Confirm Password */}
@@ -151,14 +171,12 @@ function Register(props: any) {
               />
               {formik.touched.confirmPassword &&
                 formik.errors.confirmPassword && (
-                  <span className="error-message">
-                    {formik.errors.confirmPassword}
-                  </span>
+                  <span className="error-message">{formik.errors.confirmPassword}</span>
                 )}
             </Form.Group>
 
             {/* Submit Button */}
-            <Button variant="primary" type="submit">
+            <Button  type="submit" className="register-button">
               {formik.isSubmitting ? "Signing Up..." : "Sign Up"}
             </Button>
 
@@ -171,9 +189,7 @@ function Register(props: any) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button> */}
+          {/* You can add a footer button here if needed */}
         </Modal.Footer>
       </Modal>
     </>
