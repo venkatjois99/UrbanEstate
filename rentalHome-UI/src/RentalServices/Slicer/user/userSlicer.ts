@@ -48,4 +48,4 @@ const userSlicer = createSlice({
 })
 export const {logout} = userSlicer.actions
 
-export default userSlicer.reducer
+export default userSlicer.reducer;

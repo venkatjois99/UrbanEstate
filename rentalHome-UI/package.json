@@ -15,7 +15,6 @@
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "@mui/icons-material": "^6.1.4",
-    "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "formik": "^2.4.6",
     "leaflet": "^1.9.4",

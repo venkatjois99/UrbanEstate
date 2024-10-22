@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import { useEffect, useState } from "react";
-import Login from "../login/login";
+import Login from "../Accounts/login";
 
 function NavBars() {
   const [showLoginModal, setShowLoginModal] = useState(false); // Manage modal state
