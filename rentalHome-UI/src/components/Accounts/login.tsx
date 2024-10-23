@@ -3,9 +3,15 @@ import { FormEvent, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { Link } from 'react-router-dom';
 import "./login.css";
 import Register from './register';
+import { useDispatch,useSelector } from 'react-redux';
+import { AppDispatch } from '../../store/myAppStore';
+import { LoginModel } from '../../models/registerUserModel';
+import { validateUser } from '../../RentalServices/Slicer/user/userThunk';
+import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 function Login(props: any) {
     const handleClose = () => props.onClose(); // Call parent function to close
@@ -14,14 +20,29 @@ function Login(props: any) {
     const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [showRegisterModal, setShowRegisterModal] = useState(false); // Manage modal state
-
+    const navigate = useNavigate();
+    
+  const dispatch = useDispatch<AppDispatch>();
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!isSigningIn) {
           setIsSigningIn(true);
           try {
-              doSignInWithEmailAndPassword(email, password);
+            const formData: LoginModel = {
+              email: email,
+              password: password
+            };
+             var res = await dispatch(validateUser(formData));
+              console.log(res.payload);
+              if(res.payload != null){
+                toast.success('Login successful!');
+                // localStorage.setItem("token",res.payload);
+                setTimeout(() => navigate('/rent'), 1000);
+              }
+              
+              
           } catch (err) {
+            toast.error('Login failed. Please try again.');
               setIsSigningIn(false);
               setErrorMessage('Error signing in');
           }
@@ -61,6 +82,8 @@ const handleCloseRegisterModal = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+       <ToastContainer />
+       
           <Form onSubmit={onSubmit} className="login-form">
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>Email address</Form.Label>

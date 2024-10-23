@@ -6,22 +6,27 @@ import Modal from "react-bootstrap/Modal";
 import * as Yup from "yup";
 import zxcvbn from "zxcvbn";
 import "./register.css";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/myAppStore";
+import { addUser } from "../../RentalServices/Slicer/user/userThunk";
+
 
 function Register(props: any) {
   const handleClose = () => props.onClose(); // Call parent function to close
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showStrengthBar, setShowStrengthBar] = useState(false);
 
+  const dispatch = useDispatch<AppDispatch>();
   const formik = useFormik({
     initialValues: {
-      username: "",
+      userName: "",
       email: "",
       phoneNumber: "",
       password: "",
       confirmPassword: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Username is required"),
+      userName: Yup.string().required("Username is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
@@ -42,7 +47,15 @@ function Register(props: any) {
 
       // Here, only 'username', 'email', 'phoneNumber', and 'password' will be submitted.
       console.log("Submitted Values:", submittedValues);
+     try{
+      await dispatch(addUser(submittedValues));
+     
+      // navigate("/");
 
+     }
+     catch(err){
+      console.error();
+     }
       // Call backend API or Firebase to handle user registration
     },
   });
@@ -88,14 +101,14 @@ function Register(props: any) {
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
-                name="username"
+                name="userName"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.username}
+                value={formik.values.userName}
                 placeholder="Enter your username"
               />
-              {formik.touched.username && formik.errors.username && (
-                <span className="error-message">{formik.errors.username}</span>
+              {formik.touched.userName && formik.errors.userName && (
+                <span className="error-message">{formik.errors.userName}</span>
               )}
             </Form.Group>
 

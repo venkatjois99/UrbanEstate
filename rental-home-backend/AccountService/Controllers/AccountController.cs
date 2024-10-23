@@ -39,11 +39,11 @@ namespace AccountService.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult> RegisterUser([FromBody] UserModel userModel)
+        public async Task<(int,string)> RegisterUser([FromBody] UserModel userModel)
         {
             if (userModel == null)
             {
-                return BadRequest("User model is null.");
+                return (400,"User model is null.");
             }
 
             try
@@ -51,18 +51,18 @@ namespace AccountService.Controllers
                 var (statusCode, message) = await _accountRepository.RegisterUserService(userModel);
                 if (statusCode == 400)
                 {
-                    return BadRequest(message);
+                    return (statusCode,message);
                 }
                 else if (statusCode == 201)
                 {
-                    return CreatedAtAction(nameof(RegisterUser), new { message });
+                    return (statusCode, message);
                 }
 
-                return StatusCode(statusCode, message);
+                return (statusCode, message);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error.");
+                return (500, ex.Message);
             }
         }
 

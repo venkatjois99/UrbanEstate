@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addUser, validateUser } from "./userThunk";
 
 const initialState={
-     isLoggedIn:false,
+    isLoggedIn: !!localStorage.getItem("token"),
      isRegistered:false,
      registerstatus: "",
      loginStatus: "",
@@ -13,6 +13,7 @@ const userSlicer = createSlice({
     reducers:{
             logout:(state)=>{
                 state.isLoggedIn=false
+                localStorage.removeItem("token");
             },
             register: (state) => {
                 state.isRegistered = true
@@ -31,9 +32,9 @@ const userSlicer = createSlice({
                     state.isRegistered=false
                     state.registerstatus='rejected'
                 })
-                .addCase(validateUser.fulfilled,(state)=>{
-                    state.isLoggedIn=true;
-                    // state.loginStatus='success';
+                .addCase(validateUser.fulfilled, (state, action) => {
+                    state.isLoggedIn = true;
+                    localStorage.setItem("token", action.payload.token);
                 })
                 .addCase(validateUser.pending,(state)=>{
                     state.loginStatus='pending'

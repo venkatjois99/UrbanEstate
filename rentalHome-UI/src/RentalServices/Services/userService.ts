@@ -1,6 +1,6 @@
 import axios from "axios";
 import { RegisterUser, LoginModel } from "../../models/registerUserModel";
-const url = "";
+const url = "http://localhost:5033/api/Account/Login";
 
 export const addNewUser = (newUser: RegisterUser) => {
   return axios.post(url, newUser);
