@@ -11,9 +11,10 @@ const SellPage: React.FC = () => {
     <>
       <NavBars />
       <div className="proppage">
-        <div className="property-listing-container">
+  
           <PropertyListing />
-        </div>
+          <img src="src/assets/sideBar.svg" alt="Description of the image" className="sell-image" />
+       
       </div>
       <InfoSection />
       <Footer />

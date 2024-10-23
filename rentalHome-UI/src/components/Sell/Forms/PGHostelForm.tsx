@@ -1,95 +1,67 @@
 import React from 'react';
 import '../sellpage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBed, faDoorOpen,  faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faBed, faDoorOpen,  faThLarge } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   formData: any;
-  handleChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
+  setFieldValue: (field: string, value: any) => void;
 }
 
-const PGHostelForm: React.FC<Props> = ({ formData, handleChange }) => {
+const PGHostelForm: React.FC<Props> = ({ formData, setFieldValue }) => {
+  return (
+    <div className="child-container">
+      <div className="child-form-row">
+        <div className="child-field">
+          <label>
+            <FontAwesomeIcon icon={faBed}className="iconp" />
+            PG Sharing Type:
+            <select
+              name="pgSharingType"
+              value={formData.pgSharingType}
+              onChange={(e) => setFieldValue("pgSharingType", e.target.value)}
+            >
+              <option value="">Select PG Sharing Type</option>
+              <option value="single">Single</option>
+              <option value="double">Double</option>
+              <option value="triple">Triple</option>
+            </select>
+          </label>
+        </div>
 
-return (
-  <div className="pg-hostel-form">
-    <div className="form-row">
-      <label htmlFor="pgSharingType">
-        <FontAwesomeIcon icon={faBed} className="iconp" />
-        PGSharingType:
-      </label>
-      <select
-        id="pgSharingType"
-        name="pgSharingType"
-        className="inputfield"
-        value={formData.pgSharingType}
-        onChange={handleChange}
-        required
-      >
-        <option value="">Select PG Sharing Type</option>
-        <option value="single">Single</option>
-        <option value="double">Double</option>
-        <option value="triple">Triple</option>
-      </select>
-    </div>
-    <div className="form-row">
-      <label htmlFor="pgLivingType">
-        <FontAwesomeIcon icon={faBed} className="iconp" />
-        PGLivingType:
-      </label>
-      <select
-        id="pgLivingType"
-        name="pgLivingType"
-        className="inputfield"
-        value={formData.pgLivingType}
-        onChange={handleChange}
-        required
-      >
-        <option value="">Select PG Living Type</option>
-        <option value="boys">Boys</option>
-        <option value="girls">Girls</option>
-        <option value="colive">Colive</option>
-      </select>
-    </div>
+        <div className="child-field">
+          <label>
+            <FontAwesomeIcon icon={faDoorOpen} className="iconp"/>
+            PG Living Type:
+            <select
+              name="pgLivingType"
+              value={formData.pgLivingType}
+              onChange={(e) => setFieldValue("pgLivingType", e.target.value)}
+            >
+              <option value="">Select Living Type</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Colive">Co-living</option>
+            </select>
+          </label>
+        </div>
+      </div>
 
-    <div className="form-row">
-      <label htmlFor="availableRooms">
-        <FontAwesomeIcon icon={faDoorOpen} className="iconp" />
-        Number of Rooms Available:
-      </label>
-      <input
-        type="number"
-        id="availableRooms"
-        name="availableRooms"
-        className="inputfield"
-        value={formData.availableRooms}
-        onChange={handleChange}
-        min={1}
-        required
-      />
+      <div className="child-form-row">
+        <div className="child-field">
+          <label>   <FontAwesomeIcon icon={faThLarge} className="iconp"/>
+            Number of Available Rooms:
+            <input
+              type="number"
+              name="availableRooms"
+              value={formData.availableRooms}
+              onChange={(e) => setFieldValue("availableRooms", Number(e.target.value))}
+            />
+          </label>
+        </div>
+      </div>
     </div>
-
-    <div className="form-row">
-      <label htmlFor="sharingType">
-        <FontAwesomeIcon icon={faUtensils} className="iconp" />
-        Meals:
-      </label>
-      <select
-        id="sharingType"
-        name="sharingType"
-        className="inputfield"
-        value={formData.sharingType}
-        onChange={handleChange}
-        required
-      >
-        <option value="">Select Meal Type</option>
-        <option value="2 meal">2 Meal</option>
-        <option value="3 meal">3 Meal</option>
-      </select>
-    </div>
-  </div>
-);
-
-    };
-    
+  );
+};
 
 export default PGHostelForm;

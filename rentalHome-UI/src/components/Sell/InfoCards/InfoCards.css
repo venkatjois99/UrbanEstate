@@ -1,40 +1,54 @@
 .info-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    margin-top: 40px;
-  }
-  
-  .info-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center the cards */
-    gap: 15px; /* Space between cards */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.info-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the cards */
+  gap: 15px; /* Space between cards */
+}
+
+.info-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  width: 100%; /* Full width for smaller devices */
+  max-width: 200px; /* Maximum width for cards */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center align text */
+}
+
+.card-icon {
+  font-size: 24px; /* Icon size */
+  color: #007bff; /* Icon color */
+  margin-bottom: 10px; /* Space below the icon */
+}
+
+.info-card h3 {
+  margin: 0 0 10px; /* Space below the title */
+  font-size: 1.1em; /* Adjust size as needed */
+}
+
+.info-card p {
+  font-size: 0.9em; /* Adjust font size */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .info-card {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    width: 18vw;/* Fixed width for uniformity */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center align text */
+    width: 90%; /* Adjust card width for smaller screens */
+    max-width: none; /* Remove max-width for flexibility */
   }
-  
-  .card-icon {
-    font-size: 24px; /* Icon size */
-    color: #007bff; /* Icon color */
-    margin-bottom: 10px; /* Space below the icon */
+}
+
+@media (min-width: 769px) {
+  .info-card {
+    width: 18vw; /* Use original width on larger screens */
   }
-  
-  .info-card h3 {
-    margin: 0 0 10px; /* Space below the title */
-    font-size: 1.1em; /* Adjust size as needed */
-  }
-  
-  .info-card p {
-    font-size: 0.9em; /* Adjust font size */
-  }
-  
+}
