@@ -62,8 +62,8 @@ label {
 .form-row input,
 .form-row select,
 .form-row textarea,
-input,
-select {
+.child-input,
+.child-select{
   width: 100%;
   padding: 10px;
   border: 1px solid #007bff;
@@ -74,8 +74,8 @@ select {
 .form-row input:focus,
 .form-row select:focus,
 .form-row textarea:focus,
-input
- {
+
+.child-input{
   border-color: #0056b3;
   outline: none;
 }

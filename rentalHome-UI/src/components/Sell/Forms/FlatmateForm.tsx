@@ -17,6 +17,7 @@ const FlatmateForm: React.FC<Props> = ({ formData, setFieldValue }) => {
             <FontAwesomeIcon icon={faBed} className="iconp"/>
             Shared Bedrooms:
             <select
+            className="child-select"
               name="sharedBedrooms"
               value={formData.sharedBedrooms}
               onChange={(e) => setFieldValue("sharedBedrooms", Number(e.target.value))}
@@ -36,6 +37,7 @@ const FlatmateForm: React.FC<Props> = ({ formData, setFieldValue }) => {
             <FontAwesomeIcon icon={faCouch}className="iconp" />
             Furnishing:
             <select
+            className="child-select"
               name="furnishing"
               value={formData.furnishing}
               onChange={(e) => setFieldValue("furnishing", e.target.value)}
@@ -55,6 +57,7 @@ const FlatmateForm: React.FC<Props> = ({ formData, setFieldValue }) => {
             <FontAwesomeIcon icon={faUserFriends} className="iconp"/>
             Preferred Flatmate:
             <select
+            className="child-select"
               name="preferredFlatmate"
               value={formData.preferredFlatmate}
               onChange={(e) => setFieldValue("preferredFlatmate", e.target.value)}

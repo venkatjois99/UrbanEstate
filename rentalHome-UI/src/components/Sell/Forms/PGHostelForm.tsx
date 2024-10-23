@@ -17,6 +17,7 @@ const PGHostelForm: React.FC<Props> = ({ formData, setFieldValue }) => {
             <FontAwesomeIcon icon={faBed}className="iconp" />
             PG Sharing Type:
             <select
+            className="child-select"
               name="pgSharingType"
               value={formData.pgSharingType}
               onChange={(e) => setFieldValue("pgSharingType", e.target.value)}
@@ -34,6 +35,7 @@ const PGHostelForm: React.FC<Props> = ({ formData, setFieldValue }) => {
             <FontAwesomeIcon icon={faDoorOpen} className="iconp"/>
             PG Living Type:
             <select
+            className="child-select"
               name="pgLivingType"
               value={formData.pgLivingType}
               onChange={(e) => setFieldValue("pgLivingType", e.target.value)}
@@ -52,6 +54,7 @@ const PGHostelForm: React.FC<Props> = ({ formData, setFieldValue }) => {
           <label>   <FontAwesomeIcon icon={faThLarge} className="iconp"/>
             Number of Available Rooms:
             <input
+             className="child-input"
               type="number"
               name="availableRooms"
               value={formData.availableRooms}

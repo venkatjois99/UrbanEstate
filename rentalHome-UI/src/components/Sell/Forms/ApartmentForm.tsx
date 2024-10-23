@@ -17,6 +17,7 @@ const ApartmentForm: React.FC<Props> = ({ formData, setFieldValue }) => {
             <FontAwesomeIcon icon={faHome}className="iconp" />
             BHK Type:
             <select
+            className="child-select"
               name="bhkType"
               value={formData.bhkType}
               onChange={(e) => setFieldValue("bhkType", e.target.value)}
@@ -34,6 +35,7 @@ const ApartmentForm: React.FC<Props> = ({ formData, setFieldValue }) => {
             <FontAwesomeIcon icon={faCouch} className="iconp"/>
             Furnishing:
             <select
+            className="child-select"
               name="furnishing"
               value={formData.furnishing}
               onChange={(e) => setFieldValue("furnishing", e.target.value)}
