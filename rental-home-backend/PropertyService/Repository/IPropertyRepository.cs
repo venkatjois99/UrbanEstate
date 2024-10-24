@@ -1,4 +1,5 @@
-﻿using PropertyService.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using PropertyService.Models;
 
 namespace PropertyService.Repository
 {
@@ -13,5 +14,7 @@ namespace PropertyService.Repository
         Task DeleteProperty(int id);
         Task<IEnumerable<PropertyModel>> GetPropertiesByType(string propertyType);
         Task<IEnumerable<PropertyModel>> GetPropertiesByUserId(int userId);
+        Task<IEnumerable<PropertyModel>> SearchProperties(PropertySearchParameters searchParameters);
     }
 }
+       

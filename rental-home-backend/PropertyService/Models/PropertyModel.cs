@@ -20,13 +20,16 @@ namespace PropertyService.Models
         [Required]
         [StringLength(200)]
         public string Address { get; set; }
+        public string? LatLng { get; set; } // Nullable PG type
+
+
 
         [Required]
       
         public decimal Rent { get; set; }
 
         [Required]
-        [StringLength(1000)]
+       
         public string Description { get; set; }
 
         public List<string>? ImagesUrl { get; set; } // Store image URLs or paths

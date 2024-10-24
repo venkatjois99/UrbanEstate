@@ -8,6 +8,7 @@
         public string PropertyType { get; set; }
         public string Location { get; set; }
         public string Address { get; set; }
+        public string? LatLng { get; set; }
         public decimal Rent { get; set; }
         public string Description { get; set; }
         public List<IFormFile>? Images { get; set; }

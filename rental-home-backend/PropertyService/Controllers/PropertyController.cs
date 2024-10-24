@@ -93,6 +93,18 @@ namespace PropertyService.Controllers
             }
             return Ok(properties);
         }
+        // GET: api/property/search
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<PropertyModel>>> SearchProperties([FromQuery] PropertySearchParameters searchParameters)
+        {
+            var properties = await _propertyRepository.SearchProperties(searchParameters);
+            if (properties == null || !properties.Any())
+            {
+                return NotFound(); // 404 Not Found
+            }
+            return Ok(properties); // 200 OK
+        }
+
     }
 }
   

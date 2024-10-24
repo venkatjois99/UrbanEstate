@@ -36,6 +36,7 @@ namespace PropertyService.Services
                 PropertyType = property.PropertyType,
                 Location = property.Location,
                 Address = property.Address,
+                LatLng = property.LatLng,
                 Rent = property.Rent,
                 Description = property.Description,
 
@@ -85,7 +86,63 @@ namespace PropertyService.Services
                 .Where(p => p.UserId == userId)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<PropertyModel>> SearchProperties(PropertySearchParameters searchParameters)
+        {
+            var query = _context.Properties.AsQueryable();
+
+            // Only apply filters if parameters are provided
+            if (!string.IsNullOrWhiteSpace(searchParameters.Location))
+            {
+                query = query.Where(p => p.Location.Contains(searchParameters.Location));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchParameters.PropertyType))
+            {
+                query = query.Where(p => p.PropertyType == searchParameters.PropertyType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchParameters.BhkType))
+            {
+                query = query.Where(p => p.BHKType == searchParameters.BhkType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchParameters.PgSharingType))
+            {
+                query = query.Where(p => p.PgSharingType == searchParameters.PgSharingType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchParameters.PgLivingType))
+            {
+                query = query.Where(p => p.PgLivingType == searchParameters.PgLivingType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchParameters.PreferredFlatmate))
+            {
+                query = query.Where(p => p.PreferredFlatmate == searchParameters.PreferredFlatmate);
+            }
+            if (!string.IsNullOrWhiteSpace(searchParameters.Address))
+            {
+                query = query.Where(p => p.Address.Contains(searchParameters.Address));
+            }
+            // Apply rent range filters
+            if (searchParameters.MinRent.HasValue)
+            {
+                query = query.Where(p => p.Rent >= searchParameters.MinRent.Value);
+            }
+
+            if (searchParameters.MaxRent.HasValue)
+            {
+                query = query.Where(p => p.Rent <= searchParameters.MaxRent.Value);
+            }
+
+            return await query.ToListAsync();
+        }
+
+            // Return the filtered results
+           
+        }
+
     }
-}
+
 
    
