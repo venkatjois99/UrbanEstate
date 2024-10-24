@@ -1,12 +1,12 @@
 import "./listpage.css";
-import SearchFilter from "../../additional-Components/SearchFilter/Filter";
-import NavBars from "../../header/header";
-import MyMap from "../../map/myMap";
+import SearchFilter from "../../../additional-Components/SearchFilter/Filter";
+import NavBars from "../../../header/header";
+import MyMap from "../../../map/myMap";
 import { LatLngExpression } from "leaflet";
 import { useState } from "react";
-import Footer from "../../footer/footer";
+import Footer from "../../../footer/footer";
 import ListPageCard from "../listPageCard/listPageCard";
-import ApartmentItem from "../../../models/listCardModel";
+import ApartmentItem from "../../../../models/listCardModel";
 
 // Define the type for each item in the list dat
 

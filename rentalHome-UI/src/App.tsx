@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Landing from "./components/landingPage/landing";
-import ListPage from "./components/Property/ListPage/listpage";
+import ListPage from "./components/Property/PropertyList/ListPage/listpage";
 import About from "./components/Quick Links/About/About";
 import PrivacyPolicy from "./components/Quick Links/PrivacyPolicy/Privacypolicy";
 import SellPage from "./components/Sell/sellpage";
 import { Provider } from "react-redux";
 import myAppStore from "./store/myAppStore";
+import PropertyDetails from "./components/Property/SinglePage/propertyDetails";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/sell" element={<SellPage />} />
             <Route path="/about-us" element={<About />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/propertyDetails" element={<PropertyDetails />} />
           </Routes>
         </BrowserRouter>
       </Provider>

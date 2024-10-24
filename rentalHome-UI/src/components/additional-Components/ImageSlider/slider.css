@@ -1,0 +1,125 @@
+.slider {
+    width: 100%;  
+      display: flex;
+      flex-direction: column;
+    gap: 20px;
+    
+}
+
+.fullSlider {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #c7c7c791;
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+}
+
+.slider .fullSlider .arrow {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider .fullSlider .arrow img {
+    width: 50px;
+    background-color: aliceblue;
+}
+
+.slider .fullSlider .arrow img.right {
+    transform: rotate(180deg); /* Rotate right arrow */
+}
+
+.slider .imgContainer {
+    flex: 10;
+}
+
+.slider .imgContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio and cover area */
+}
+
+.slider .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    padding: 50px;
+    cursor: pointer;
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio for small images */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer;
+}
+
+.slider  {
+    
+    flex: 3; /* Adjust flex property to maintain layout */
+}
+.bigImage img{
+    height: 30vw;
+}
+
+.slider .smallImages {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    
+}
+
+.slider .smallImages img {
+    height: 15vw; /* Fixed height for small images */
+    width: 25vw;
+}
+
+
+.bigImage img, .smallImages img {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.bigImage img:hover, .smallImages img:hover {
+    /* transform: scale(1.50); */
+    outline: 1px solid #0e0e0e;
+}
+.thumbnailWrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .thumbnailWrapper img {
+    width: 100px; /* Adjust based on your layout */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .remainingImagesOverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+  }
