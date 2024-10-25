@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userSlicer from "../RentalServices/Slicer/user/userSlicer";
+import propertySlicer from "../RentalServices/Slicer/Property/propertySlicer";
 // Define the store
 const myAppStore = configureStore({
   reducer: {
     user: userSlicer,
+    property: propertySlicer,
+    
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
