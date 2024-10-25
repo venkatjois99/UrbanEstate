@@ -10,6 +10,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 import { faMapMarkerAlt, faFileAlt, faUser, faRupeeSign, faHome, faBed, faUsers,faTimes, faUpload } from '@fortawesome/free-solid-svg-icons';
+import uploadImagesToCloudinary from '../../../RentalServices/Services/cloudinaryService';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../store/myAppStore';
+import { createPropertyThunk } from '../../../RentalServices/Slicer/Property/propertyThunk';
+import { log } from 'console';
 
 // Validation schema for the form
 const validationSchema = Yup.object().shape({
@@ -23,7 +28,7 @@ const validationSchema = Yup.object().shape({
 
 const PropertyListing: React.FC = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
-
+  const dispatch = useDispatch<AppDispatch>();
   const propertyForm = useFormik({
     initialValues: {
       propertyType: '',
@@ -44,8 +49,17 @@ const PropertyListing: React.FC = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log("Submitted values:", { ...values, images: imageFiles });
-      // Handle submission with values and imageFiles here
+      console.log("Form Submitted values:", { ...values, images: imageFiles });
+      try {
+        const imageUrls = await uploadImagesToCloudinary(imageFiles);
+        const submitValues = { ...values, images: imageUrls };
+        console.log("Cloudinary Submitted values:",submitValues);
+        const res = await dispatch(createPropertyThunk(submitValues));
+        console.log(res.payload);
+        
+      } catch (error) {
+        console.error("Error uploading images:", error);
+      }
     },
   });
 

@@ -6,7 +6,7 @@ export interface Property {
     address: string;
     rent: number;
     description: string;
-    images: File[];
+    images?: string[];
     pgSharingType?: string; // Optional fields
     pgLivingType?: string;
     availableRooms?: number;

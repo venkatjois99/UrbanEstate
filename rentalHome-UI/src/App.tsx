@@ -10,8 +10,15 @@ import myAppStore from "./store/myAppStore";
 import PropertyDetails from "./components/Property/SinglePage/propertyDetails";
 import Faq from "./components/Quick Links/FAQ/faq";
 import TermsAndConditions from "./components/Quick Links/T&C/terms";
+import {Cloudinary} from "@cloudinary/url-gen";
+
 
 function App() {
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'demo'
+    }
+  });
   return (
     <>
       <Provider store={myAppStore}>
