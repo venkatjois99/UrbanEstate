@@ -5,16 +5,10 @@ import * as Yup from "yup";
 
 // Define the shape of the filter form state
 const validationSchema = Yup.object().shape({
-  city: Yup.string().required("*City is required"),
-  property: Yup.string().required("Property is required"),
-  type: Yup.string().required("Type is required"),
-  //   minPrice: Yup.number()
-  //     .required("Min Price is required")
-  //     .positive("Min Price must be a positive number"),
-  //   maxPrice: Yup.number()
-  //     .required("Max Price is required")
-  //     .positive("Max Price must be a positive number"),
-  availability: Yup.string(),
+  location: Yup.string().required("*City is required"),
+  propertyType: Yup.string().required("Property is required"),
+  bhkType: Yup.string().required("Type is required"),
+  furnishing: Yup.string(),
   gender: Yup.string(),
 });
 
@@ -28,12 +22,10 @@ const SearchFilter: React.FC = () => {
   // Initialize the filter form state using TypeScript types
   const SearchForm = useFormik({
     initialValues: {
-      city: "",
-      property: "house",
-      type: "",
-      //   minPrice: "",
-      //   maxPrice: "",
-      availability: "",
+      location: "",
+      propertyType: "house",
+      bhkType: "",
+      furnishing: "",
       gender: "",
     },
     validationSchema: validationSchema,
@@ -55,21 +47,21 @@ const SearchFilter: React.FC = () => {
               <input
                 type="text"
                 id="city"
-                name="city"
+                name="location"
                 placeholder="Search address, city, location"
-                value={SearchForm.values.city}
+                value={SearchForm.values.location}
                 onChange={SearchForm.handleChange}
               />
             </div>
-            {SearchForm.errors.city && (
-              <div className="error">{SearchForm.errors.city}</div>
+            {SearchForm.errors.location && (
+              <div className="error">{SearchForm.errors.location}</div>
             )}
           </div>
 
           <select
-            name="property"
-            id="property"
-            value={SearchForm.values.property}
+            name="propertyType"
+            id="propertyType"
+            value={SearchForm.values.propertyType}
             onChange={SearchForm.handleChange}
             
           >
@@ -85,15 +77,15 @@ const SearchFilter: React.FC = () => {
 
         <div className="bottom">
           <select
-            name="type"
-            id="type"
-            value={SearchForm.values.type}
+            name="bhkType"
+            id="bhkType"
+            value={SearchForm.values.bhkType}
             onChange={SearchForm.handleChange}
             className="w2"
           >
             <option value="">Type | Room</option>
-            {SearchForm.values.property &&
-              propertyTypeOptions[SearchForm.values.property].map(
+            {SearchForm.values.propertyType &&
+              propertyTypeOptions[SearchForm.values.propertyType].map(
                 (option: any) => (
                   <option key={option} value={option}>
                     {option}
@@ -102,24 +94,24 @@ const SearchFilter: React.FC = () => {
               )}
           </select>
 
-          {SearchForm.values.property === "house" && (
+          {SearchForm.values.propertyType === "house" && (
             <select
-              name="availability"
-              id="availability"
-              value={SearchForm.values.availability}
+              name="furnishing"
+              id="furnishing"
+              value={SearchForm.values.furnishing}
               onChange={SearchForm.handleChange}
               className="w2"
             >
               <option disabled>Select option</option>
-              <option value="immediate">Immediate</option>
-              <option value="within15Days">Within 15 Days</option>
-              <option value="within30Days">Within 30 Days</option>
-              <option value="after30Days">After 30 Days</option>
+              <option value="immediate">Furnished</option>
+              <option value="immediate">Semi-Furnished</option>
+              <option value="immediate">Unfurnished</option>
+  
             </select>
           )}
 
-          {(SearchForm.values.property === "pg" ||
-            SearchForm.values.property === "flatmates") && (
+          {(SearchForm.values.propertyType === "pg" ||
+            SearchForm.values.propertyType === "flatmates") && (
             <select
               name="gender"
               id="gender"

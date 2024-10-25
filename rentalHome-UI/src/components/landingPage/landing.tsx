@@ -163,7 +163,7 @@ export default function Landing() {
           <div>
             <h3>How Can We Help?</h3>
             <div className="icon-cont">
-              <ApartmentIcon className="icon" />
+              <ApartmentIcon className="icon"/>
               <HouseIcon className="icon" />
               <PgIcon className="icon" />
               <HotelRoomIcon className="icon" />

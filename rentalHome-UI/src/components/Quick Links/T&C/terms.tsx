@@ -1,8 +1,12 @@
 import React from 'react';
 import './terms.css';
+import Footer from '../../footer/footer';
+import NavBars from '../../header/header';
 
 const TermsAndConditions: React.FC = () => {
   return (
+    <>
+    <NavBars />
     <div className="terms-wrapper">
       <h2>Terms and Conditions</h2>
       <p>
@@ -23,6 +27,8 @@ const TermsAndConditions: React.FC = () => {
         For more details on how we handle user data, please refer to our <a href="/privacy-policy">privacy policy</a>.
       </p>
     </div>
+    <Footer />
+    </>
   );
 };
 

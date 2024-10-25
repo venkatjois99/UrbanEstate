@@ -11,8 +11,10 @@ import { AppDispatch } from "../../store/myAppStore";
 import { addUser } from "../../RentalServices/Slicer/user/userThunk";
 
 
+
 function Register(props: any) {
   const handleClose = () => props.onClose(); // Call parent function to close
+  // const navigate = useNavigate();
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showStrengthBar, setShowStrengthBar] = useState(false);
 
@@ -86,6 +88,8 @@ function Register(props: any) {
     }
   };
 
+
+
   return (
     <>
       <Modal show={props.show} onHide={handleClose} centered>
@@ -106,6 +110,7 @@ function Register(props: any) {
                 onBlur={formik.handleBlur}
                 value={formik.values.userName}
                 placeholder="Enter your username"
+                autoFocus
               />
               {formik.touched.userName && formik.errors.userName && (
                 <span className="error-message">{formik.errors.userName}</span>
@@ -122,7 +127,6 @@ function Register(props: any) {
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
                 placeholder="name@example.com"
-                autoFocus
               />
               {formik.touched.email && formik.errors.email && (
                 <span className="error-message">{formik.errors.email}</span>
@@ -189,22 +193,16 @@ function Register(props: any) {
             </Form.Group>
 
             {/* Submit Button */}
-            <Button  type="submit" className="register-button">
+            <Button  type="submit" className="login-button ms-auto me-auto">
               {formik.isSubmitting ? "Signing Up..." : "Sign Up"}
             </Button>
-
-            <div className="text-sm text-center mt-3">
-              Already have an account?{" "}
-              <a href="/login" className="register-link">
-                Continue
-              </a>
-            </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           {/* You can add a footer button here if needed */}
         </Modal.Footer>
       </Modal>
+ 
     </>
   );
 }

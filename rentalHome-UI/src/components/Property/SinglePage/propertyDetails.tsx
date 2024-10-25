@@ -5,7 +5,6 @@ import Slider from '../../additional-Components/ImageSlider/slider';
 import NavBars from '../../header/header';
 import Footer from '../../footer/footer';
 import './propertyDetails.css'
-import MyMap from '../../map/myMap';
 
 const PropertyDetails = () => {
     return (

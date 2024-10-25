@@ -8,6 +8,8 @@ import SellPage from "./components/Sell/sellpage";
 import { Provider } from "react-redux";
 import myAppStore from "./store/myAppStore";
 import PropertyDetails from "./components/Property/SinglePage/propertyDetails";
+import Faq from "./components/Quick Links/FAQ/faq";
+import TermsAndConditions from "./components/Quick Links/T&C/terms";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/sell" element={<SellPage />} />
             <Route path="/about-us" element={<About />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/faq's" element={<Faq />} />
+            <Route path="/terms-&-conditions" element={<TermsAndConditions />} />
             <Route path="/propertyDetails" element={<PropertyDetails />} />
           </Routes>
         </BrowserRouter>

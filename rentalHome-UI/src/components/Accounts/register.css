@@ -1,38 +1,9 @@
-/* Container for the entire registration page */
-.register-container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5; /* Light background to highlight the card */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Registration card style */
-.register-card {
-    width: 24rem;
-    padding: 2rem;
-    background-color: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
-    border-radius: 1rem;
-    text-align: center;
-}
-
-/* Title inside the card */
-.register-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 1.5rem; /* Slightly reduced space below the title */
-}
 
 /* Form styling */
 .register-form {
     display: grid;
     gap: 1rem; /* Reduced gap between form fields */
+    
 }
 
 /* Label styling */

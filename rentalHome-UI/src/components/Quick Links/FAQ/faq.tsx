@@ -1,8 +1,12 @@
 import React from 'react';
 import './faq.css';
+import Footer from '../../footer/footer';
+import NavBars from '../../header/header';
 
 const Faq: React.FC = () => {
   return (
+    <>
+    <NavBars />
     <div className="faq-wrapper">
       <h2>Frequently Asked Questions</h2>
       <div className="faq-item">
@@ -54,6 +58,8 @@ const Faq: React.FC = () => {
         </details>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
