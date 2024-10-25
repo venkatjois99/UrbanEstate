@@ -8,7 +8,7 @@ namespace PropertyService.Repository
 
         Task<IEnumerable<PropertyModel>> GetAllProperties();
         Task<PropertyModel> GetPropertyById(int id);
-        Task<(int, string)> AddProperty(PropertyDTOModel property);
+        Task<(int, string)> AddProperty(PropertyModel property);
 
         Task UpdateProperty(PropertyModel property);
         Task DeleteProperty(int id);

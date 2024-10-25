@@ -32,7 +32,7 @@ namespace PropertyService.Models
        
         public string Description { get; set; }
 
-        public List<string>? ImagesUrl { get; set; } // Store image URLs or paths
+        public List<string>? Images { get; set; } // Store image URLs or paths
 
         // Allow nulls for these properties
         public string? BHKType { get; set; } // Nullable BHK type
@@ -47,7 +47,6 @@ namespace PropertyService.Models
 
         public int? SharedBedrooms { get; set; } // Nullable for optional entry
         public string? PreferredFlatmate { get; set; } // Nullable preferred flatmate
-        [Required]
         public DateTime PostingDate { get; set; } = DateTime.UtcNow;
     }
 }

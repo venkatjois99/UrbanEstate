@@ -38,7 +38,7 @@ namespace PropertyService.Controllers
 
         // POST: api/property
         [HttpPost]
-        public async Task<ActionResult<(int,string)>> AddProperty([FromForm] PropertyDTOModel property)
+        public async Task<ActionResult<(int,string)>> AddProperty([FromBody] PropertyModel property)
         {
             if (property == null)
             {

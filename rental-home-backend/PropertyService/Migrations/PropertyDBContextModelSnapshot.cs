@@ -48,7 +48,7 @@ namespace PropertyService.Migrations
                     b.Property<string>("Furnishing")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImagesUrl")
+                    b.Property<string>("Images")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LatLng")

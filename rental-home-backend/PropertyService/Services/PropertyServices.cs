@@ -9,12 +9,12 @@ namespace PropertyService.Services
     {
         private readonly PropertyDBContext _context;
 
-        private readonly IImageRepo _imageRepo;
+        //private readonly IImageRepo _imageRepo;
 
-        public PropertyServices(PropertyDBContext context, IImageRepo imageRepo)
+        public PropertyServices(PropertyDBContext context)
         {
             _context = context;
-            _imageRepo = imageRepo;
+            //_imageRepo = imageRepo;
         }
 
         public async Task<IEnumerable<PropertyModel>> GetAllProperties()
@@ -27,33 +27,10 @@ namespace PropertyService.Services
             return await _context.Properties.FindAsync(id); // Find a property by ID
         }
 
-        public async Task<(int, string)> AddProperty(PropertyDTOModel property)
+        public async Task<(int, string)> AddProperty(PropertyModel property)
         {
-            var newProperty = new PropertyModel()
-            {
-                UserId = property.UserId,
-                Title = property.Title,
-                PropertyType = property.PropertyType,
-                Location = property.Location,
-                Address = property.Address,
-                LatLng = property.LatLng,
-                Rent = property.Rent,
-                Description = property.Description,
-
-                BHKType = property.BHKType,
-                Furnishing = property.Furnishing,
-                PgSharingType = property.PgSharingType,
-                PgLivingType = property.PgLivingType,
-                AvailableRooms = property.AvailableRooms,
-
-                SharedBedrooms = property.SharedBedrooms,
-                PreferredFlatmate = property.PreferredFlatmate,
-                PostingDate = property.PostingDate,
-                ImagesUrl = _imageRepo.GenerateImageUrl(property.Images),
-                
-            };
-
-            await _context.Properties.AddAsync(newProperty); // Add a new property
+            
+            await _context.Properties.AddAsync(property); // Add a new property
             await _context.SaveChangesAsync(); // Save changes to the database
             return (200, "success");
         }

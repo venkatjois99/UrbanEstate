@@ -7,6 +7,9 @@ import Footer from "../../../footer/footer";
 import ListPageCard from "../../../additional-Components/listPageCard/listPageCard";
 import ApartmentItem from "../../../../models/listCardModel";
 import ListPageSearch from "../../../additional-Components/listPageSearch/listPageSearch";
+import { useDispatch } from 'react-redux';
+import { getPropertiesThunk } from '../../../../RentalServices/Slicer/Property/propertyThunk';
+import { AppDispatch } from "../../../../store/myAppStore";
 
 // Define the type for each item in the list dat
 
@@ -141,8 +144,18 @@ const ListPage: React.FC = () => {
       [28.7041, 77.1025],
     ],
   };
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    const fetchProperties = async () => {
+      const res =await dispatch(getPropertiesThunk());
+      console.log(res.payload);
+    };
+
+    fetchProperties();
+  }, [dispatch]);
 
   useEffect(() => {
+    
     if (selectedCity) {
       const locations = cityLocations[selectedCity];
       setMapCenter(locations[0]);

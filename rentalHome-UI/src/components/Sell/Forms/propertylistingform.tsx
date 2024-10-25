@@ -55,7 +55,7 @@ const PropertyListing: React.FC = () => {
         const submitValues = { ...values, images: imageUrls };
         console.log("Cloudinary Submitted values:",submitValues);
         const res = await dispatch(createPropertyThunk(submitValues));
-        console.log(res.payload);
+        console.log(res);
         
       } catch (error) {
         console.error("Error uploading images:", error);
