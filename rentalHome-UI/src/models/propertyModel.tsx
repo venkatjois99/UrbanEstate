@@ -16,5 +16,6 @@ export interface Property {
     furnishing?: string;
     preferredFlatmate?: string;
     bhkType?: string;
+    postingDate: string;
   }
   

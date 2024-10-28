@@ -149,8 +149,8 @@ const PropertyListing: React.FC = () => {
             </button>
             <button
               type="button"
-              className={propertyForm.values.propertyType === 'flatmate' ? 'active' : ''}
-              onClick={() => propertyForm.setFieldValue('propertyType', 'flatmate')}
+              className={propertyForm.values.propertyType === 'flatmates' ? 'active' : ''}
+              onClick={() => propertyForm.setFieldValue('propertyType', 'flatmates')}
             >
               <FontAwesomeIcon icon={faUsers} /> Flatmates
             </button>
@@ -314,7 +314,7 @@ const PropertyListing: React.FC = () => {
         {propertyForm.values.propertyType === 'pg' && (
           <PGHostelForm formData={propertyForm.values} setFieldValue={propertyForm.setFieldValue} />
         )}
-        {propertyForm.values.propertyType === 'flatmate' && (
+        {propertyForm.values.propertyType === 'flatmates' && (
           <FlatmateForm formData={propertyForm.values} setFieldValue={propertyForm.setFieldValue} />
         )}
         <div className='rsButton'>

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { RegisterUser, LoginModel } from "../../models/registerUserModel";
-const url = "http://localhost:5033/api/Account/Login";
+const url = "https://localhost:8080/gateway/Account";
 
 export const addNewUser = (newUser: RegisterUser) => {
-  return axios.post("http://localhost:5033/api/Account/Register", newUser);
+  return axios.post(`${url}/Register`, newUser);
 };
 
 export const validateLogin = (user: LoginModel) => {
-  return axios.post("http://localhost:5033/api/Account/Login", user);
+  return axios.post(`${url}/Login`, user);
 };

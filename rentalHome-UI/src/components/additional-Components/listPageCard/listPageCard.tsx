@@ -45,10 +45,9 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
  
   {item.propertyType === 'apartment' || item.propertyType === 'house' ?<> <FontAwesomeIcon icon={faChair} color="#216B9B" /> {item.furnishing} </> : ''} 
   {item.propertyType === 'pg'  ? <><FontAwesomeIcon icon={faUsers} color="#216B9B"/> {item.pgLivingType}</> : ''} 
-  {item.propertyType === 'flatmates' ? item.sharedBedrooms : item.preferredFlatmate}
+{item.propertyType === 'flatmates' ? <><FontAwesomeIcon icon={faUsers} color="#216B9B"/> {item.preferredFlatmate} </>:''}
 </p>
-        <p><FontAwesomeIcon icon={faCalendarAlt} color="#216B9B" /> Posted On</p>
-       
+        <p><FontAwesomeIcon icon={faCalendarAlt} color="#216B9B" /> {item.postingDate.slice(0, item.postingDate.indexOf('T'))}</p>
           </div>}
           <FavoriteIcon onIconClick={handleFavoriteClick} isFavorited={isFavorite} />
       </div>

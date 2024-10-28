@@ -4,11 +4,11 @@ import { getTokenData } from './jwt'; // Adjust the import path as necessary
 
 interface ProtectedRouteProps {
   requiredRole: 'admin' | 'owner' | 'tenant';
- 
+  component:React.ReactElement
 }
  
  
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole,component:Component }) => {
   const token = localStorage.getItem('token');
   const tokenData = getTokenData(token);
  
@@ -19,7 +19,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole }) => {
   if (tokenData.role !== requiredRole) {    return <Navigate to="/unauthorized" replace />; // Redirect if role doesn’t match
   }
  
-  return <Outlet />; // Render nested routes if authorized
+  return <>{Component}</>; // Render nested routes if authorized
 };
  
 export default ProtectedRoute;

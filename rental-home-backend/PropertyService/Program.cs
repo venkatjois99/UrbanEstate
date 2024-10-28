@@ -19,14 +19,14 @@ builder.Services.AddScoped<IPropertyRepository,PropertyServices >();
 //builder.Services.AddScoped<IImageRepo, ImageRepository>();
 
 builder.Services.AddControllers();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowReactApp",
-        policy => policy.WithOrigins("http://127.0.0.1:5173") // React app's URL
-                        .AllowAnyMethod()                     // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
-                        .AllowAnyHeader()                     // Allow all headers
-                        .AllowCredentials());                 // If you need credentials (like cookies or auth tokens)
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowReactApp",
+//        policy => policy.WithOrigins("http://127.0.0.1:5173", "http://localhost:5173") // React app's URL
+//                        .AllowAnyMethod()                     // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+//                        .AllowAnyHeader()                     // Allow all headers
+//                        .AllowCredentials());                 // If you need credentials (like cookies or auth tokens)
+//});
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,7 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowReactApp");
+//app.UseCors("AllowReactApp");
 
 
 

@@ -1,0 +1,58 @@
+//{
+//    "Routes": [
+//        {
+//            "DownstreamPathTemplate": "/api/Account",
+//            "DownstreamSchema": "https",
+//            "DownstreamHostAndPorts": [
+//                {
+//                    "Host": "localhost",
+//                    "Port": 7212
+//                }
+//            ],
+//            "UpstreamPathTemplate": "/gateway/Account",
+//            "UpstreamHttpMethod": [ "Get", "Post" ]
+//        },
+//        {
+//            "DownstreamPathTemplate": "/api/Account/{id}",
+//            "DownstreamSchema": "https",
+//            "DownstreamHostAndPorts": [
+//                {
+//                    "Host": "localhost",
+//                    "Port": 7212
+//                }
+//            ],
+//            "UpstreamPathTemplate": "/gateway/Account/{id}",
+//            "UpstreamHttpMethod": [ "Get" ]
+//        }
+//    ]
+
+//}
+
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/Account/{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7212
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/Account/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/Property/{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7104
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/Property/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        }
+    ]
+}
