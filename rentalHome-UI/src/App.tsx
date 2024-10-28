@@ -10,15 +10,11 @@ import myAppStore from "./store/myAppStore";
 import PropertyDetails from "./components/Property/SinglePage/propertyDetails";
 import Faq from "./components/Quick Links/FAQ/faq";
 import TermsAndConditions from "./components/Quick Links/T&C/terms";
-import {Cloudinary} from "@cloudinary/url-gen";
+import Unauthorized from "./components/unAuthorized/unauthorized";
+import ProtectedRoute from "./utils/protectedRoute";
 
 
 function App() {
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: 'demo'
-    }
-  });
   return (
     <>
       <Provider store={myAppStore}>
@@ -26,12 +22,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/rent" element={<ListPage />} />
-            <Route path="/sell" element={<SellPage />} />
+            <Route path="/sell" element={<ProtectedRoute requiredRole="owner" />} />
             <Route path="/about-us" element={<About />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/faq's" element={<Faq />} />
             <Route path="/terms-&-conditions" element={<TermsAndConditions />} />
             <Route path="/propertyDetails" element={<PropertyDetails />} />
+            <Route path="/unauthorized" element={<Unauthorized/>}/>
           </Routes>
         </BrowserRouter>
       </Provider>

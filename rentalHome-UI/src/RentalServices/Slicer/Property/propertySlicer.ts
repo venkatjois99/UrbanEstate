@@ -26,7 +26,7 @@ interface PropertyState {
         })
         .addCase(createPropertyThunk.fulfilled, (state, action) => {
           state.loading = false;
-          state.properties.push(action.payload); // Add the created property to the list
+          // state.properties.push(action.payload); // Add the created property to the list
         })
         .addCase(createPropertyThunk.rejected, (state, action) => {
           state.loading = false;

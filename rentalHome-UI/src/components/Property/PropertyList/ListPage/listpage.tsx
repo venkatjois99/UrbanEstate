@@ -7,125 +7,16 @@ import Footer from "../../../footer/footer";
 import ListPageCard from "../../../additional-Components/listPageCard/listPageCard";
 import ApartmentItem from "../../../../models/listCardModel";
 import ListPageSearch from "../../../additional-Components/listPageSearch/listPageSearch";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPropertiesThunk } from '../../../../RentalServices/Slicer/Property/propertyThunk';
 import { AppDispatch } from "../../../../store/myAppStore";
+import { useLocation } from "react-router-dom";
+import { Property } from "../../../../models/propertyModel";
 
 // Define the type for each item in the list dat
 
 const ListPage: React.FC = () => {
-  const apartments: ApartmentItem[] = [
-    {
-      id: 1,
-      name: "Sunny Side Apartments",
-      img: "https://agoldbergphoto.com/wp-content/uploads/residential/Residential-13-scaled.jpg",
-      price: 1500,
-      address: "123 Sunshine Ave, Los Angeles, CA",
-      description:
-        "A cozy and well-lit apartment located in the heart of the city with stunning views of the skyline.",
-    },
-    {
-      id: 2,
-      name: "Downtown Lofts",
-      img: "https://cdn.architecturendesign.net/wp-content/uploads/2015/06/Estuary-Custom-4-13.jpg",
-      price: 1800,
-      address: "456 Market St, San Francisco, CA",
-      description:
-        "Modern lofts with open spaces, perfect for urban living in downtown San Francisco.",
-    },
-    {
-      id: 3,
-      name: "Ocean Breeze Condos",
-      img: "https://www.tollbrothers.com/blog/wp-content/uploads/2019/02/9-Solano-Bianca_Kitchen-to-Outdoor-Room.jpg",
-      price: 2000,
-      address: "789 Beachfront Blvd, Miami, FL",
-      description:
-        "Enjoy beachfront living with this spacious condo that offers breathtaking views of the ocean.",
-    },
-    {
-      id: 4,
-      name: "Sunny Side Apartments",
-      img: "https://agoldbergphoto.com/wp-content/uploads/residential/Residential-13-scaled.jpg",
-      price: 1500,
-      address: "123 Sunshine Ave, Los Angeles, CA",
-      description:
-        "A cozy and well-lit apartment located in the heart of the city with stunning views of the skyline.",
-    },
-    {
-      id: 5,
-      name: "Downtown Lofts",
-      img: "https://cdn.architecturendesign.net/wp-content/uploads/2015/06/Estuary-Custom-4-13.jpg",
-      price: 1800,
-      address: "456 Market St, San Francisco, CA",
-      description:
-        "Modern lofts with open spaces, perfect for urban living in downtown San Francisco.",
-    },
-    {
-      id: 6,
-      name: "Ocean Breeze Condos",
-      img: "https://www.tollbrothers.com/blog/wp-content/uploads/2019/02/9-Solano-Bianca_Kitchen-to-Outdoor-Room.jpg",
-      price: 2000,
-      address: "789 Beachfront Blvd, Miami, FL",
-      description:
-        "Enjoy beachfront living with this spacious condo that offers breathtaking views of the ocean.",
-    },
-    {
-      id: 7,
-      name: "Sunny Side Apartments",
-      img: "https://agoldbergphoto.com/wp-content/uploads/residential/Residential-13-scaled.jpg",
-      price: 1500,
-      address: "123 Sunshine Ave, Los Angeles, CA",
-      description:
-        "A cozy and well-lit apartment located in the heart of the city with stunning views of the skyline.",
-    },
-    {
-      id: 8,
-      name: "Downtown Lofts",
-      img: "https://cdn.architecturendesign.net/wp-content/uploads/2015/06/Estuary-Custom-4-13.jpg",
-      price: 1800,
-      address: "456 Market St, San Francisco, CA",
-      description:
-        "Modern lofts with open spaces, perfect for urban living in downtown San Francisco.",
-    },
-    {
-      id: 9,
-      name: "Ocean Breeze Condos",
-      img: "https://www.tollbrothers.com/blog/wp-content/uploads/2019/02/9-Solano-Bianca_Kitchen-to-Outdoor-Room.jpg",
-      price: 2000,
-      address: "789 Beachfront Blvd, Miami, FL",
-      description:
-        "Enjoy beachfront living with this spacious condo that offers breathtaking views of the ocean.",
-    },
-  ];
-  const houses :ApartmentItem[]=[
-    {
-      id: 1,
-      name: "Sunny Side Apartments",
-      img: "https://agoldbergphoto.com/wp-content/uploads/residential/Residential-13-scaled.jpg",
-      price: 1500,
-      address: "123 Sunshine Ave, Los Angeles, CA",
-      description:
-        "A cozy and well-lit apartment located in the heart of the city with stunning views of the skyline.",
-    },
-    {
-      id: 2,
-      name: "Downtown Lofts",
-      img: "https://cdn.architecturendesign.net/wp-content/uploads/2015/06/Estuary-Custom-4-13.jpg",
-      price: 1800,
-      address: "456 Market St, San Francisco, CA",
-      description:
-        "Modern lofts with open spaces, perfect for urban living in downtown San Francisco.",
-    },
-    {
-      id: 3,
-      name: "Ocean Breeze Condos",
-      img: "https://www.tollbrothers.com/blog/wp-content/uploads/2019/02/9-Solano-Bianca_Kitchen-to-Outdoor-Room.jpg",
-      price: 2000,
-      address: "789 Beachfront Blvd, Miami, FL",
-      description:
-        "Enjoy beachfront living with this spacious condo that offers breathtaking views of the ocean.",
-    },
-  ]
+
 
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
   const [selectedCity, setSelectedCity] = useState<string>("Bangalore");
@@ -145,15 +36,47 @@ const ListPage: React.FC = () => {
     ],
   };
   const dispatch = useDispatch<AppDispatch>();
+  const properties:Property[] = useSelector((state: { property: { properties: any; }; })=>state.property.properties);
+  const location = useLocation();
+  const searchCriteria = location.state?.searchCriteria;
+  console.log(searchCriteria);
   useEffect(() => {
     const fetchProperties = async () => {
       const res =await dispatch(getPropertiesThunk());
       console.log(res.payload);
     };
-
     fetchProperties();
   }, [dispatch]);
 
+  const filteredProperties: Property[] = properties.filter(property => {
+    if (!searchCriteria) return true; // If no searchCriteria, include all properties
+  
+    let matches = true;
+  
+    if (searchCriteria.location) {
+      matches = matches && property.location == searchCriteria.location;
+    }
+    if (searchCriteria.propertyType) {
+      matches = matches && property.propertyType === searchCriteria.propertyType;
+    }
+    if (searchCriteria.bhkType) {
+      matches = matches && property.bhkType === searchCriteria.bhkType;
+    }
+    if (searchCriteria.furnishing) {
+      matches = matches && property.furnishing === searchCriteria.furnishing;
+    }
+    if (searchCriteria.gender) {
+      matches = matches && (property.pgLivingType === searchCriteria.gender || property.pgSharingType === searchCriteria.gender);
+    }
+  
+    return matches;
+  });
+  
+
+  const propertiesToDisplay: Property[] = searchCriteria ? filteredProperties : properties;
+
+    console.log(propertiesToDisplay);
+    
   useEffect(() => {
     
     if (selectedCity) {
@@ -164,9 +87,9 @@ const ListPage: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 4;
-  const totalPages = Math.ceil(apartments.length / cardsPerPage);
+  const totalPages = Math.ceil(propertiesToDisplay.length / cardsPerPage);
   const startIndex = (currentPage - 1) * cardsPerPage;
-  const currentApartments = apartments.slice(startIndex, startIndex + cardsPerPage);
+  const paginationProperties = propertiesToDisplay.slice(startIndex, startIndex + cardsPerPage);
 
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
@@ -193,11 +116,12 @@ const ListPage: React.FC = () => {
         </div>
         <div className="list-page-results">
           <h3>Your Search Results</h3>
-          <p>Houses in Banashankari</p>
-      
+          {searchCriteria && searchCriteria.location.trim() !== "" && (
+    <p>{searchCriteria.location}</p>
+  )}  
       <div className="list-page-card-cont">
-        {currentApartments.map((apartment) => (
-          <ListPageCard key={apartment.id} item={apartment} extraShow={true} />
+        {paginationProperties.map((property) => (
+          <ListPageCard key={property.id} item={property} extraShow={true} />
         ))}
         <nav aria-label="Page navigation">
         <ul className="pagination justify-content-center gap-3 mt-5">
@@ -219,7 +143,7 @@ const ListPage: React.FC = () => {
           <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
             <button className="page-link" onClick={() => handlePageChange(currentPage + 1)} aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
-              <span className="sr-only">Next</span>
+              {/* <span className="sr-only">Next</span> */}
             </button>
           </li>
         </ul>
@@ -234,9 +158,9 @@ const ListPage: React.FC = () => {
      <div className="explore-near-cont">
      <h5>Places near Banshankari</h5>
     <p>Our Best Picks</p>
-        {houses.map((house) => (
-          <ListPageCard key={house.id} item={house} extraShow={false} />
-        ))}
+    {properties.slice(0, 3).map((property) => (
+  <ListPageCard key={property.id} item={property} extraShow={false} />
+))}
       </div>
       <div className="list-map-cont">
       <MyMap

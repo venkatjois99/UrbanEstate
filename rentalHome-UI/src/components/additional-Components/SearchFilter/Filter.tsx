@@ -1,24 +1,27 @@
 import "./Filter.css";
 import React from "react";
-import {useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from 'react-router-dom';
 
 // Define the shape of the filter form state
 const validationSchema = Yup.object().shape({
-  location: Yup.string().required("*City is required"),
-  propertyType: Yup.string().required("Property is required"),
-  bhkType: Yup.string().required("Type is required"),
+  location: Yup.string(),
+  propertyType: Yup.string(),
+  bhkType: Yup.string(),
   furnishing: Yup.string(),
   gender: Yup.string(),
 });
 
 const propertyTypeOptions: any = {
   house: ["1 BHK", "2 BHK", "3 BHK", "4 BHK"],
+  apartment: ["1 BHK", "2 BHK", "3 BHK", "4 BHK"],
   pg: ["1 Sharing", "2 Sharing", "3 Sharing", "4 Sharing"],
   flatmates: ["Shared Room", "Separate Room"],
 };
 
 const SearchFilter: React.FC = () => {
+  const navigate = useNavigate();
   // Initialize the filter form state using TypeScript types
   const SearchForm = useFormik({
     initialValues: {
@@ -31,6 +34,7 @@ const SearchFilter: React.FC = () => {
     validationSchema: validationSchema,
     onSubmit: () => {
       console.log(SearchForm.values);
+      navigate('/rent', { state: { searchCriteria: SearchForm.values } });
     },
   });
   return (
@@ -63,16 +67,19 @@ const SearchFilter: React.FC = () => {
             id="propertyType"
             value={SearchForm.values.propertyType}
             onChange={SearchForm.handleChange}
-            
+
           >
             {/* <option value="">Any</option> */}
             <option value="house" >
               House
             </option>
+            <option value="apartment" >
+              Apartment
+            </option>
             <option value="pg">Paid Guest</option>
             <option value="flatmates">Flatmates</option>
           </select>
-        
+
         </div>
 
         <div className="bottom">
@@ -94,7 +101,7 @@ const SearchFilter: React.FC = () => {
               )}
           </select>
 
-          {SearchForm.values.propertyType === "house" && (
+          {(SearchForm.values.propertyType === "house" || SearchForm.values.propertyType === "apartment") && (
             <select
               name="furnishing"
               id="furnishing"
@@ -106,23 +113,23 @@ const SearchFilter: React.FC = () => {
               <option value="immediate">Furnished</option>
               <option value="immediate">Semi-Furnished</option>
               <option value="immediate">Unfurnished</option>
-  
+
             </select>
           )}
 
           {(SearchForm.values.propertyType === "pg" ||
             SearchForm.values.propertyType === "flatmates") && (
-            <select
-              name="gender"
-              id="gender"
-              value={SearchForm.values.gender}
-              onChange={SearchForm.handleChange}
-            >
-              <option disabled>Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          )}
+              <select
+                name="gender"
+                id="gender"
+                value={SearchForm.values.gender}
+                onChange={SearchForm.handleChange}
+              >
+                <option disabled>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            )}
 
           <button type="submit" className="w2">
             Search

@@ -31,7 +31,7 @@ namespace AccountService
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowReactApp",
-                    policy => policy.WithOrigins("http://127.0.0.1:5173") // React app's URL
+                    policy => policy.WithOrigins("http://localhost:5173") // React app's URL
                                     .AllowAnyMethod()                     // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
                                     .AllowAnyHeader()                     // Allow all headers
                                     .AllowCredentials());                 // If you need credentials (like cookies or auth tokens)

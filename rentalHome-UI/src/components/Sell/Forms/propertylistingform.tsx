@@ -6,15 +6,18 @@ import PGHostelForm from './PGHostelForm';
 import FlatmateForm from './FlatmateForm';
 import '../sellpage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-
-
 import { faMapMarkerAlt, faFileAlt, faUser, faRupeeSign, faHome, faBed, faUsers,faTimes, faUpload } from '@fortawesome/free-solid-svg-icons';
 import uploadImagesToCloudinary from '../../../RentalServices/Services/cloudinaryService';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../store/myAppStore';
 import { createPropertyThunk } from '../../../RentalServices/Slicer/Property/propertyThunk';
-import { log } from 'console';
+import Modal from 'react-bootstrap/Modal';
+import MyMap from '../../map/myMap';
+import Button from 'react-bootstrap/Button';
+import { LatLngExpression } from "leaflet";
+import MapSearch from "../../map/mapSearch";
+
+
 
 // Validation schema for the form
 const validationSchema = Yup.object().shape({
@@ -82,6 +85,46 @@ const PropertyListing: React.FC = () => {
     propertyForm.resetForm();
     setImageFiles([]);
   };
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [mapCenter,setMapCenter]=useState<LatLngExpression | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<LatLngExpression | null>();
+  const handleMapLocationSelect = (position: LatLngExpression) => {
+    setSelectedLocation(position);
+    console.log(selectedLocation)
+    // const locations = cityLocations[propertyForm.values.location];
+    // setMapCenter(locations[0]);
+  };
+  const handleCitySelect = (city: string) => {
+    if (city && cityLocations[city]) {
+      const locations = cityLocations[city];
+      console.log(locations)
+      setMapCenter(locations[0]);
+      console.log(mapCenter) // Focus on the first location of the selected city
+    } else {
+      setMapCenter(null); // Reset the center if no city is selected
+    }
+  };
+
+  const cityLocations: Record<string, LatLngExpression[]> = {
+    Bangalore: [
+      [12.9715987, 77.5945627], // Bangalore City Center
+    ],
+    Chennai: [
+      [13.0827, 80.2707], // Chennai City Center
+    ],
+    Delhi: [
+      [28.6139, 77.209], // Delhi City Center
+    ],
+    Mumbai: [
+      [19.076, 72.8777], // Mumbai City Center
+    ],
+    Pune: [
+      [18.5204, 73.8567], // Pune City Center
+    ],
+    Hyderabad: [
+      [17.385, 78.4867], // Hyderabad City Center
+    ],
+};
 
   return (
     <div className="property-listing">
@@ -163,7 +206,43 @@ const PropertyListing: React.FC = () => {
           </label>
           {propertyForm.errors.address && <div className="error">{propertyForm.errors.address}</div>}
         </div>
+ {/* Checkbox to set location on map */}
+ <div className="form-row">
+          <label>
+            <input
+              type="checkbox"
+              onChange={() => setShowMapModal(!showMapModal)}
+            />
+            Set location on map
+          </label>
+        </div>
 
+        {/* Modal for map */}
+        <Modal  show={showMapModal} onHide={() => setShowMapModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Select Location</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+           <div className='map-cont-list-page'>
+           <MyMap
+              positions={[]} // Pass any predefined locations if needed
+              allowSelection={true}
+              onLocationSelect={handleMapLocationSelect}
+              center={mapCenter || [12.9715987, 77.5945627]} // Default center
+            />
+          
+           </div>
+           <div className="list-page-map-search-container">
+          <MapSearch onCitySelect={handleCitySelect}  />
+  </div>
+          </Modal.Body>
+          <Modal.Footer>
+          
+            <Button variant="secondary" onClick={() => setShowMapModal(false)}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
        
         <div className="form-row">
   <label>

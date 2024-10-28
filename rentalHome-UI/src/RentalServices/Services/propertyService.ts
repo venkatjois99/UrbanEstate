@@ -1,11 +1,12 @@
 // propertyService.ts
 import axios from 'axios';
-import { Property } from '../../models/propertyModel';
+import { PostProperty } from '../../models/postPropertyModel';
 
 const API_URL = 'url';
 
-export const createPropertyService = async (property: Property) => {
+export const createPropertyService = async (property: PostProperty) => {
   const response = await axios.post("https://localhost:7104/api/Property", property);
+  console.log(response)
   return response.data; // Return the created property data
 };
 

@@ -7,7 +7,7 @@ const MapSearch: React.FC<{ onCitySelect: (city: string) => void }> = ({ onCityS
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const cities = ['Bangalore', 'Chennai', 'Delhi'];
+  const cities = ["Mumbai", "Bangalore", "Pune", "Chennai", "Hyderabad", "Delhi"];
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const city = event.target.value;

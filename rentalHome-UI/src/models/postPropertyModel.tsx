@@ -1,6 +1,5 @@
 // models/Property.ts
-export interface Property {
-    id:number;
+export interface PostProperty {
     propertyType: string;
     title: string;
     location: string;
