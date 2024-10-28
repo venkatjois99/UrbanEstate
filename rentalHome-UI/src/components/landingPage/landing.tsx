@@ -13,7 +13,6 @@ import { useState } from "react";
 import MapSearch from "../map/mapSearch";
 import CommentCard from "../additional-Components/commentCard/commentCard";
 import Footer from "../footer/footer";
-import Filter from "../additional-Components/SearchFilter/Filter";
 import SearchFilter from "../additional-Components/SearchFilter/Filter";
 
 export default function Landing() {
@@ -55,15 +54,11 @@ export default function Landing() {
     ],
   };
 
-  const handleCitySelect = (city: string) => {
-    if (city && cityLocations[city]) {
-      const locations = cityLocations[city];
-      setMapCenter(locations[0]); // Focus on the first location of the selected city
-      setSelectedCity(city); // Set the selected city
-    } else {
-      setMapCenter(null); // Reset the center if no city is selected
-    }
+  const handleCitySelect = (city: string, location: [number, number]) => {
+    setSelectedCity(city);
+    setMapCenter(location); // Set the map center to the selected city location
   };
+
 
   return (
     <>

@@ -1,5 +1,5 @@
 // src/utils/jwt.ts
-import { jwtDecode } from "c:/Users/VMAdmin/Desktop/RentalHome/rentalhome/rentalHome-UI/node_modules/jwt-decode/build/esm/index"
+import {jwtDecode} from "jwt-decode";
 
 interface JwtToken {
     email: string;

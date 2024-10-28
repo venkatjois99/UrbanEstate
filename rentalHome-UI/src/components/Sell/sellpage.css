@@ -222,6 +222,12 @@ label {
   height: 30vw;
 }
 
+.list-modal{
+  height: 38vw;
+  width: 100%;
+}
 .list-page-map-search-container{
-  width: 40%;
+  position: relative;
+  z-index: 1000 !important;
+  top: -5vw;
 }

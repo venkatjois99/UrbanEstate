@@ -20,11 +20,12 @@
     border-color: #216B9B;
 }
 .nav-link:hover {
-    border-bottom: 2px solid grey !important; /* Disable hover border on larger screens */
+    text-decoration:2px underline solid grey !important; /* Disable hover border on larger screens */
 }
 .nav-link.active {
     color: #216B9B !important;
-    border-bottom: 2px solid #216B9B /* Disable hover border on larger screens */
+    /* border-bottom: 2px solid #216B9B; Disable hover border on larger screens */
+    text-decoration:2px underline solid #216B9B !important; /* Disable hover border on larger screens */
 }
 
 

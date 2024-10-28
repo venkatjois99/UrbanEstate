@@ -67,7 +67,7 @@ const ListPageSearch = () => {
       </div>
 
       <div className="list-page-search-filter">
-        <h5>propertyType Type</h5>
+        <h5>Type</h5>
         <select
           name="propertyType"
           value={listPageForm.values.propertyType}

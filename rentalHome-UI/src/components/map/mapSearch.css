@@ -1,6 +1,6 @@
 .dropdown-container {
     position: relative;
-    width: 33vw;
+    width: 100%;
     height: 11vw;
     background-color: #a1c8e8;
     display: flex;
@@ -39,7 +39,7 @@
   
   .dropdown-seacrh {
     position: absolute;
-    top: 11vw;
+    top: 9vw;
     width: 75%;
     max-height: 150px;
     overflow-y: auto;

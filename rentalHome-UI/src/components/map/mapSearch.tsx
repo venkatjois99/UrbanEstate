@@ -1,51 +1,67 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './mapSearch.css';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import './mapSearch.css'
 
-const MapSearch: React.FC<{ onCitySelect: (city: string) => void }> = ({ onCitySelect }) => {
-  const [selectedCity, setSelectedCity] = useState('');
+// interface MapSearchProps {
+//   onCitySelect: (city: string) => void;
+// }
+
+interface MapSearchProps {
+  onCitySelect: (city: string, location: [number, number]) => void;
+}
+
+const MapSearch: React.FC<MapSearchProps> = ({ onCitySelect }) => {
+  const [selectedCity, setSelectedCity] = useState("");
+  const [filteredCities, setFilteredCities] = useState<
+    { name: string; lat: number; lon: number }[]
+  >([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [filteredCities, setFilteredCities] = useState<string[]>([]);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const cities = ["Mumbai", "Bangalore", "Pune", "Chennai", "Hyderabad", "Delhi"];
-
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCityChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const city = event.target.value;
     setSelectedCity(city);
 
-    // Filter cities based on input
-    const filtered = cities.filter((c) =>
-      c.toLowerCase().includes(city.toLowerCase())
-    );
-    setFilteredCities(filtered);
+    if (city) {
+      try {
+        const response = await axios.get(
+          `https://nominatim.openstreetmap.org/search`,
+          {
+            params: {
+              q: city,
+              countrycodes: "IN", // Restrict search to India
+              format: "json",
+            },
+          }
+        );
 
-    // Show dropdown if there are filtered results
-    setShowDropdown(filtered.length > 0);
-    onCitySelect(city);
+        // Extract city data with names and coordinates for dropdown suggestions
+        const citiesData = response.data
+        // .slice(0, 3) // Limit to 4 results
+        .map((place: any) => ({
+          name: place.display_name,
+          lat: parseFloat(place.lat),
+          lon: parseFloat(place.lon),
+        }));
+
+        setFilteredCities(citiesData);
+        setShowDropdown(citiesData.length > 0);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    } else {
+      setFilteredCities([]);
+      setShowDropdown(false);
+    }
   };
 
-  const handleCitySelect = (city: string) => {
+  const handleCitySelect = (city: string, lat: number, lon: number) => {
     setSelectedCity(city);
     setShowDropdown(false);
-    onCitySelect(city); // Notify parent component
+    onCitySelect(city, [lat, lon]); // Pass the selected city and its coordinates to parent
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowDropdown(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
   return (
-    <div className="dropdown-container" ref={dropdownRef}>
+    <div className="dropdown-container" >
       <div className="text-cont-m">
         <h5>See What’s near you</h5>
         <a className="link-cont">See All
@@ -62,8 +78,8 @@ const MapSearch: React.FC<{ onCitySelect: (city: string) => void }> = ({ onCityS
       {showDropdown && (
         <ul className="dropdown-seacrh">
           {filteredCities.map((city, index) => (
-            <li key={index} onClick={() => handleCitySelect(city)}>
-              {city}
+            <li key={index} onClick={() => handleCitySelect(city.name, city.lat, city.lon)}>
+              {city.name}
             </li>
           ))}
         </ul>

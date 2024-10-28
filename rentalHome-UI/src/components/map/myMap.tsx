@@ -59,7 +59,7 @@ setTimeout(() => {
     <MapContainer
     key={center ? center.toString() : 'default'}
       center={center || positions[0]}
-      zoom={11}
+      zoom={13}
       scrollWheelZoom={true}
       className="map-container"
       >

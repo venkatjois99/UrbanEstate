@@ -88,7 +88,7 @@ function NavBars() {
                 {!loginStatus ? (
                   <>
                     <Nav.Link onClick={handleLoginClick}>Log in</Nav.Link>
-                    <Nav.Link className="signUp" onClick={handleRegisterClick}>Sign Up</Nav.Link>
+                    <Nav.Link className="signUp ms-4" onClick={handleRegisterClick}>Sign Up</Nav.Link>
                   </>
                 ) : (
                   <NavDropdown title="Dropdown" id="collapsible-nav-dropdown" className="header-dropdown">
@@ -97,6 +97,7 @@ function NavBars() {
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/" onClick={handleLogout}>Logout</NavDropdown.Item>
                   </NavDropdown>
+                  
                 )}
               </div>
       </Nav>
