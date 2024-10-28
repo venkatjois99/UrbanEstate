@@ -22,14 +22,16 @@ export default function Landing() {
     {
       name: "Alice Johnson",
       location: "San Francisco",
-      comment:
-        "RentBro made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      comment: "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage: "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      rating: 4.5,
     },
     {
       name: "Bob Smith",
       location: "New York",
-      comment:
-        "RentBro made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      comment: "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage: "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      rating: 4,
     },
   ];
 
@@ -181,8 +183,9 @@ export default function Landing() {
                 key={index}
                 name={comment.name}
                 location={comment.location}
-                comment={comment.comment}
-              />
+                comment={comment.comment} 
+                profileImage={comment.profileImage} 
+                rating={comment.rating}              />
             ))}
           </div>
           <div className="sidebar-cont"></div>
