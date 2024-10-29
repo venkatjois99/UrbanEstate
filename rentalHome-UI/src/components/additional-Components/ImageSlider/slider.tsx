@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./slider.css";
+import { FaFortAwesome } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface SliderProps {
   images: string[]; // Array of image URLs (strings)
@@ -24,7 +27,7 @@ const Slider: React.FC<SliderProps> = ({ images }) => {
               setImageIndex((imageIndex - 1 + images.length) % images.length)
             }
           >
-            <img src="src/assets/arrow.png" alt="Left Arrow" />
+            <FontAwesomeIcon icon={faChevronLeft} size="2x" color="#216B9B" />
           </div>
           <div className="imgContainer">
             <img src={images[imageIndex]} alt={`Image ${imageIndex}`} />
@@ -33,14 +36,10 @@ const Slider: React.FC<SliderProps> = ({ images }) => {
             className="arrow"
             onClick={() => setImageIndex((imageIndex + 1) % images.length)}
           >
-            <img
-              src="src/assets/arrow.png"
-              className="right"
-              alt="Right Arrow"
-            />
+           <FontAwesomeIcon icon={faChevronRight} size="2x" color="#216B9B" />
           </div>
           <div className="close" onClick={() => setImageIndex(null)}>
-            X
+            <FontAwesomeIcon icon={faTimes} color="black"/>
           </div>
         </div>
       )}

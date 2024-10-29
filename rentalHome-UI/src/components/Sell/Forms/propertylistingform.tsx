@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationArrow,
   faCompass,
+  faBuilding,
   faMapMarkerAlt,
   faFileAlt,
   faUser,
@@ -59,7 +60,7 @@ const PropertyListing: React.FC = () => {
       furnishing: "",
       preferredFlatmate: "",
       bhkType: "",
-      latLng :"",
+      latLng: "",
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -136,11 +137,12 @@ const PropertyListing: React.FC = () => {
       <form onSubmit={propertyForm.handleSubmit} className="property-form">
         <div className="property-type-section">
           <label>Select Property Type:</label>
-          {propertyForm.errors.propertyType && (
-            <div className="error">{propertyForm.errors.propertyType}</div>
-          )}
+          {propertyForm.touched.propertyType &&
+            propertyForm.errors.propertyType && (
+              <div className="error">{propertyForm.errors.propertyType}</div>
+            )}
           <div className="property-type-buttons">
-            <button
+          <button
               type="button"
               className={
                 propertyForm.values.propertyType === "apartment" ? "active" : ""
@@ -149,7 +151,18 @@ const PropertyListing: React.FC = () => {
                 propertyForm.setFieldValue("propertyType", "apartment")
               }
             >
-              <FontAwesomeIcon icon={faHome} /> Apartment
+              <FontAwesomeIcon icon={faBuilding} /> Apartment
+            </button>
+            <button
+              type="button"
+              className={
+                propertyForm.values.propertyType === "house" ? "active" : ""
+              }
+              onClick={() =>
+                propertyForm.setFieldValue("propertyType", "house")
+              }
+            >
+              <FontAwesomeIcon icon={faHome} /> House
             </button>
             <button
               type="button"
@@ -174,7 +187,7 @@ const PropertyListing: React.FC = () => {
           </div>
         </div>
 
-        {/* Common Fields */}
+        {/* Title Field */}
         <div className="form-row">
           <label>
             <FontAwesomeIcon icon={faUser} className="iconp" />
@@ -184,14 +197,16 @@ const PropertyListing: React.FC = () => {
               name="title"
               value={propertyForm.values.title}
               onChange={propertyForm.handleChange}
+              onBlur={propertyForm.handleBlur}
               required
             />
           </label>
-          {propertyForm.errors.title && (
+          {propertyForm.touched.title && propertyForm.errors.title && (
             <div className="error">{propertyForm.errors.title}</div>
           )}
         </div>
 
+        {/* Location Field */}
         <div className="form-row">
           <label>
             <FontAwesomeIcon icon={faMapMarkerAlt} className="iconp" />
@@ -200,6 +215,7 @@ const PropertyListing: React.FC = () => {
               name="location"
               value={propertyForm.values.location}
               onChange={propertyForm.handleChange}
+              onBlur={propertyForm.handleBlur}
               required
             >
               <option value="">Select Location</option>
@@ -217,11 +233,12 @@ const PropertyListing: React.FC = () => {
               ))}
             </select>
           </label>
-          {propertyForm.errors.location && (
+          {propertyForm.touched.location && propertyForm.errors.location && (
             <div className="error">{propertyForm.errors.location}</div>
           )}
         </div>
 
+        {/* Address Field */}
         <div className="form-row">
           <label>
             <FontAwesomeIcon icon={faFileAlt} className="iconp" />
@@ -231,10 +248,11 @@ const PropertyListing: React.FC = () => {
               name="address"
               value={propertyForm.values.address}
               onChange={propertyForm.handleChange}
+              onBlur={propertyForm.handleBlur}
               required
             />
           </label>
-          {propertyForm.errors.address && (
+          {propertyForm.touched.address && propertyForm.errors.address && (
             <div className="error">{propertyForm.errors.address}</div>
           )}
         </div>
@@ -287,14 +305,18 @@ const PropertyListing: React.FC = () => {
               name="description"
               value={propertyForm.values.description}
               onChange={propertyForm.handleChange}
+              onBlur={propertyForm.handleBlur}
               required
               placeholder="Please provide a description about your property"
             />
           </label>
-          {propertyForm.errors.description && (
-            <div className="error">{propertyForm.errors.description}</div>
-          )}
+          {propertyForm.touched.description &&
+            propertyForm.errors.description && (
+              <div className="error">{propertyForm.errors.description}</div>
+            )}
         </div>
+
+        {/* Rent Price Field */}
         <div className="form-row">
           <label>
             <FontAwesomeIcon icon={faRupeeSign} className="iconp" />
@@ -304,10 +326,11 @@ const PropertyListing: React.FC = () => {
               name="rent"
               value={propertyForm.values.rent}
               onChange={propertyForm.handleChange}
+              onBlur={propertyForm.handleBlur}
               required
             />
           </label>
-          {propertyForm.errors.rent && (
+          {propertyForm.touched.rent && propertyForm.errors.rent && (
             <div className="error">{propertyForm.errors.rent}</div>
           )}
         </div>
@@ -350,6 +373,12 @@ const PropertyListing: React.FC = () => {
 
         {/* Conditional Form Sections */}
         {propertyForm.values.propertyType === "apartment" && (
+          <ApartmentForm
+            formData={propertyForm.values}
+            setFieldValue={propertyForm.setFieldValue}
+          />
+        )}
+        {propertyForm.values.propertyType === "house" && (
           <ApartmentForm
             formData={propertyForm.values}
             setFieldValue={propertyForm.setFieldValue}

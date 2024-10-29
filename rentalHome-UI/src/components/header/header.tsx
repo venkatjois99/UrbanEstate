@@ -69,7 +69,7 @@ function NavBars() {
     >
   <Container fluid className="me-5 ms-5">
     <Navbar.Brand className="me-5" href="/">
-      <img src="src\assets\icons\UrbanEstate.svg" className="logo-cont" alt="Logo" />
+      <img src="src/assets/icons/UrbanEstate.svg" className="logo-cont" alt="Logo" />
     </Navbar.Brand>
     
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -87,8 +87,8 @@ function NavBars() {
         <div className="ms-auto d-flex hide-at-lg">
                 {!loginStatus ? (
                   <>
-                    <Nav.Link onClick={handleLoginClick}>Log in</Nav.Link>
-                    <Nav.Link className="signUp ms-4" onClick={handleRegisterClick}>Sign Up</Nav.Link>
+                    <Nav.Link className="me-4" onClick={handleLoginClick}>Log in</Nav.Link>
+                    <Nav.Link className="signUp" onClick={handleRegisterClick}>Sign Up</Nav.Link>
                   </>
                 ) : (
                   <NavDropdown title="Dropdown" id="collapsible-nav-dropdown" className="header-dropdown">

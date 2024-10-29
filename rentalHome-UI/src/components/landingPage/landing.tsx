@@ -22,16 +22,56 @@ export default function Landing() {
     {
       name: "Alice Johnson",
       location: "San Francisco",
-      comment: "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage: "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      comment:
+        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage:
+        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
       rating: 4.5,
     },
     {
       name: "Bob Smith",
       location: "New York",
-      comment: "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage: "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      comment:
+        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage:
+        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
       rating: 4,
+    },
+    {
+      name: "Sumanth Johnson",
+      location: "San Francisco",
+      comment:
+        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage:
+        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      rating: 3.5,
+    },
+    {
+      name: "Bob Smith",
+      location: "New York",
+      comment:
+        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage:
+        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      rating: 5,
+    },
+    {
+      name: "Abhishek Johnson",
+      location: "San Francisco",
+      comment:
+        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage:
+        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      rating: 4.5,
+    },
+    {
+      name: "Sagar Smith",
+      location: "New York",
+      comment:
+        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+      profileImage:
+        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+      rating: 3.5,
     },
   ];
 
@@ -60,7 +100,6 @@ export default function Landing() {
     setSelectedCity(city);
     setMapCenter(location); // Set the map center to the selected city location
   };
-
 
   return (
     <>
@@ -91,7 +130,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="search-cont">
-            <SearchFilter/>
+            <SearchFilter />
           </div>
         </div>
         <div className="info-text-cont">
@@ -160,7 +199,7 @@ export default function Landing() {
           <div>
             <h3>How Can We Help?</h3>
             <div className="icon-cont">
-              <ApartmentIcon className="icon"/>
+              <ApartmentIcon className="icon" />
               <HouseIcon className="icon" />
               <PgIcon className="icon" />
               <HotelRoomIcon className="icon" />
@@ -172,27 +211,34 @@ export default function Landing() {
           </div>
         </div>
         <div className="review-cont">
-          <div className="comment-cont">
-            <h3>
+
+         <div>
+         <h3>
               What our
               <br />
               Customers say?
             </h3>
-            {comments.map((comment, index) => (
-              <CommentCard
-                key={index}
-                name={comment.name}
-                location={comment.location}
-                comment={comment.comment} 
-                profileImage={comment.profileImage} 
-                rating={comment.rating}              />
-            ))}
+        
+          <div className="comment-cont">
+          
+            <div className="comment-carousel">
+              {comments.concat(comments).map((comment, index) => (
+                <CommentCard
+                  key={index}
+                  name={comment.name}
+                  location={comment.location}
+                  comment={comment.comment}
+                  profileImage={comment.profileImage}
+                  rating={comment.rating}
+                />
+              ))}
+            </div>
+          </div>
           </div>
           <div className="sidebar-cont"></div>
         </div>
+         
         <div className="map-cont">
-          
-          
           <MyMap
             positions={
               cityLocations[selectedCity] || cityLocations["Bangalore"]
@@ -201,11 +247,10 @@ export default function Landing() {
             allowSelection={false}
           />
           <div className="map-search-container">
-          <MapSearch onCitySelect={handleCitySelect}  />
-  </div>
+            <MapSearch onCitySelect={handleCitySelect} />
+          </div>
         </div>
-      <Footer />
-       
+        <Footer />
       </div>
     </>
   );

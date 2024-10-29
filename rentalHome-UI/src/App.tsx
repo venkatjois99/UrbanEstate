@@ -23,7 +23,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/rent" element={<ListPage />} />
             {/* <Route path="/sell" element={<ProtectedRoute requiredRole="owner" component={<SellPage/>} />} /> */}
-            
+            <Route path="/single" element={<PropertyDetails />}/>
             <Route path="/sell" element={<SellPage />} />
             <Route path="/about-us" element={<About />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
