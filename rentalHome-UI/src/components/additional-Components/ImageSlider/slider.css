@@ -1,9 +1,8 @@
 .slider {
-    width: 100%;  
-      display: flex;
-      flex-direction: column;
-    gap: 20px;
-    
+    width: 51%; 
+    display: flex;
+    /* flex-direction: column; */
+    gap: 2vw;
 }
 
 .fullSlider {
@@ -71,19 +70,20 @@
 }
 .bigImage img{
     height: 30vw;
+    width: 60vw;
 }
 
 .slider .smallImages {
     flex: 1;
     display: flex;
-    justify-content: space-between;
-    width: 90%;
+    flex-direction: column;
+    gap: 1vw;
     
 }
 
 .slider .smallImages img {
-    height: 15vw; /* Fixed height for small images */
-    width: 25vw;
+    height: 9vw; /* Fixed height for small images */
+    width: 27vw;
 }
 
 

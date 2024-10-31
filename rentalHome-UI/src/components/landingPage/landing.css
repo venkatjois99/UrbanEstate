@@ -139,7 +139,7 @@ p {
   flex-direction: column;
   text-align: center;
   width: 90%;
-  gap: 2vw;
+  gap: 4vw;
 }
 .icon-cont {
   display: flex;
@@ -198,6 +198,17 @@ p {
 
 }
 
+/* landingCard */
+.landing-card-cont {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* space between cards */
+}
+
+.landing-card-cont > * {
+  height: 300px; /* adjust height as needed */
+}
+
 /*------------------------------ map style------------------------------- */
 .map-cont{
   margin: 5vh;
@@ -226,6 +237,9 @@ p {
       .info-img {
         height: 79vw;
         width: 70%;
+      }
+      .landing-card-cont{
+        grid-template-columns: repeat(2, 1fr);
       }
   }
 

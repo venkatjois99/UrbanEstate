@@ -1,103 +1,55 @@
-.card {
+.landing-card{
+    width: 25vw;
+    height: fit-content;
+    min-width: 144px;
+    min-height: 28vw;
+    border: 1px solid rgb(152, 152, 152);
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
+    padding: 15px;
+    gap: 1vw;
 
-.card:hover {
-    transform: scale(1.01);
 }
-
-.imageContainer {
-    height: 200px;
+.landing-card-textContainer{
+    text-align: start;
+}
+.landing-card-imageContainer{
     position: relative;
-    overflow: hidden; /* To ensure the image doesn't overflow */
+    text-align: center;
+    height: 15vw;
+    min-height: 75px;
 }
-
-.imageContainer img {
+.landing-card-imageContainer .property-image{
     width: 100%;
+    border-radius: 15px;
     height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
 }
-
-.favIcon {
+.land-card-location {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
+    bottom: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    background-color: var(--primary-color);
     color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.favIcon:hover {
-    transform: scale(1.2);
-}
-
-.textContainer {
+    padding: 5px 10px;
+    width: fit-content;
+    border-radius: 20px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    align-items: center;
 }
 
-.title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #444;
-    transition: color 0.4s ease;
+.land-card-title{
+    font-size: 1rem;
+    font-weight: 700;
+}
+.land-card-price{
+    font-size: 2vw;
+    margin: 0 ;
+    font-weight: 500;
 }
 
-.title:hover {
-    color: #31a6f5;
-    transform: scale(1.01);
-}
-
-.address {
-    font-size: 14px;
-    color: #888;
-}
-
-.price {
-    font-size: 20px;
-    font-weight: 600;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #CCEBFF;
-}
-
-/* .bottom {
-    display: flex;
-    justify-content: space-between;
-} */
-
-.features {
-    display: flex;
-    gap: 20px;
-    font-size: 14px;
-}
-
-.feature {
-    background-color: whitesmoke;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.getOwnerDetails button {
-    padding: 10px 15px;
-    background-color: #4f9fd4;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.getOwnerDetails button:hover {
-    background-color: #59adf3;
+@media (max-width:700px){
+    .land-card-location{
+        display: none;
+    }
 }

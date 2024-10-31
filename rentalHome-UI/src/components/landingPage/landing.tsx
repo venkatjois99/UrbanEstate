@@ -14,6 +14,11 @@ import MapSearch from "../map/mapSearch";
 import CommentCard from "../additional-Components/commentCard/commentCard";
 import Footer from "../footer/footer";
 import SearchFilter from "../additional-Components/SearchFilter/Filter";
+import LandingPageCard from './Card/Card'
+import { listData } from "../../assets/dummyData/dummyData";
+
+
+
 
 export default function Landing() {
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
@@ -75,6 +80,7 @@ export default function Landing() {
     },
   ];
 
+
   // Locations array for each city
   const cityLocations: Record<string, LatLngExpression[]> = {
     Bangalore: [
@@ -111,7 +117,8 @@ export default function Landing() {
             <h1>Find a Room, Make It Home</h1>
             <p>Discover Your Next Home Away from Home</p>
           </div>
-          <div className="count-card-cont">
+         <div className="card-search-cont">
+         <div className="count-card-cont">
             <div className="count-card">
               <p className="card-title">165+</p>
               <p className="card-text">Private Flat</p>
@@ -132,6 +139,7 @@ export default function Landing() {
           <div className="search-cont">
             <SearchFilter />
           </div>
+         </div>
         </div>
         <div className="info-text-cont">
           <div className="info-img"></div>
@@ -196,15 +204,22 @@ export default function Landing() {
         </div>
 
         <div className="property-list-cont">
-          <div>
-            <h3>How Can We Help?</h3>
+         
+           <div>
+           <h3>How Can We Help?</h3>
             <div className="icon-cont">
-              <ApartmentIcon className="icon" />
+              <ApartmentIcon className="icon"/>
               <HouseIcon className="icon" />
               <PgIcon className="icon" />
               <HotelRoomIcon className="icon" />
             </div>
-          </div>
+           </div>
+            <div className="landing-card-cont">
+            {listData.map((property) => (
+          <LandingPageCard key={property.id} item={property} />
+        ))}
+            </div>
+       
           <div className="card-cont">
             <h3>Our most Popular Houses</h3>
             <div></div>
@@ -250,7 +265,7 @@ export default function Landing() {
             <MapSearch onCitySelect={handleCitySelect} />
           </div>
         </div>
-        <Footer />
+        <Footer showExtra={true}/>
       </div>
     </>
   );

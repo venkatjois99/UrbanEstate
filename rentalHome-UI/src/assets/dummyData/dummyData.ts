@@ -1,5 +1,5 @@
 // Define an interface for the apartment data
-export interface Apartment {
+export interface ApartmentItem {
     id: number;
     title: string;
     img: string;
@@ -12,7 +12,7 @@ export interface Apartment {
 }
 
 // Create the data array with the type annotations
-export const listData: Apartment[] = [
+export const listData: ApartmentItem[] = [
     {
         id: 1,
         title: "A Great Apartment Next to the Beach!",
@@ -20,7 +20,7 @@ export const listData: Apartment[] = [
         bedRooms: 2,
         bathRooms: 1,
         price: 1000,
-        address: "456 Park Avenue, London",
+        address: "London",
         latitude: 51.5074,
         longitude: -0.1278,
     },
@@ -31,7 +31,7 @@ export const listData: Apartment[] = [
         bedRooms: 3,
         bathRooms: 2,
         price: 1500,
-        address: "789 Oxford Street, London",
+        address: "Hampshire",
         latitude: 52.4862,
         longitude: -1.8904,
     },
@@ -42,18 +42,18 @@ export const listData: Apartment[] = [
         bedRooms: 1,
         bathRooms: 1,
         price: 800,
-        address: "101 Baker Street, London",
+        address: "New wales",
         latitude: 53.4808,
         longitude: -2.2426,
     },
     {
         id: 4,
-        title: "A Great Location, Great Price! Great Apartment",
+        title: "A Great Location, Great Price!",
         img: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600",
         bedRooms: 2,
         bathRooms: 1,
         price: 1000,
-        address: "234 Kingsway, London",
+        address: "Southmapton",
         latitude: 53.8008,
         longitude: -1.5491,
     },
@@ -64,7 +64,7 @@ export const listData: Apartment[] = [
         bedRooms: 3,
         bathRooms: 2,
         price: 2000,
-        address: "567 Victoria Road, London",
+        address: "Mexico",
         latitude: 53.4084,
         longitude: -2.9916,
     },
@@ -75,31 +75,9 @@ export const listData: Apartment[] = [
         bedRooms: 4,
         bathRooms: 2,
         price: 2500,
-        address: "890 Regent Street, London",
+        address: "Las Vegas",
         latitude: 54.9783,
         longitude: -1.6174,
-    },
-    {
-        id: 7,
-        title: "A Great Apartment 7",
-        img: "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=600",
-        bedRooms: 2,
-        bathRooms: 1,
-        price: 1000,
-        address: "112 Piccadilly, London",
-        latitude: 53.3811,
-        longitude: -1.4701,
-    },
-    {
-        id: 8,
-        title: "A Great Apartment 8",
-        img: "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=600",
-        bedRooms: 3,
-        bathRooms: 2,
-        price: 1800,
-        address: "8765 Main High Street, London",
-        latitude: 51.4545,
-        longitude: -2.5879,
     },
 ];
 

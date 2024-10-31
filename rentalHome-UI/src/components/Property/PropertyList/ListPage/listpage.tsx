@@ -175,7 +175,7 @@ const ListPage: React.FC = () => {
   
       </div>
       
- <Footer /> 
+ <Footer showExtra={false} /> 
     </>
   );
 };

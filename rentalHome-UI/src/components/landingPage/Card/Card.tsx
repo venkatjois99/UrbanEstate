@@ -3,22 +3,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { ApartmentItem } from "../../../assets/dummyData/dummyData";
 
-interface ApartmentItem {
-    id: number;
-    title: string;
-    img: string;
-    bedRooms: number;
-    bathRooms: number;
-    price: number;
-    address: string;
-}
+ 
 
 interface CardProps {
     item: ApartmentItem;
 }
 
-const Card: React.FC<CardProps> = ({ item }) => {
+const LandingPageCard: React.FC<CardProps> = ({ item }) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const handleFavoriteClick = () => {
@@ -29,46 +22,39 @@ const Card: React.FC<CardProps> = ({ item }) => {
         alert(`Fetching owner details for ${item.title}`);
         // You can integrate the actual functionality for fetching owner details here
     };
-
+    // <Link to={`/single/${item.id}`}>
+    //          </Link>
     return (
-        <div className="card">
-            <div className="imageContainer">
-                <Link to={`/single/${item.id}`}>
-                    <img src={item.img} alt={item.title} />
-                </Link>
-                {/* Favorite Icon inside the image */}
+        <div className="landing-card">
+            <div className="landing-card-imageContainer">
+          
+                    <img className='property-image' src={item.img} alt={item.title} />
+                    <div className='land-card-location'><img src='src/assets/icons/landing-location-logo.svg' width={20} height={20}/>{item.address}</div>
+           
+                {/* Favorite Icon inside the image
                 <div className="favIcon" onClick={handleFavoriteClick}>
                     <FontAwesomeIcon
                         icon={faHeart}
                         style={{ color: isFavorite ? '#31a6f5' : 'white' }}
                     />
-                </div>
+                </div> */}
             </div>
-            <div className="textContainer">
-                <h2 className="title">
-                    <Link to={`/single/${item.id}`}>{item.title}</Link>
-                </h2>
-                <p className="address">
-                    <span>{item.address}</span>
+            <div className="landing-card-textContainer">
+                <h6 className="land-card-title">
+                  {item.title}
+                </h6>
+                <p className="land-card-item">
+                    {item.address}
                 </p>
-                <p className="price">${item.price}</p>
-                <div className="bottom">
-                    <div className="features">
-                        <div className="feature">
-                            <span>{item.bedRooms} bedroom{item.bedRooms > 1 ? 's' : ''}</span>
-                        </div>
-                        <div className="feature">
-                            <span>{item.bathRooms} bathroom{item.bathRooms > 1 ? 's' : ''}</span>
-                        </div>
-                    </div>
-                    {/* Get Owner Details Button */}
-                    <div className="getOwnerDetails">
-                        <button onClick={handleGetOwnerDetails}>Get Owner Details</button>
-                    </div>
+               <div className='d-flex'> <p className="land-card-price">₹{item.price}</p>
+                <Link className='ms-auto' to={`/single/${item.id}`}> <img  src='src/assets/icons/footerSearchArrow.svg'></img>
+                       </Link> 
+               </div>
+               
                 </div>
             </div>
-        </div>
-    );
+            
+        );
 };
 
-export default Card;
+export default LandingPageCard;

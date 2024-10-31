@@ -1,6 +1,11 @@
 import React from "react";
 import "./footer.css";
-const Footer: React.FC = () => {
+
+interface FooterProps{
+  showExtra:boolean;
+
+}
+const Footer: React.FC<FooterProps> = ({showExtra=true}) => {
   const places: string[] = [
     "Delhi",
     "Bengaluru",
@@ -21,7 +26,7 @@ const Footer: React.FC = () => {
         <img src="src\assets\icons\footerLogo.svg" alt="logo"></img>
         <p>Follow Us</p>
       </div>
-      <div className="footer-body">
+      {showExtra && (<><div className="footer-body">
         <div className="footer-subs-cont">
           <div className="email-sub-cont">
             <h6>Subscribe</h6>
@@ -72,7 +77,7 @@ const Footer: React.FC = () => {
            Bengaluru - 560064</p>
           </div>
         </div>
-      </div>
+      </div></>)}
       <div className="footer-tail">
             <p>Copyright © 2024. Urban Estate</p>
       </div>
