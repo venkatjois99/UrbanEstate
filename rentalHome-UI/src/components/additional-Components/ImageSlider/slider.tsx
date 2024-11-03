@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface SliderProps {
-  images: string[]; // Array of image URLs (strings)
+  images?: string[]; // Array of image URLs (strings)
 }
 
 const Slider: React.FC<SliderProps> = ({ images }) => {

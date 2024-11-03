@@ -57,7 +57,7 @@ namespace PropertyService.Services
                 .Where(p => p.PropertyType == propertyType)
                 .ToListAsync(); // Fetch properties by type
         }
-        public async Task<IEnumerable<PropertyModel>> GetPropertiesByUserId(int userId)
+        public async Task<IEnumerable<PropertyModel>> GetPropertiesByUserId(string userId)
         {
             return await _context.Properties
                 .Where(p => p.UserId == userId)

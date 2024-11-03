@@ -84,7 +84,7 @@ namespace PropertyService.Controllers
             return Ok(properties);
         }
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<PropertyModel>>> GetPropertiesByUserId(int userId)
+        public async Task<ActionResult<IEnumerable<PropertyModel>>> GetPropertiesByUserId(string userId)
         {
             var properties = await _propertyRepository.GetPropertiesByUserId(userId);
             if (properties == null || !properties.Any())

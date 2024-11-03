@@ -51,9 +51,6 @@ namespace PropertyService.Migrations
                     b.Property<string>("Images")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LatLng")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -84,8 +81,15 @@ namespace PropertyService.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("longitude")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

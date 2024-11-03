@@ -1,6 +1,7 @@
 // models/Property.ts
 export interface Property {
     id:number;
+    userId:string;
     propertyType: string;
     title: string;
     location: string;
@@ -17,5 +18,7 @@ export interface Property {
     preferredFlatmate?: string;
     bhkType?: string;
     postingDate: string;
+    latitude?:number | null;
+    longitude?:number | null;
   }
   

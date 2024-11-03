@@ -60,6 +60,7 @@ function NavBars() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  
 
   return (
     <>

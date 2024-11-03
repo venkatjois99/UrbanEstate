@@ -37,6 +37,7 @@ const SearchFilter: React.FC = () => {
       navigate('/rent', { state: { searchCriteria: SearchForm.values } });
     },
   });
+
   return (
     <div>
       <form onSubmit={SearchForm.handleSubmit} className="searchfilter">
@@ -109,10 +110,10 @@ const SearchFilter: React.FC = () => {
               onChange={SearchForm.handleChange}
               className="w2"
             >
-              <option disabled>Select option</option>
-              <option value="immediate">Furnished</option>
-              <option value="immediate">Semi-Furnished</option>
-              <option value="immediate">Unfurnished</option>
+              <option value="">Furnish Type</option>
+              <option value="furnished" >Furnished</option>
+              <option value="semi-furnished">Semi-Furnished</option>
+              <option value="unfurnished">Unfurnished</option>
 
             </select>
           )}
@@ -125,9 +126,10 @@ const SearchFilter: React.FC = () => {
                 value={SearchForm.values.gender}
                 onChange={SearchForm.handleChange}
               >
-                <option disabled>Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Colive">Co-living</option>
               </select>
             )}
 

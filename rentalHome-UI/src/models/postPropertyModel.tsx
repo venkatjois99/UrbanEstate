@@ -1,5 +1,6 @@
 // models/Property.ts
 export interface PostProperty {
+    userId?:string;
     propertyType: string;
     title: string;
     location: string;
@@ -15,5 +16,7 @@ export interface PostProperty {
     furnishing?: string;
     preferredFlatmate?: string;
     bhkType?: string;
+    latitude?:number | null;
+    longitude?:number | null;
   }
   

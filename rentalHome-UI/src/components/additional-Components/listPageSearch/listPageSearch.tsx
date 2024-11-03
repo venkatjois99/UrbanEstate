@@ -1,9 +1,20 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import './listPageSeacrh.css'
+import './listPageSeacrh.css';
+interface ListPageSearchProps {
+initialValues: {
+  location: string;
+  propertyType: string;
+  minPrice: number;
+  maxPrice: number | null;
+  furnishing: string;
+  gender: string;
+};
+onSearch: (values: any) => void;
+}
 
-const ListPageSearch = () => {
+const ListPageSearch: React.FC<ListPageSearchProps> = ({ initialValues, onSearch }) => {
   const validationSchemaForListPage = Yup.object().shape({
     location: Yup.string().required("*City is required"),
     propertyType: Yup.string(),
@@ -15,17 +26,9 @@ const ListPageSearch = () => {
 
   const listPageForm = useFormik({
     validationSchema: validationSchemaForListPage,
-    initialValues: {
-      location: '',
-      propertyType: 'house',
-      minPrice: 0,
-      maxPrice: null,
-      furnishing: '',
-      gender: '',
-    },
-    onSubmit:() => {
-        console.log(listPageForm.values);
-        
+    initialValues,
+    onSubmit: (values) => {
+      onSearch(values);
     },
   });
 
@@ -74,6 +77,7 @@ const ListPageSearch = () => {
           onChange={listPageForm.handleChange}
         >
           <option value="house">House</option>
+          <option value="apartment">Apartment</option>
           <option value="pg">Paid Guest</option>
           <option value="flatmates">Flatmates</option>
         </select>
@@ -129,8 +133,9 @@ const ListPageSearch = () => {
             onChange={listPageForm.handleChange}
           >
             <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Colive">Co-living</option>
           </select>
           </>
         )}

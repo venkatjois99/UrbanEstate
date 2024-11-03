@@ -1,21 +1,23 @@
 import Carousel from "react-bootstrap/Carousel";
-
 import NavBars from "../header/header";
 import "./landing.css";
-
 import ApartmentIcon from "../../assets/icons/apartmentIcon";
 import HouseIcon from "../../assets/icons/houseIcon";
 import PgIcon from "../../assets/icons/pgIcon";
-import HotelRoomIcon from "../../assets/icons/hotelRoomIcon";
+import FlatmatesIcon from "../../assets/icons/flatmatesIcon";
 import MyMap from "../map/myMap";
 import { LatLngExpression } from "leaflet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MapSearch from "../map/mapSearch";
 import CommentCard from "../additional-Components/commentCard/commentCard";
 import Footer from "../footer/footer";
 import SearchFilter from "../additional-Components/SearchFilter/Filter";
 import LandingPageCard from './Card/Card'
-import { listData } from "../../assets/dummyData/dummyData";
+import { AppDispatch } from "../../store/myAppStore";
+import { useDispatch, useSelector } from 'react-redux';
+import { getPropertiesThunk } from "../../RentalServices/Slicer/Property/propertyThunk";
+import { Property } from "../../models/propertyModel";
+
 
 
 
@@ -23,6 +25,8 @@ import { listData } from "../../assets/dummyData/dummyData";
 export default function Landing() {
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
   const [selectedCity, setSelectedCity] = useState<string>(""); // State for selected city
+  const [selectedPropertyType, setSelectedPropertyType] = useState<string | null>(null);
+
   const comments = [
     {
       name: "Alice Johnson",
@@ -107,6 +111,24 @@ export default function Landing() {
     setMapCenter(location); // Set the map center to the selected city location
   };
 
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    const fetchProperties = async () => {
+      const res = await dispatch(getPropertiesThunk());
+      console.log(res.payload);
+    };
+    fetchProperties();
+  }, []);
+
+  const handleIconClick = (type: string) => {
+    setSelectedPropertyType(type);
+  };
+
+  const properties: Property[] = useSelector((state: { property: { properties: any; }; }) => state.property.properties);
+  const filteredProperties = selectedPropertyType
+    ? properties.filter(property => property.propertyType === selectedPropertyType)
+    : properties;
+
   return (
     <>
       <NavBars />
@@ -117,29 +139,29 @@ export default function Landing() {
             <h1>Find a Room, Make It Home</h1>
             <p>Discover Your Next Home Away from Home</p>
           </div>
-         <div className="card-search-cont">
-         <div className="count-card-cont">
-            <div className="count-card">
-              <p className="card-title">165+</p>
-              <p className="card-text">Private Flat</p>
+          <div className="card-search-cont">
+            <div className="count-card-cont">
+              <div className="count-card">
+                <p className="card-title">165+</p>
+                <p className="card-text">Private Flat</p>
+              </div>
+              <div className="count-card">
+                <p className="card-title">165+</p>
+                <p className="card-text">PG Rooms</p>
+              </div>
+              <div className="count-card">
+                <p className="card-title">165</p>
+                <p className="card-text">Shared Rooms</p>
+              </div>
+              <div className="count-card">
+                <p className="card-title">165</p>
+                <p className="card-text">Hotel Rooms</p>
+              </div>
             </div>
-            <div className="count-card">
-              <p className="card-title">165+</p>
-              <p className="card-text">PG Rooms</p>
-            </div>
-            <div className="count-card">
-              <p className="card-title">165</p>
-              <p className="card-text">Shared Rooms</p>
-            </div>
-            <div className="count-card">
-              <p className="card-title">165</p>
-              <p className="card-text">Hotel Rooms</p>
+            <div className="search-cont">
+              <SearchFilter />
             </div>
           </div>
-          <div className="search-cont">
-            <SearchFilter />
-          </div>
-         </div>
         </div>
         <div className="info-text-cont">
           <div className="info-img"></div>
@@ -204,22 +226,22 @@ export default function Landing() {
         </div>
 
         <div className="property-list-cont">
-         
-           <div>
-           <h3>How Can We Help?</h3>
+
+          <div>
+            <h3>How Can We Help?</h3>
             <div className="icon-cont">
-              <ApartmentIcon className="icon"/>
-              <HouseIcon className="icon" />
-              <PgIcon className="icon" />
-              <HotelRoomIcon className="icon" />
+              <ApartmentIcon className="icon" onIconClick={() => handleIconClick('apartment')} isSelected={selectedPropertyType} />
+              <HouseIcon className="icon" onIconClick={() => handleIconClick('house')} isSelected={selectedPropertyType} />
+              <PgIcon className="icon" onIconClick={() => handleIconClick('pg')} isSelected={selectedPropertyType} />
+              <FlatmatesIcon className="icon" onIconClick={() => handleIconClick('flatmates')} isSelected={selectedPropertyType} />
             </div>
-           </div>
-            <div className="landing-card-cont">
-            {listData.map((property) => (
-          <LandingPageCard key={property.id} item={property} />
-        ))}
-            </div>
-       
+          </div>
+          <div className="landing-card-cont">
+            {filteredProperties.map((property) => (
+              <LandingPageCard key={property.id} item={property} />
+            ))}
+          </div>
+
           <div className="card-cont">
             <h3>Our most Popular Houses</h3>
             <div></div>
@@ -227,32 +249,32 @@ export default function Landing() {
         </div>
         <div className="review-cont">
 
-         <div>
-         <h3>
+          <div>
+            <h3>
               What our
               <br />
               Customers say?
             </h3>
-        
-          <div className="comment-cont">
-          
-            <div className="comment-carousel">
-              {comments.concat(comments).map((comment, index) => (
-                <CommentCard
-                  key={index}
-                  name={comment.name}
-                  location={comment.location}
-                  comment={comment.comment}
-                  profileImage={comment.profileImage}
-                  rating={comment.rating}
-                />
-              ))}
+
+            <div className="comment-cont">
+
+              <div className="comment-carousel">
+                {comments.concat(comments).map((comment, index) => (
+                  <CommentCard
+                    key={index}
+                    name={comment.name}
+                    location={comment.location}
+                    comment={comment.comment}
+                    profileImage={comment.profileImage}
+                    rating={comment.rating}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
           </div>
           <div className="sidebar-cont"></div>
         </div>
-         
+
         <div className="map-cont">
           <MyMap
             positions={
@@ -265,7 +287,7 @@ export default function Landing() {
             <MapSearch onCitySelect={handleCitySelect} />
           </div>
         </div>
-        <Footer showExtra={true}/>
+        <Footer showExtra={true} />
       </div>
     </>
   );

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.SqlServer.Types;
 
 namespace PropertyService.Models
 {
@@ -7,7 +9,7 @@ namespace PropertyService.Models
     {
         [Key]
         public int Id { get; set; }
-        public int UserId {  get; set; }
+        public string UserId {  get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -19,7 +21,10 @@ namespace PropertyService.Models
         [Required]
         [StringLength(200)]
         public string Address { get; set; }
-        public string? LatLng { get; set; } // Nullable PG type
+
+      public float? latitude { get; set; }
+
+        public float? longitude { get; set; }
 
 
 

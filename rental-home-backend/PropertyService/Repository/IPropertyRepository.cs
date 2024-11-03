@@ -13,7 +13,7 @@ namespace PropertyService.Repository
         Task UpdateProperty(PropertyModel property);
         Task DeleteProperty(int id);
         Task<IEnumerable<PropertyModel>> GetPropertiesByType(string propertyType);
-        Task<IEnumerable<PropertyModel>> GetPropertiesByUserId(int userId);
+        Task<IEnumerable<PropertyModel>> GetPropertiesByUserId(string userId);
         Task<IEnumerable<PropertyModel>> SearchProperties(PropertySearchParameters searchParameters);
     }
 }

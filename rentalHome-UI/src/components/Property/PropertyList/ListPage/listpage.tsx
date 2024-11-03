@@ -5,7 +5,6 @@ import { LatLngExpression } from "leaflet";
 import { useState,useEffect } from "react";
 import Footer from "../../../footer/footer";
 import ListPageCard from "../../../additional-Components/listPageCard/listPageCard";
-import ApartmentItem from "../../../../models/listCardModel";
 import ListPageSearch from "../../../additional-Components/listPageSearch/listPageSearch";
 import { useDispatch, useSelector } from 'react-redux';
 import { getPropertiesThunk } from '../../../../RentalServices/Slicer/Property/propertyThunk';
@@ -38,7 +37,9 @@ const ListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const properties:Property[] = useSelector((state: { property: { properties: any; }; })=>state.property.properties);
   const location = useLocation();
-  const searchCriteria = location.state?.searchCriteria;
+  const initialSearchCriteria = location.state?.searchCriteria || {}; // Use searchCriteria from location or an empty object
+  console.log(initialSearchCriteria)
+  const [searchCriteria, setSearchCriteria] = useState(initialSearchCriteria);
   console.log(searchCriteria);
   useEffect(() => {
     const fetchProperties = async () => {
@@ -48,6 +49,18 @@ const ListPage: React.FC = () => {
     fetchProperties();
   }, [dispatch]);
 
+  const initialSearchValues = {
+    location: searchCriteria?.location || 'Bangalore',
+    propertyType: searchCriteria?.propertyType || 'house',
+    minPrice: 0,
+    maxPrice: null,
+    furnishing: '',
+    gender: '',
+  };
+
+  const handleListPageSearch = (values: any) => {
+    setSearchCriteria(values);
+  };
   const filteredProperties: Property[] = properties.filter(property => {
     if (!searchCriteria) return true; // If no searchCriteria, include all properties
   
@@ -62,13 +75,19 @@ const ListPage: React.FC = () => {
     if (searchCriteria.bhkType) {
       matches = matches && property.bhkType === searchCriteria.bhkType;
     }
+    if (searchCriteria.minPrice !== undefined && searchCriteria.minPrice !== null) {
+      matches = matches && property.rent >= searchCriteria.minPrice;
+    }
+    if (searchCriteria.maxPrice !== undefined && searchCriteria.maxPrice !== null) {
+      matches = matches && property.rent <= searchCriteria.maxPrice;
+    }
     if (searchCriteria.furnishing) {
       matches = matches && property.furnishing === searchCriteria.furnishing;
     }
     if (searchCriteria.gender) {
-      matches = matches && (property.pgLivingType === searchCriteria.gender || property.pgSharingType === searchCriteria.gender);
+      matches = matches && (property.pgLivingType === searchCriteria.gender || property.preferredFlatmate === searchCriteria.gender);
     }
-  
+
     return matches;
   });
   
@@ -111,7 +130,7 @@ const ListPage: React.FC = () => {
       <div className="list-page">
         <div className="list-page-search-cont">
           <div className="list-page-search-holder">
-            <ListPageSearch />
+          <ListPageSearch initialValues={initialSearchValues} onSearch={handleListPageSearch} />
           </div>
         </div>
         <div className="list-page-results">

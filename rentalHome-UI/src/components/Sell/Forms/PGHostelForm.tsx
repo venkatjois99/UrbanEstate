@@ -23,9 +23,10 @@ const PGHostelForm: React.FC<Props> = ({ formData, setFieldValue }) => {
               onChange={(e) => setFieldValue("pgSharingType", e.target.value)}
             >
               <option value="">Select PG Sharing Type</option>
-              <option value="single">Single</option>
-              <option value="double">Double</option>
-              <option value="triple">Triple</option>
+              <option value="1 Sharing">1 Sharing</option>
+              <option value="2 Sharing">2 Sharing</option>
+              <option value="3 Sharing">3 Sharing</option>
+              <option value="4 Sharing">4 Sharing</option>
             </select>
           </label>
         </div>

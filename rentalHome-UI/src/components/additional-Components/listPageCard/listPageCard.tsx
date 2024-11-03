@@ -2,12 +2,14 @@ import "./listPageCard.css";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faHome,faGenderless,faUsers } from "@fortawesome/free-solid-svg-icons";
-import ApartmentItem from "../../../models/listCardModel";
 import { faChair } from "@fortawesome/free-solid-svg-icons/faChair";
 import FavoriteIcon from "../../../assets/icons/favouriteIcon";
 import { Property } from "../../../models/propertyModel";
-
-
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch,RootState } from "../../../store/myAppStore";
+import {fetchFavoritesThunk,removeFavoriteThunk,addFavoriteThunk} from "../../../RentalServices/Slicer/Favourites/favouriteThunk"
 
 interface CardProps {
   item: Property;
@@ -15,16 +17,42 @@ interface CardProps {
 }
 
 const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+    const userIdFromStore = useSelector((state: RootState) => state.user.userId);
+    const favorites = useSelector((state: RootState) => state.favourites.favorites);
+    
+    // Check if the current property is a favorite
+    const isFavorite = favorites.includes(item.id);
 
-  const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
+    // Fetch favorites when the component mounts or when the user ID changes
+    useEffect(() => {
+        if (userIdFromStore) {
+            dispatch(fetchFavoritesThunk(userIdFromStore));
+        }
+    }, [userIdFromStore, dispatch]);
+
+    // Handle adding or removing favorites
+    const handleFavoriteClick = () => {
+      console.log("clicked",userIdFromStore);
+        if (!userIdFromStore) return;
+
+        if (isFavorite) {
+            dispatch(removeFavoriteThunk({ userId: userIdFromStore, propertyId: item.id }));
+        } else {
+            dispatch(addFavoriteThunk({ userId: userIdFromStore, propertyId: item.id }));
+        }
+    };
+
+  const handleCardClick = () => {
+    navigate(`/single/${item.id}`, { state: { property: item } }); // Navigate with state
   };
 
   return (
     <div className="listpage-cards-cont">
-      <div key={item.id} className="listpage-card">
-       <div className="list-page-card-holder">
+      
+      <div className="listpage-card"  style={{ cursor: 'pointer' }}>
+       <div key={item.id} className="list-page-card-holder">
        <div className="list-card-image-container">
        <img src={item.images ? item.images[0] : 'default-image.jpg'} className="list-img-holder" alt={item.title} />         
         </div>

@@ -53,6 +53,18 @@
             ],
             "UpstreamPathTemplate": "/gateway/Property/{everything}",
             "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/Favourites/{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/Favourites/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
         }
     ]
 }

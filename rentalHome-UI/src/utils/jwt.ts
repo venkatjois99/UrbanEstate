@@ -2,6 +2,7 @@
 import {jwtDecode} from "jwt-decode";
 
 interface JwtToken {
+  token:string;
     email: string;
     nameid: string;
     jti: string;
@@ -27,6 +28,7 @@ export const getTokenData = (token: string | null) => {
     }
 
     return {
+      token:token,
       id: decodedToken.nameid, // Use nameid for user ID
       role: decodedToken.role,   // Get the role
       exp:decodedToken.exp,

@@ -4,33 +4,28 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ApartmentItem } from "../../../assets/dummyData/dummyData";
+import { Property } from "../../../models/propertyModel";
+import { useNavigate } from 'react-router-dom';
 
- 
+
 
 interface CardProps {
-    item: ApartmentItem;
+    item: Property;
 }
 
 const LandingPageCard: React.FC<CardProps> = ({ item }) => {
-    const [isFavorite, setIsFavorite] = useState(false);
-
-    const handleFavoriteClick = () => {
-        setIsFavorite(!isFavorite);
-    };
-
-    const handleGetOwnerDetails = () => {
-        alert(`Fetching owner details for ${item.title}`);
-        // You can integrate the actual functionality for fetching owner details here
-    };
-    // <Link to={`/single/${item.id}`}>
-    //          </Link>
+    const navigate = useNavigate();
+    const handleCardClick = () => {
+        navigate(`/single/${item.id}`, { state: { property: item } }); // Navigate with state
+      };
     return (
         <div className="landing-card">
             <div className="landing-card-imageContainer">
-          
-                    <img className='property-image' src={item.img} alt={item.title} />
-                    <div className='land-card-location'><img src='src/assets/icons/landing-location-logo.svg' width={20} height={20}/>{item.address}</div>
-           
+
+                {item.images?.slice(0, 1).map((image, index) => (
+                    <img key={index} className='property-image' src={image} alt={item.title} />
+                ))}                    <div className='land-card-location'><img src='src/assets/icons/landing-location-logo.svg' width={20} height={20} />{item.location}</div>
+
                 {/* Favorite Icon inside the image
                 <div className="favIcon" onClick={handleFavoriteClick}>
                     <FontAwesomeIcon
@@ -41,20 +36,19 @@ const LandingPageCard: React.FC<CardProps> = ({ item }) => {
             </div>
             <div className="landing-card-textContainer">
                 <h6 className="land-card-title">
-                  {item.title}
+                    {item.title}
                 </h6>
                 <p className="land-card-item">
                     {item.address}
                 </p>
-               <div className='d-flex'> <p className="land-card-price">₹{item.price}</p>
-                <Link className='ms-auto' to={`/single/${item.id}`}> <img  src='src/assets/icons/footerSearchArrow.svg'></img>
-                       </Link> 
-               </div>
-               
+                <div className='d-flex'> <p className="land-card-price">₹{item.rent}</p>
+                    <img src='src/assets/icons/footerSearchArrow.svg' onClick={handleCardClick} className='ms-auto'></img>
                 </div>
+
             </div>
-            
-        );
+        </div>
+
+    );
 };
 
 export default LandingPageCard;

@@ -152,8 +152,8 @@ p {
   width: 110px;
   color: black;
 }
-
-.icon:hover {
+.icon:hover,
+.icon:active {
   color: #216B9B;
 }
 

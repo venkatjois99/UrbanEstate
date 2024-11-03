@@ -21,14 +21,17 @@ import {
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import uploadImagesToCloudinary from "../../../RentalServices/Services/cloudinaryService";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store/myAppStore";
+import { useDispatch,useSelector } from "react-redux";
+import { AppDispatch,RootState } from "../../../store/myAppStore";
 import { createPropertyThunk } from "../../../RentalServices/Slicer/Property/propertyThunk";
 import Modal from "react-bootstrap/Modal";
 import MyMap from "../../map/myMap";
 import Button from "react-bootstrap/Button";
 import { LatLngExpression } from "leaflet";
 import MapSearch from "../../map/mapSearch";
+import { getTokenData } from "../../../utils/jwt";
+
+
 
 // Validation schema for the form
 const validationSchema = Yup.object().shape({
@@ -43,8 +46,13 @@ const validationSchema = Yup.object().shape({
 const PropertyListing: React.FC = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const dispatch = useDispatch<AppDispatch>();
+  // const loginstatus = useSelector((state: RootState) => state.user.test);
+  const userIdFromStore = useSelector((state: RootState) => state.user.userId);
+  // console.log("loginstatus from store:", loginstatus);
+  console.log("User ID from store:", userIdFromStore);
   const propertyForm = useFormik({
     initialValues: {
+      userId:"",
       propertyType: "",
       title: "",
       location: "",
@@ -60,14 +68,17 @@ const PropertyListing: React.FC = () => {
       furnishing: "",
       preferredFlatmate: "",
       bhkType: "",
-      latLng: "",
+      latitude:null,
+      longitude:null,
     },
     validationSchema,
     onSubmit: async (values) => {
       console.log("Form Submitted values:", { ...values, images: imageFiles });
       try {
+        console.log(userIdFromStore);
+        const tokenUserId = getTokenData(localStorage.getItem('token'));
         const imageUrls = await uploadImagesToCloudinary(imageFiles);
-        const submitValues = { ...values, images: imageUrls };
+        const submitValues = { ...values, images: imageUrls, userId: tokenUserId?.id };
         console.log("Cloudinary Submitted values:", submitValues);
         const res = await dispatch(createPropertyThunk(submitValues));
         console.log(res);
@@ -101,14 +112,12 @@ const PropertyListing: React.FC = () => {
   };
   const [showMapModal, setShowMapModal] = useState(false);
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
-  const [selectedLocation, setSelectedLocation] =
-    useState<LatLngExpression | null>();
+  const [selectedLocation, setSelectedLocation] =useState<LatLngExpression | null>();
   const handleMapLocationSelect = (position: LatLngExpression) => {
     setSelectedLocation(position);
     console.log(selectedLocation);
   };
   const handleCitySelect = (city: string, location: [number, number]) => {
-    // setSelectedCity(city);
     setMapCenter(location); // Set the map center to the selected city location
   };
 
@@ -142,7 +151,7 @@ const PropertyListing: React.FC = () => {
               <div className="error">{propertyForm.errors.propertyType}</div>
             )}
           <div className="property-type-buttons">
-          <button
+            <button
               type="button"
               className={
                 propertyForm.values.propertyType === "apartment" ? "active" : ""
@@ -291,8 +300,22 @@ const PropertyListing: React.FC = () => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowMapModal(false)}>
-              Close
+
+            <Button variant="secondary" onClick={() => {
+              setSelectedLocation(null);
+              setShowMapModal(false)
+            }}>
+              Cancel
+            </Button>
+            <Button variant="secondary" onClick={() => {
+            if (selectedLocation) {
+              const [latitude, longitude] = selectedLocation as [number, number];
+              propertyForm.setFieldValue("latitude", latitude);
+              propertyForm.setFieldValue("longitude", longitude);
+            }
+              setShowMapModal(false); // Close the modal after saving
+            }}>
+              Save
             </Button>
           </Modal.Footer>
         </Modal>

@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace PropertyService.Migrations
+namespace AccountService.Migrations
 {
     /// <inheritdoc />
-    public partial class beforegateway : Migration
+    public partial class latlngadded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
