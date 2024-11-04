@@ -113,8 +113,8 @@ function NavBars() {
                     <NavDropdown.Item href="#action/3.2">
                       My Dashboard
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">
-                      Something
+                    <NavDropdown.Item href="/profile">
+                      myprofile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/" onClick={handleLogout}>

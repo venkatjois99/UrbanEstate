@@ -17,7 +17,7 @@ const SellPage: React.FC = () => {
        
       </div>
       <InfoSection />
-      <Footer />
+      <Footer showExtra/>
     </>
   );
 };

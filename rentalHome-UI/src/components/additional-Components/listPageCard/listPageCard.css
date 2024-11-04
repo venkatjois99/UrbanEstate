@@ -43,3 +43,7 @@
 .additonal-info p{
     font-weight: 500;
 }
+
+.favourite-icon{
+  z-index: 999;
+}

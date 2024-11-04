@@ -9,9 +9,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChair, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from "react";
 import NavBars from '../../header/header';
-
+import ChatBox from '../../../components/additional-Components/ChatBox/chatBox';
+import {useDispatch, useSelector } from "react-redux";
+import { RootState,AppDispatch } from "../../../store/myAppStore";
+import { initializeUserFromToken } from '../../../RentalServices/Slicer/user/userThunk';
 
 const PropertyDetails = () => {
+  const userIdFromStore = useSelector((state: RootState) => state.user.userId);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(initializeUserFromToken());
+}, [dispatch]);
   const location = useLocation();
   useEffect(() => {
     // Scroll to the top of the page
@@ -101,7 +110,7 @@ const PropertyDetails = () => {
           {/* Right Section */}
           <div className="rightSection">
             {/* Contact Form */}
-            <div className="contactOwner">
+            {/* <div className="contactOwner">
               <h3>Contact the Owner</h3>
               <form className="contactForm">
                 <input type="text" placeholder="Full name" />
@@ -116,7 +125,11 @@ const PropertyDetails = () => {
                   <FaPaperPlane />Submit
                 </button>
               </form>
-            </div>
+            </div> */}
+             <div>
+           
+            <ChatBox propertyId={propertyItem.id} userId={userIdFromStore} propertyUserId={propertyItem.userId} />
+        </div>
 
             {/* Owner Profile */}
             <div className="ownerProfile">

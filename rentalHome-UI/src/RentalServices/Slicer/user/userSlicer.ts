@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addUser, validateUser,updateOwnerRole } from "./userThunk";
  // Import your utility function
  import { getTokenData } from '../../../utils/jwt';
@@ -38,6 +38,11 @@ const userSlice = createSlice({
         },
         register: (state) => {
             state.isRegistered = true;
+        },
+        setUserFromToken: (state, action: PayloadAction<{ userId: string | null; role: string | null }>) => {
+            state.userId = action.payload.userId;
+            state.role = action.payload.role;
+            state.isLoggedIn = true; // Assuming if we have userId, user is logged in
         }
     },
     extraReducers: (builder) => {
@@ -55,7 +60,7 @@ const userSlice = createSlice({
             })
             .addCase(validateUser.fulfilled, (state, action) => {
                 if (action.payload) {
-                    
+                    state.isLoggedIn=true;
                     localStorage.setItem("token", action.payload.token); // If you want to store the token as well
                 }
                 console.log(state.userId);
@@ -85,6 +90,6 @@ const userSlice = createSlice({
     }
 });
 
-export const { logout } = userSlice.actions;
+export const { logout,setUserFromToken } = userSlice.actions;
 
 export default userSlice.reducer;

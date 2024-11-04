@@ -16,23 +16,24 @@ import { Property } from "../../../../models/propertyModel";
 
 const ListPage: React.FC = () => {
 
-
-  const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const properties:Property[] = useSelector((state: { property: { properties: any; }; })=>state.property.properties);
+  const [properties, setProperties] = useState<Property[]>([]);
   const location = useLocation();
   const initialSearchCriteria = location.state?.searchCriteria || {}; // Use searchCriteria from location or an empty object
-  console.log(initialSearchCriteria)
+  // console.log(initialSearchCriteria)
   const [searchCriteria, setSearchCriteria] = useState(initialSearchCriteria);
-  console.log(searchCriteria);
+  // console.log(searchCriteria);
+ 
   useEffect(() => {
     const fetchProperties = async () => {
-      const res =await dispatch(getPropertiesThunk());
-      console.log(res.payload);
+      const res = await dispatch(getPropertiesThunk());
+      if (res.payload && JSON.stringify(res.payload) !== JSON.stringify(properties)) {
+        setProperties(res.payload);
+      }
     };
     fetchProperties();
   }, [dispatch]);
-
+  
   const initialSearchValues = {
     location: searchCriteria?.location || 'Bangalore',
     propertyType: searchCriteria?.propertyType || 'house',
@@ -78,15 +79,9 @@ const ListPage: React.FC = () => {
 
   const propertiesToDisplay: Property[] = searchCriteria ? filteredProperties : properties;
 
-    console.log(propertiesToDisplay);
-    useEffect(() => {
-      if (propertiesToDisplay.length > 0) {
-        const firstProperty = propertiesToDisplay[0];
-        setMapCenter([firstProperty.latitude, firstProperty.longitude] as LatLngExpression);
-      } else {
-        setMapCenter(null); // Or set to default coordinates if desired
-      }
-    }, [propertiesToDisplay]);
+    // console.log(propertiesToDisplay);
+  
+    
 
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 4;
@@ -108,6 +103,10 @@ const ListPage: React.FC = () => {
     }
   }, []);
 
+
+  const mapCenter: LatLngExpression | null = propertiesToDisplay.length > 0 
+    ? [propertiesToDisplay[0].latitude, propertiesToDisplay[0].longitude] as LatLngExpression
+    : null;
   return (
     <>
       <NavBars />
@@ -171,7 +170,8 @@ const ListPage: React.FC = () => {
            center={mapCenter}
             allowSelection={false}
           />
-        </div> </div>
+        </div> 
+        </div>
         </div>
   
       </div>

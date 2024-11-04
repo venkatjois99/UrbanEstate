@@ -5,7 +5,7 @@
 
 interface SVGProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
-  onIconClick?: () => void;
+  onIconClick: (event: React.MouseEvent<SVGElement>) => void;
   isFavorited?: boolean; // Control favorited state via props
 }
 

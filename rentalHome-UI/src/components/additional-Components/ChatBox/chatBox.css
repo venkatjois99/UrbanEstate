@@ -1,0 +1,102 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the chat box */
+    justify-content: center; /* Center the chat box vertically */
+    min-height: 100vh; /* Full height */
+    background-color: #f5f5f5; /* Light background */
+    padding: 20px;
+}
+
+.chat-box {
+    background: white; /* White background for the chat box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    width: 400px; /* Set a fixed width */
+    height: 300px; /* Fixed height for the chat box */
+    overflow-y: auto; /* Enable vertical scrolling for messages */
+    padding: 15px; /* Padding inside the chat box */
+ 
+}
+
+.mesinput-area {
+    display: flex; /* Flex layout for the input area */
+    width: 400px; /* Match width of the chat box */
+    padding: 10px 0; /* Add vertical padding */
+}
+
+.mesinput-area input {
+    flex: 1; /* Take up remaining space */
+    padding: 10px; /* Padding for the input */
+    border: 1px solid #ccc; /* Border for the input */
+    border-radius: 20px; /* Rounded corners */
+    margin-right: 10px; /* Spacing between input and button */
+    outline: none; /* Remove outline */
+}
+
+.mesinput-area input:focus {
+    border-color: #007bff; /* Blue border on focus */
+}
+
+.mesinput-area button {
+    padding: 10px 15px; /* Button padding */
+    border: none; /* No border */
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* Button text color */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.mesinput-area button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.message {
+    margin-bottom: 10px; /* Spacing between messages */
+    padding: 10px 15px; /* Padding for messages */
+    border-radius: 20px; /* More rounded corners for message bubbles */
+    display: flex; /* Flex layout for icon and text */
+    align-items: center; /* Center icon vertically */
+    max-width: 80%; /* Limit the width of messages */
+    word-wrap: break-word; /* Ensure long words wrap */
+    position: relative; /* Enable positioning for timestamp */
+}
+
+.message-content {
+    flex: 1; /* Take up remaining space for message content */
+    margin-right: 10px; /* Space between message content and timestamp */
+}
+
+.timestamp {
+    font-size: 12px; /* Smaller font for timestamp */
+    color: #888; /* Light color for timestamp */
+    position: absolute; /* Position it absolutely */
+    bottom: 5px; /* Align it at the bottom of the message bubble */
+    right: 10px; /* Align it to the right */
+}
+
+.message.sent {
+    background-color: #dcf8c6; /* Light green for sent messages */
+    align-self: flex-end; /* Align sent messages to the right */
+    margin-left: auto; /* Push sent messages to the right */
+}
+
+.message.received {
+    background-color: #ffffff; /* White for received messages */
+    border: 1px solid #e0e0e0; /* Light border for received messages */
+    align-self: flex-start; /* Align received messages to the left */
+    margin-right: auto; /* Push received messages to the left */
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .chat-container {
+        padding: 10px; /* Less padding on smaller screens */
+    }
+
+    .chat-box,
+    .mesinput-area {
+        width: 100%; /* Full width on smaller screens */
+    }
+}

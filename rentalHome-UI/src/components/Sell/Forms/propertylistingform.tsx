@@ -30,6 +30,7 @@ import Button from "react-bootstrap/Button";
 import { LatLngExpression } from "leaflet";
 import MapSearch from "../../map/mapSearch";
 import { getTokenData } from "../../../utils/jwt";
+import { updateOwnerRole } from "../../../RentalServices/Slicer/user/userThunk";
 
 
 
@@ -82,6 +83,10 @@ const PropertyListing: React.FC = () => {
         console.log("Cloudinary Submitted values:", submitValues);
         const res = await dispatch(createPropertyThunk(submitValues));
         console.log(res);
+        if (res.type === 'property/createPropertyThunk/fulfilled') { // Check if the property creation was successful
+          const updateRes = await dispatch(updateOwnerRole(userIdFromStore));
+          console.log(updateRes);
+        }
       } catch (error) {
         console.error("Error uploading images:", error);
       }

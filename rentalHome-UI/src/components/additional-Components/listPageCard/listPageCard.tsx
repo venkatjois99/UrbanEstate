@@ -33,7 +33,8 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
     }, [userIdFromStore, dispatch]);
 
     // Handle adding or removing favorites
-    const handleFavoriteClick = () => {
+    const handleFavoriteClick = (event: React.MouseEvent) => {
+      event.stopPropagation();
       console.log("clicked",userIdFromStore);
         if (!userIdFromStore) return;
 
@@ -51,7 +52,7 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
   return (
     <div className="listpage-cards-cont">
       
-      <div className="listpage-card"  style={{ cursor: 'pointer' }}>
+      <div className="listpage-card" onClick={handleCardClick}  style={{ cursor: 'pointer' }}>
        <div key={item.id} className="list-page-card-holder">
        <div className="list-card-image-container">
        <img src={item.images ? item.images[0] : 'default-image.jpg'} className="list-img-holder" alt={item.title} />         
@@ -77,7 +78,7 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
 </p>
         <p><FontAwesomeIcon icon={faCalendarAlt} color="#216B9B" /> {item.postingDate.slice(0, item.postingDate.indexOf('T'))}</p>
           </div>}
-          <FavoriteIcon onIconClick={handleFavoriteClick} isFavorited={isFavorite} />
+          <FavoriteIcon onIconClick={handleFavoriteClick} isFavorited={isFavorite} className="favourite-icon" />
       </div>
   </div>
   );
