@@ -11,20 +11,21 @@ import { useNavigate } from 'react-router-dom';
 
 interface CardProps {
     item: Property;
+    small: boolean;
 }
 
-const LandingPageCard: React.FC<CardProps> = ({ item }) => {
+const LandingPageCard: React.FC<CardProps> = ({ item, small }) => {
     const navigate = useNavigate();
     const handleCardClick = () => {
         navigate(`/single/${item.id}`, { state: { property: item } }); // Navigate with state
-      };
+    };
     return (
-        <div className="landing-card">
+        <div className={`landing-card ${small ? 'small' : ''}`}>
             <div className="landing-card-imageContainer">
 
                 {item.images?.slice(0, 1).map((image, index) => (
                     <img key={index} className='property-image' src={image} alt={item.title} />
-                ))}                    <div className='land-card-location'><img src='src/assets/icons/landing-location-logo.svg' width={20} height={20} />{item.location}</div>
+                ))}                    {!small && ( <div className='land-card-location'><img src='src/assets/icons/landing-location-logo.svg' width={20} height={20} />{item.location}</div>)}
 
                 {/* Favorite Icon inside the image
                 <div className="favIcon" onClick={handleFavoriteClick}>
@@ -38,11 +39,13 @@ const LandingPageCard: React.FC<CardProps> = ({ item }) => {
                 <h6 className="land-card-title">
                     {item.title}
                 </h6>
-                <p className="land-card-item">
-                    {item.address}
-                </p>
+                {!small && (
+                    <p className="land-card-item">
+                        {item.address}
+                    </p>
+                )}
                 <div className='d-flex'> <p className="land-card-price">₹{item.rent}</p>
-                    <img src='src/assets/icons/footerSearchArrow.svg' onClick={handleCardClick} className='ms-auto'></img>
+                    <img src='src/assets/icons/footerSearchArrow.svg' onClick={handleCardClick} className='ms-auto clickable-Icon' ></img>
                 </div>
 
             </div>

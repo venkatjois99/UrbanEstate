@@ -238,7 +238,7 @@ export default function Landing() {
           </div>
           <div className="landing-card-cont">
             {filteredProperties.map((property) => (
-              <LandingPageCard key={property.id} item={property} />
+              <LandingPageCard key={property.id} item={property} small={false} />
             ))}
           </div>
 
@@ -277,9 +277,7 @@ export default function Landing() {
 
         <div className="map-cont">
           <MyMap
-            positions={
-              cityLocations[selectedCity] || cityLocations["Bangalore"]
-            } // Use all locations of selected city
+            properties={properties} // Use all locations of selected city
             center={mapCenter}
             allowSelection={false}
           />

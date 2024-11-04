@@ -18,22 +18,6 @@ const ListPage: React.FC = () => {
 
 
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
-  const [selectedCity, setSelectedCity] = useState<string>("Bangalore");
-
-  const cityLocations: Record<string, LatLngExpression[]> = {
-    Bangalore: [
-      [12.9715987, 77.5945627], // Bangalore City Center
-      [12.935192, 77.6244807], // Koramangala
-    ],
-    Chennai: [
-      [13.0827, 80.2707],
-      [13.067439, 80.237617],
-    ],
-    Delhi: [
-      [28.6139, 77.209],
-      [28.7041, 77.1025],
-    ],
-  };
   const dispatch = useDispatch<AppDispatch>();
   const properties:Property[] = useSelector((state: { property: { properties: any; }; })=>state.property.properties);
   const location = useLocation();
@@ -95,14 +79,14 @@ const ListPage: React.FC = () => {
   const propertiesToDisplay: Property[] = searchCriteria ? filteredProperties : properties;
 
     console.log(propertiesToDisplay);
-    
-  useEffect(() => {
-    
-    if (selectedCity) {
-      const locations = cityLocations[selectedCity];
-      setMapCenter(locations[0]);
-    }
-  }, [selectedCity]);
+    useEffect(() => {
+      if (propertiesToDisplay.length > 0) {
+        const firstProperty = propertiesToDisplay[0];
+        setMapCenter([firstProperty.latitude, firstProperty.longitude] as LatLngExpression);
+      } else {
+        setMapCenter(null); // Or set to default coordinates if desired
+      }
+    }, [propertiesToDisplay]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 4;
@@ -135,7 +119,7 @@ const ListPage: React.FC = () => {
         </div>
         <div className="list-page-results">
           <h3>Your Search Results</h3>
-          {searchCriteria && searchCriteria.location.trim() !== "" && (
+          {searchCriteria  && (
     <p>{searchCriteria.location}</p>
   )}  
       <div className="list-page-card-cont">
@@ -183,9 +167,7 @@ const ListPage: React.FC = () => {
       </div>
       <div className="list-map-cont">
       <MyMap
-            positions={
-               cityLocations["Bangalore"]
-            } // Use all locations of selected city
+            properties={propertiesToDisplay}
            center={mapCenter}
             allowSelection={false}
           />

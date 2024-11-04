@@ -8,16 +8,20 @@ import {
 import { LatLngExpression } from "leaflet";
 import "./myMap.css"; 
 import { useState } from "react";
+import {Property} from "../../models/propertyModel"
+import LandingPageCard from "../landingPage/Card/Card";
 
 interface MyMapProps {
-  positions: LatLngExpression[]; 
+  properties:Property[];
+  // positions: LatLngExpression[]; 
   allowSelection?: boolean; 
   onLocationSelect?: (position: LatLngExpression) => void;
   center?: LatLngExpression | null ;
 }
 
 const MyMap: React.FC<MyMapProps> = ({
-  positions,
+  properties,
+  // positions,
   allowSelection = false,
   onLocationSelect,
   center
@@ -25,6 +29,7 @@ const MyMap: React.FC<MyMapProps> = ({
   const [selectedPosition, setSelectedPosition] = useState<
     LatLngExpression | any
   >(null); // To store the newly selected position
+  const positions: LatLngExpression[] = properties.map((property) => [property.latitude, property.longitude] as LatLngExpression);
 
   // Handle map clicks for selecting a position (only if allowSelection is true)
   const MapClickHandler = () => {
@@ -51,14 +56,14 @@ const MyMap: React.FC<MyMapProps> = ({
     const marker = e.target;
 setTimeout(() => {
         marker.closePopup();
-      }, 1000);
+      }, 3000);
   };
 
-
+  const defaultCenter: LatLngExpression = [12.9715987, 77.5945627];
   return (
     <MapContainer
     key={center ? center.toString() : 'default'}
-      center={center || positions[0]}
+    center={center || defaultCenter}
       zoom={13}
       scrollWheelZoom={true}
       className="map-container"
@@ -81,7 +86,12 @@ setTimeout(() => {
             mouseout: handleMouseOut,
           }}
         >
-          <Popup >Location {index + 1}</Popup>
+          <Popup>
+            <div className="map-card-cont">
+            <LandingPageCard item={properties[index]} small={true}/>
+            </div>
+      {/* <a href={`/single/${properties[index].id}`}>{properties[index].title} {index + 1}</a> */}
+    </Popup>
    
         </Marker>
       ))}

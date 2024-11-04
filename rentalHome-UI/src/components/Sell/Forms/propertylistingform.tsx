@@ -289,7 +289,7 @@ const PropertyListing: React.FC = () => {
           <Modal.Body className="list-modal">
             <div className="map-cont-list-page">
               <MyMap
-                positions={[]} // Pass any predefined locations if needed
+                properties={[]} // Pass any predefined locations if needed
                 allowSelection={true}
                 onLocationSelect={handleMapLocationSelect}
                 center={mapCenter || [12.9715987, 77.5945627]} // Default center
