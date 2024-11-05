@@ -10,9 +10,10 @@ import Register from "../Accounts/register";
 import { AppDispatch } from "../../store/myAppStore";
 import { logout } from "../../RentalServices/Slicer/user/userSlicer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 function NavBars() {
+  const logoUrl = "../../../src/assets/icons/UrbanEstate.svg";
   const [showLoginModal, setShowLoginModal] = useState(false); // Manage modal state
   const [showRegisterModal, setShowRegisterModal] = useState(false); // Manage modal state
   const [scrolled, setScrolled] = useState(false);
@@ -73,7 +74,7 @@ function NavBars() {
         <Container fluid className="me-5 ms-5">
           <Navbar.Brand className="me-5" href="/">
             <img
-              src="src/assets/icons/UrbanEstate.svg"
+              src={logoUrl}
               className="logo-cont"
               alt="Logo"
             />

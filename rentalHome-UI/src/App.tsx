@@ -17,6 +17,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Profile from"./components/additional-Components/Profile/profile";
 import MyChats from"./components/additional-Components/ChatBox/mychats";
+import DashboardLayout from "./components/Dashboard/dashboardLayout";
+import RateUs from "./components/Dashboard/RateUs";
+import Favorites from "./components/Dashboard/favorites";
 
 
 function App() {
@@ -39,6 +42,12 @@ function App() {
             <Route path="/loginExpired" element={<LoginExpired />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/mychat" element={<MyChats/>} />
+           
+            <Route path="/unauthorized" element={<Unauthorized/>}/>
+            <Route path="/dashboard" element={<DashboardLayout role="tenant" />}>
+            <Route path="rate-us" element={<RateUs />} />
+            <Route path="favorites" element={<Favorites />} />
+            </Route>            
            
 
           </Routes>

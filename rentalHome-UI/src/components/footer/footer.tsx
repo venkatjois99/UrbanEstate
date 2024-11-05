@@ -23,7 +23,7 @@ const Footer: React.FC<FooterProps> = ({showExtra=true}) => {
   return (
     <div className="footer-cont">
       <div className="footer-title">
-        <img src="src\assets\icons\footerLogo.svg" alt="logo"></img>
+        <img src="../../../src/assets/icons/footerLogo.svg" alt="logo"></img>
         <p>Follow Us</p>
       </div>
       {showExtra && (<><div className="footer-body">
@@ -33,7 +33,7 @@ const Footer: React.FC<FooterProps> = ({showExtra=true}) => {
             <div className="email-form">
               <input type="email" placeholder="Your email"></input>
               <button type="submit">
-                Send <img src="src\assets\icons\arrowSubmit.svg"></img>
+                Send <img src="../../../src/assets/icons/arrowSubmit.svg"></img>
               </button>
             </div>
             <p>
