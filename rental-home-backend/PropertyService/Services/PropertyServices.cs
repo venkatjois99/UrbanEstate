@@ -21,6 +21,17 @@ namespace PropertyService.Services
         {
             return await _context.Properties.ToListAsync(); // Fetch all properties
         }
+        public async Task<Dictionary<string, int>> GetPropertyCountByType()
+        {
+            var properties = await _context.Properties.ToListAsync(); // Assuming you're using Entity Framework
+            var propertyCountByType = properties
+                .GroupBy(p => p.PropertyType)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            return propertyCountByType;
+        }
+
+
 
         public async Task<PropertyModel> GetPropertyById(int id)
         {

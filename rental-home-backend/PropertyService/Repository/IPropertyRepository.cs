@@ -5,6 +5,7 @@ namespace PropertyService.Repository
 {
     public interface IPropertyRepository
     {
+        Task<Dictionary<string, int>> GetPropertyCountByType();
 
         Task<IEnumerable<PropertyModel>> GetAllProperties();
         Task<PropertyModel> GetPropertyById(int id);

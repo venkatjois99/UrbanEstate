@@ -1,15 +1,25 @@
-import React from 'react';
 import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import { Link, useLocation,Outlet } from 'react-router-dom';
 import './dashboardLayout.css';
 import NavBars from '../header/header';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/myAppStore";
+import React, { useEffect } from 'react';
+import { initializeUserFromToken } from '../../RentalServices/Slicer/user/userThunk';
 
-interface DashboardLayoutProps {
-  role: 'tenant' | 'owner';
-}
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ role }) => {
+
+
+
+const DashboardLayout: React.FC = ({  }) => {
   const location = useLocation();
+ 
+  const dispatch = useDispatch<AppDispatch>();
+  const role = useSelector((state: RootState) => state.user.role);
+// console.log(role);
+  useEffect(() => {
+      dispatch(initializeUserFromToken());
+  }, [dispatch]);
 
   return (
     <>
@@ -23,7 +33,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ role }) => {
             <Nav className="flex-column">
               {role === 'tenant' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/myProfile" active={location.pathname === '/dashboard/myProfile'}>
+                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
                     My Profile
                   </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/favorites" active={location.pathname === '/dashboard/favorites'}>
@@ -39,7 +49,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ role }) => {
               )}
               {role === 'owner' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/myProfile" active={location.pathname === '/dashboard/myProfile'}>
+                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
                     My Profile
                   </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/my-properties" active={location.pathname === '/dashboard/my-properties'}>
@@ -66,7 +76,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ role }) => {
             <Nav className="flex-column">
               {role === 'tenant' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/myProfile" active={location.pathname === '/dashboard/myProfile'}>
+                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
                     My Profile
                   </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/favorites" active={location.pathname === '/dashboard/favorites'}>
@@ -82,7 +92,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ role }) => {
               )}
               {role === 'owner' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/myProfile" active={location.pathname === '/dashboard/myProfile'}>
+                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
                     My Profile
                   </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/my-properties" active={location.pathname === '/dashboard/my-properties'}>

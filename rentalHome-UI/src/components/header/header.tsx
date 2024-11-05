@@ -111,7 +111,7 @@ function NavBars() {
                     id="collapsible-nav-dropdown"
                     className="header-dropdown"
                   >
-                    <NavDropdown.Item href="#action/3.2">
+                    <NavDropdown.Item href="/dashboard">
                       My Dashboard
                     </NavDropdown.Item>
                     <NavDropdown.Item href="/profile">

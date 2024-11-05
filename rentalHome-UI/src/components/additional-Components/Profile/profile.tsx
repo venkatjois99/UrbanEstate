@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import AvatarSelector from './avatar';
 import './Profile.css';
 import { FaEdit } from 'react-icons/fa';
-import NavBars from '../../header/header';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetailsById } from '../../../RentalServices/Slicer/user/userThunk'; // Import your thunk
 import { RootState,AppDispatch } from '../../../store/myAppStore'; // Import RootState if needed
@@ -74,7 +73,6 @@ const Profile: React.FC = () => {
 
     return (
         <>
-            <NavBars />
             <div className="profile-container">
                 <div className="profile-header">
                     <div className="avatar-container" onClick={toggleAvatarSelector}>

@@ -40,11 +40,13 @@ function App() {
             <Route path="/propertyDetails" element={<PropertyDetails />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/loginExpired" element={<LoginExpired />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/mychat" element={<MyChats/>} />
+           
+            
            
             <Route path="/unauthorized" element={<Unauthorized/>}/>
-            <Route path="/dashboard" element={<DashboardLayout role="tenant" />}>
+            <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="chat" element={<MyChats/>} />
             <Route path="rate-us" element={<RateUs />} />
             <Route path="favorites" element={<Favorites />} />
             </Route>            

@@ -104,6 +104,20 @@ namespace PropertyService.Controllers
             }
             return Ok(properties); // 200 OK
         }
+        // GET: api/property/count-by-type
+        [HttpGet("count-by-type")]
+        public async Task<ActionResult<Dictionary<string, int>>> GetPropertyCountByType()
+        {
+            var propertyCountByType = await _propertyRepository.GetPropertyCountByType();
+
+            if (propertyCountByType == null || !propertyCountByType.Any())
+            {
+                return NotFound(); // 404 Not Found
+            }
+
+            return Ok(propertyCountByType); // 200 OK
+        }
+
 
     }
 }
