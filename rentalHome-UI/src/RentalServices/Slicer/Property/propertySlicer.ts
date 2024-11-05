@@ -1,7 +1,7 @@
 // slices/propertySlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 import { Property } from '../../../models/propertyModel'; // Import the Property model
-import { createPropertyThunk, getPropertiesThunk } from './propertyThunk';
+import { createPropertyThunk, getPropertiesThunk,updatePropertyThunk } from './propertyThunk';
 
 interface PropertyState {
     properties: Property[];
@@ -42,6 +42,23 @@ interface PropertyState {
         .addCase(getPropertiesThunk.rejected, (state, action) => {
           state.loading = false;
           state.error = action.error.message || 'Failed to fetch properties';
+        })
+        .addCase(updatePropertyThunk.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(updatePropertyThunk.fulfilled, (state, action) => {
+          state.loading = false;
+          // Find the updated property and replace it in the state
+          const index = state.properties.findIndex(
+            (property) => property.id === action.payload.id
+          );
+          if (index !== -1) {
+            state.properties[index] = action.payload; // Update the property in the list
+          }
+        })
+        .addCase(updatePropertyThunk.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error.message || 'Failed to update property';
         });
     },
   });

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { PostProperty } from "../../../models/postPropertyModel";
-import { createPropertyService, getPropertyService } from "../../Services/propertyService";
+import { Property } from "../../../models/propertyModel";
+import { createPropertyService, getPropertyService,updatePropertyService } from "../../Services/propertyService";
 
 export const createPropertyThunk = createAsyncThunk<PostProperty,PostProperty>(
     'property/createPropertyThunk',
@@ -18,3 +19,11 @@ export const createPropertyThunk = createAsyncThunk<PostProperty,PostProperty>(
         
     }
   )
+  export const updatePropertyThunk = createAsyncThunk<Property, Property>(
+    'property/updatePropertyThunk',
+    async (propertyData) => {
+      const response = await updatePropertyService(propertyData);
+      console.log(response) // Call your update service
+      return response; // Return the updated property data
+    }
+  );

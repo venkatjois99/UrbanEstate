@@ -20,6 +20,7 @@ import MyChats from"./components/additional-Components/ChatBox/mychats";
 import DashboardLayout from "./components/Dashboard/dashboardLayout";
 import RateUs from "./components/Dashboard/RateUs";
 import Favorites from "./components/Dashboard/favorites";
+import MyProperties from "./components/Dashboard/myProperties/myProperties";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="chat" element={<MyChats/>} />
             <Route path="rate-us" element={<RateUs />} />
+            <Route path="my-properties" element={<MyProperties />} />
             <Route path="favorites" element={<Favorites />} />
             </Route>            
            

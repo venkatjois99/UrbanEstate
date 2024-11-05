@@ -1,6 +1,7 @@
 // propertyService.ts
 import axios from 'axios';
 import { PostProperty } from '../../models/postPropertyModel';
+import { Property } from '../../models/propertyModel';
 
 const API_URL = 'https://localhost:8080/gateway/Property';
 
@@ -15,3 +16,8 @@ export const getPropertyService = async ()=>{
     
     return res.data;
 }
+export const updatePropertyService = async (property: Property) => {
+  const response = await axios.put(`${API_URL}/${property.id}`, property);
+  console.log(response);
+  return response.data; // Return the created property data
+};

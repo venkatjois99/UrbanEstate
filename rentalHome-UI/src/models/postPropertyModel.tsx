@@ -11,7 +11,7 @@ export interface PostProperty {
     pgSharingType?: string; // Optional fields
     pgLivingType?: string;
     availableRooms?: number;
-    sharingType?: string;
+    // sharingType?: string;
     sharedBedrooms?: number;
     furnishing?: string;
     preferredFlatmate?: string;

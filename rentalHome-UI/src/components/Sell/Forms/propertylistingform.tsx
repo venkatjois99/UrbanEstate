@@ -8,7 +8,6 @@ import "../sellpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationArrow,
-  faCompass,
   faBuilding,
   faMapMarkerAlt,
   faFileAlt,
@@ -64,7 +63,7 @@ const PropertyListing: React.FC = () => {
       pgSharingType: "",
       pgLivingType: "",
       availableRooms: 0,
-      sharingType: "",
+      // sharingType: "",
       sharedBedrooms: 0,
       furnishing: "",
       preferredFlatmate: "",
