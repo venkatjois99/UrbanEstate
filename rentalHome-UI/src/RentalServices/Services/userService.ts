@@ -23,3 +23,15 @@ export const updateOwnerRoleService = async (id: string | null) => {
     throw error; // Rethrow the error for further handling
   }
 };
+
+export const getUserDetailsByIdService = async (id:string | null) =>{
+  try {
+    if (id === null) {
+      throw new Error("Login expired. User ID is null.");
+    }
+    return await axios.get(`${url}/GetById/${id}`);
+  } catch (error) {
+    console.error("Error updating owner role:", error);
+    throw error; // Rethrow the error for further handling
+  }
+};

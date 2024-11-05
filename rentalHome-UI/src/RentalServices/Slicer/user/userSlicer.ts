@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addUser, validateUser,updateOwnerRole } from "./userThunk";
+import { addUser, validateUser,updateOwnerRole,getUserDetailsById } from "./userThunk";
  // Import your utility function
  import { getTokenData } from '../../../utils/jwt';
+import {UserModelDTO} from '../../../models/registerUserModel'
 
  interface AuthState {
      isLoggedIn: boolean;
@@ -11,6 +12,9 @@ import { addUser, validateUser,updateOwnerRole } from "./userThunk";
      userId: string | null;
      role: string | null;
      ownerRoleStatus:string | null;
+     userDetails: UserModelDTO | null;
+    userDetailsStatus: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+    userDetailsError: string | null;
 
  }
  
@@ -24,6 +28,9 @@ import { addUser, validateUser,updateOwnerRole } from "./userThunk";
      userId: tokenData?.id || null,  // Initialize with userId from tokenData or null
      role: tokenData?.role || null,  // Initialize with role from tokenData or null
      ownerRoleStatus: null,
+     userDetails: null,
+     userDetailsStatus: 'idle',
+     userDetailsError: null,
  };
 
 const userSlice = createSlice({
@@ -85,6 +92,17 @@ const userSlice = createSlice({
             .addCase(updateOwnerRole.rejected, (state) => {
                 console.error("Failed to update owner role");
                 state.ownerRoleStatus = 'rejected'; // Set status to rejected
+            })
+            .addCase(getUserDetailsById.pending, (state) => {
+                state.userDetailsStatus = 'pending'; // Set loading state
+            })
+            .addCase(getUserDetailsById.fulfilled, (state, action: PayloadAction<UserModelDTO>) => {
+                state.userDetailsStatus = 'fulfilled';
+                state.userDetails = action.payload; // Store the fetched user details
+            })
+            .addCase(getUserDetailsById.rejected, (state, action) => {
+                state.userDetailsStatus = 'rejected';
+                state.userDetailsError = action.error.message || 'Failed to fetch user details';
             });
  
     }
