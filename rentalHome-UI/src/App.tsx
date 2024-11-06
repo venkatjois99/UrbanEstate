@@ -19,7 +19,7 @@ import Profile from"./components/additional-Components/Profile/profile";
 import MyChats from"./components/additional-Components/ChatBox/mychats";
 import DashboardLayout from "./components/Dashboard/dashboardLayout";
 import RateUs from "./components/Dashboard/RateUs";
-import Favorites from "./components/Dashboard/favorites";
+import Favorites from "./components/Dashboard/myFavourites/favorites";
 import MyProperties from "./components/Dashboard/myProperties/myProperties";
 
 
@@ -41,9 +41,6 @@ function App() {
             <Route path="/propertyDetails" element={<PropertyDetails />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/loginExpired" element={<LoginExpired />} />
-           
-            
-           
             <Route path="/unauthorized" element={<Unauthorized/>}/>
             <Route path="/dashboard" element={<DashboardLayout />}>
             <Route path="profile" element={<Profile />} />

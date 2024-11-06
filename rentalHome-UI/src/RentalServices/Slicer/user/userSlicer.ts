@@ -54,18 +54,20 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(addUser.fulfilled, (state) => {
-                console.log("fulfilled");
-                state.isRegistered = true;
-            })
-            .addCase(addUser.pending, (state) => {
-                state.registerStatus = 'pending';
-            })
-            .addCase(addUser.rejected, (state) => {
-                state.isRegistered = false;
-                state.registerStatus = 'rejected';
-            })
+        .addCase(addUser.fulfilled, (state) => {
+            console.log("fulfilled");
+            state.isRegistered = true;
+            state.registerStatus = 'success'; // Update the status
+        })
+        .addCase(addUser.pending, (state) => {
+            state.registerStatus = 'pending';
+        })
+        .addCase(addUser.rejected, (state) => {
+            state.isRegistered = false;
+            state.registerStatus = 'failed';
+        })
             .addCase(validateUser.fulfilled, (state, action) => {
+                console.log(action.payload)
                 if (action.payload) {
                     state.isLoggedIn=true;
                     localStorage.setItem("token", action.payload.token); // If you want to store the token as well

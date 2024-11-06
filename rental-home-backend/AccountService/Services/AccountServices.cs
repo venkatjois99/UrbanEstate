@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using AccountService.DAO;
+using AccountService.Exceptions;
 using AccountService.Models;
 using AccountService.Models.ModelsDTO;
 using AccountService.Repository;
@@ -72,11 +73,10 @@ namespace AccountService.Services
 
         public async Task<(int, string)> RegisterUserService(UserModel newUser)
         {
-            // Check if the user already exists using UserManager
             var userExist = await _userManager.FindByEmailAsync(newUser.Email);
             if (userExist != null)
             {
-                return (400, "User email id already exists"); // User already exists
+                throw new EmailAlreadyExistsException("User email already exists");
             }
 
             // Create a new ApplicationUser and add to the UserManager
@@ -91,11 +91,10 @@ namespace AccountService.Services
             var createdUser = await _userManager.CreateAsync(user, newUser.Password);
             if (!createdUser.Succeeded)
             {
-                // Return the first error message if user creation fails
-                return (500, string.Join(", ", createdUser.Errors.Select(e => e.Description)));
+                throw new InternalServerErrorException("Error creating user: " + string.Join(", ", createdUser.Errors.Select(e => e.Description)));
             }
 
-            // Assign the role if it doesn't exist
+            // Assign the role
             if (!await _roleManager.RoleExistsAsync(newUser.UserRole))
             {
                 await _roleManager.CreateAsync(new IdentityRole(newUser.UserRole));
@@ -103,7 +102,6 @@ namespace AccountService.Services
 
             await _userManager.AddToRoleAsync(user, newUser.UserRole);
 
-            // Add user to the database and save changes
             _dbContext.Add<UserModel>(newUser);
             await _dbContext.SaveChangesAsync();
 

@@ -93,13 +93,13 @@ const ListPageSearch: React.FC<ListPageSearchProps> = ({ initialValues, onSearch
           name="priceRange"
           onChange={handlePriceRangeChange}
         >
-          <option value="0-0">Any Price</option>
+          <option value="0-1000000000000">Any Price</option>
           <option value="0-10000">{"<"}10,000</option>
           <option value="10000-20000">10,000 - 20,000</option>
           <option value="20000-30000">20,000 - 30,000</option>
           <option value="30000-50000">30,000 - 50,000</option>
           <option value="50000-70000">50,000 - 70,000</option>
-          <option value="70000-0"> {'>'}70,000</option>
+          <option value="70000-1000000000000"> {'>'}70,000</option>
         </select>
       </div>
 

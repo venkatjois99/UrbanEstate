@@ -87,11 +87,6 @@
     padding: 10px;
   }
   
-  /* Icon styling for the form fields */
-  .iconp {
-    margin-right: 8px;
-    color: #007bff;
-  }
   
   /* Styling for the buttons inside the form */
   .edit-property-buttons {
@@ -100,38 +95,3 @@
     gap: 20px;
     margin-top: 20px;
   }
-  
-  .submit-button, .cancel-button {
-    width: 48%; /* Make buttons the same width */
-    padding: 0.6rem 1.5rem;
-    background-color: #216b9b;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover, .cancel-button:hover {
-    background-color: white;
-    color: #216b9b;
-    outline: 2px solid #216b9b;
-  }
-  
-  /* Adjustments for form button layout */
-  .submit-button {
-    background-color: #28a745; /* Green color for submit */
-  }
-  
-  .submit-button:hover {
-    background-color: #218838;
-  }
-  
-  .cancel-button {
-    background-color: #dc3545; /* Red color for cancel */
-  }
-  
-  .cancel-button:hover {
-    background-color: #c82333;
-  }
-  

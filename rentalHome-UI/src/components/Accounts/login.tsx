@@ -33,38 +33,31 @@ function Login(props: any) {
               password: password
             };
              var res = await dispatch(validateUser(formData));
-              console.log(res.payload);
-              if(res.payload != null){
+              console.log(res);
+              if(res.type == 'user/validateUser/fulfilled'){
                 toast.success('Login successful!');
                 // localStorage.setItem("token",res.payload);
-                setTimeout(() => navigate('/rent'), 1000);
+                setTimeout(() => navigate(0), 1000);
+              }
+              if (res.type === 'user/validateUser/rejected') {
+                // Handle rejection, such as network error or bad request
+                setIsSigningIn(false);
+                if (res.payload) {
+                  toast.error(res.payload as string); // Show specific error message from the rejected action payload
+                } else {
+                  toast.error('Network Error. Please try again.');
+                }
               }
               
-              
           } catch (err) {
+            console.log(err);
             toast.error('Login failed. Please try again.');
               setIsSigningIn(false);
               setErrorMessage('Error signing in');
           }
       }
   };
-
-  function doSignInWithGoogle() {
-    throw new Error('Function not implemented.');
-  }
   
-  const onGoogleSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!isSigningIn) {
-        setIsSigningIn(true);
-        try {
-             doSignInWithGoogle();
-        } catch (err) {
-            setIsSigningIn(false);
-            setErrorMessage('Error with Google sign-in');
-        }
-    }
-};
 
 const handleRegisterClick = () => {
   handleClose();
@@ -82,7 +75,7 @@ const handleCloseRegisterModal = () => {
         <Modal.Header closeButton>
           <Modal.Title className="w-100 text-center title-cont">
             
-            <h4>Welcome </h4>
+            <img src="../../../src/assets/icons/UrbanEstate.svg"></img>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className='login-modal-body'>
@@ -120,7 +113,7 @@ const handleCloseRegisterModal = () => {
           <p>   Don't have an account?  <a className="login-footer" onClick={handleRegisterClick}>
             Sign-up. 
             </a></p> 
-            <div className="login-divider">
+            {/* <div className="login-divider">
               <div className="line"></div>
               <span>OR</span>
               <div className="line"></div>
@@ -134,7 +127,7 @@ const handleCloseRegisterModal = () => {
               <img src='src\assets\icons\googleSignIn.svg' width={20}></img>
             Continue with Google
             </button>
-            </div>
+            </div> */}
           </Form>
         </Modal.Body>
         <Modal.Footer>

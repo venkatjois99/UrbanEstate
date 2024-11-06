@@ -9,15 +9,16 @@ import "./register.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/myAppStore";
 import { addUser } from "../../RentalServices/Slicer/user/userThunk";
-
-
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function Register(props: any) {
   const handleClose = () => props.onClose(); // Call parent function to close
   // const navigate = useNavigate();
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showStrengthBar, setShowStrengthBar] = useState(false);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const formik = useFormik({
     initialValues: {
@@ -49,18 +50,31 @@ function Register(props: any) {
 
       // Here, only 'username', 'email', 'phoneNumber', and 'password' will be submitted.
       console.log("Submitted Values:", submittedValues);
-     try{
-      await dispatch(addUser(submittedValues));
-     
-      // navigate("/");
-
-     }
-     catch(err){
-      console.error();
-     }
-      // Call backend API or Firebase to handle user registration
-    },
-  });
+      try {
+        const res = await dispatch(addUser(submittedValues));
+        console.log(res);
+      
+        if (res.type === 'user/addUser/fulfilled') {
+          toast.success('Register Success, Please Login');
+          setTimeout(() => navigate(0), 2000);
+        }
+      
+        if (res.type === 'user/addUser/rejected') {
+          // Handle rejection, such as network error or bad request
+          if (res.payload) {
+            console.log(res.payload)
+            // Display the rejection payload, which contains the error message
+            toast.error(res.payload as string);
+          } else {
+            toast.error('Network Error. Please try again.');
+          }
+        }
+      } catch (err) {
+        console.error('Error while dispatching action:', err);
+        toast.error('An unexpected error occurred. Please try again.');
+      }
+    }      
+  });  
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -94,11 +108,12 @@ function Register(props: any) {
     <>
       <Modal show={props.show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title className="w-100 text-center title-cont">
-            <h4>Create a New Account</h4>
+          <Modal.Title className="w-100 text-center title-cont ">
+          <img src="../../../src/assets/icons/UrbanEstate.svg"></img><h5>Create a New Account</h5>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <ToastContainer />
           <Form onSubmit={formik.handleSubmit} className="register-form">
             {/* Username */}
             <Form.Group className="mb-3" controlId="formUsername">

@@ -1,4 +1,5 @@
-﻿using AccountService.Models;
+﻿using AccountService.Exceptions;
+using AccountService.Models;
 using AccountService.Models.ModelsDTO;
 using AccountService.Repository;
 using Microsoft.AspNetCore.Authorization;
@@ -39,33 +40,31 @@ namespace AccountService.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<(int,string)> RegisterUser([FromBody] UserModel userModel)
+        public async Task<ActionResult> RegisterUser([FromBody] UserModel userModel)
         {
             if (userModel == null)
             {
-                return (400,"User model is null.");
+                return BadRequest("User model is null.");
             }
 
             try
             {
                 var (statusCode, message) = await _accountRepository.RegisterUserService(userModel);
-                if (statusCode == 400)
-                {
-                    return (statusCode,message);
-                }
-                else if (statusCode == 201)
-                {
-                    return (statusCode, message);
-                }
-
-                return (statusCode, message);
+                return Ok(message);
+            }
+            catch (EmailAlreadyExistsException ex)
+            {
+                return Unauthorized(new { message = ex.Message, errorCode = ex.ErrorCode });
+            }
+            catch (AccountServiceException ex)
+            {
+                return StatusCode(ex.StatusCode, new { message = ex.Message, errorCode = ex.ErrorCode });
             }
             catch (Exception ex)
             {
-                return (500, ex.Message);
+                return StatusCode(500, "Internal server error.");
             }
         }
-
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<UserDTOModel>> GetUserById(string id)
         {
@@ -136,7 +135,8 @@ namespace AccountService.Controllers
                 var res = await _accountRepository.LoginUserService(userLogin);
                 if (res == null)
                 {
-                    return Unauthorized("Invalid username or password.");
+                   return Unauthorized(new { message = "Invalid username or password.", errorCode = "AUTH_001" });
+
                 }
 
                 return Ok(res);

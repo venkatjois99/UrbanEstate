@@ -2,8 +2,21 @@ import axios from "axios";
 import { RegisterUser, LoginModel } from "../../models/registerUserModel";
 const url = "https://localhost:8080/gateway/Account";
 
-export const addNewUser = (newUser: RegisterUser) => {
-  return axios.post(`${url}/Register`, newUser);
+export const addNewUser = async (newUser: RegisterUser) => {
+  try {
+    const response = await axios.post(`${url}/Register`, newUser);
+    console.log(response);
+    return response;
+  } catch (error:any) {
+    // Check for 401 Unauthorized or other errors
+    if (error.response) {
+      // The request was made, but the server responded with an error
+      throw error.response;
+    } else {
+      // Something else happened while setting up the request
+      throw new Error('An unexpected error occurred.');
+    }
+  }
 };
 
 export const validateLogin = (user: LoginModel) => {

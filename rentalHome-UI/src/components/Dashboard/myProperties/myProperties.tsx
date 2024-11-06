@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPropertiesThunk,updatePropertyThunk,deletePropertyThunk } from "../../../RentalServices/Slicer/Property/propertyThunk";
 import { Property } from "../../../models/propertyModel";
 import { useState, useEffect } from "react";
-
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import ListPageCard from "../../additional-Components/listPageCard/listPageCard";
-import './myProperties.css'
+import './myProperties.css';
+import Swal from 'sweetalert2';
 
 const MyProperties =()=>{
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+
     const userIdFromStore = useSelector((state: RootState) => state.user.userId);
   
     const [editingPropertyId, setEditingPropertyId] = useState<number | null>(null);
@@ -45,20 +48,38 @@ const MyProperties =()=>{
     
       // Handle form field changes
       const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
-      };
-      const handleDeleteClick = async (propertyId: number) => {
-        try {
-          // Dispatch the delete thunk action
-          await dispatch(deletePropertyThunk(propertyId));
-          toast.success("Property deleted successfully!"); // Show success toast
-        } catch (error) {
-          console.error("Error deleting property:", error);
-          toast.error("Failed to delete property. Please try again."); // Show error toast
+        const { name, value } = e.target;  
+      
+      
+        // Ensure numerical fields are parsed as numbers
+        if (name === 'rent') {
+          setFormData((prevData) => ({ ...prevData, [name]: parseFloat(value) || 0 })); // Set to 0 if parsing fails
+        } else {
+          setFormData((prevData) => ({ ...prevData, [name]: value }));
         }
       };
-    
+      const handleDeleteClick = async (propertyId: number) => {
+        // Use SweetAlert2 for a custom confirmation modal
+        const result = await Swal.fire({
+          title: 'Are you sure?',
+          text: 'This action cannot be undone.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'Cancel',
+        });
+        if (result.isConfirmed) {
+          try {
+            // Dispatch the delete thunk action
+            await dispatch(deletePropertyThunk(propertyId));
+            toast.success("Property deleted successfully!"); // Show success toast
+            setTimeout(() => navigate(0), 1000);
+          } catch (error) {
+            console.error("Error deleting property:", error);
+            toast.error("Failed to delete property. Please try again."); // Show error toast
+          }
+        }
+      };
       // Handle form submit (send data to backend)
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

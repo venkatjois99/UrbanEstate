@@ -77,10 +77,10 @@ const Footer: React.FC<FooterProps> = ({showExtra=true}) => {
            Bengaluru - 560064</p>
           </div>
         </div>
-      </div></>)}
+      </div>
       <div className="footer-tail">
             <p>Copyright © 2024. Urban Estate</p>
-      </div>
+      </div></>)}
     </div>
   );
 };
