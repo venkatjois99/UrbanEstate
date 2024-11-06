@@ -1,8 +1,11 @@
 import { AppDispatch,RootState } from "../../../store/myAppStore";
 import { useDispatch, useSelector } from 'react-redux';
-import { getPropertiesThunk,updatePropertyThunk } from "../../../RentalServices/Slicer/Property/propertyThunk";
+import { getPropertiesThunk,updatePropertyThunk,deletePropertyThunk } from "../../../RentalServices/Slicer/Property/propertyThunk";
 import { Property } from "../../../models/propertyModel";
 import { useState, useEffect } from "react";
+
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 import ListPageCard from "../../additional-Components/listPageCard/listPageCard";
 import './myProperties.css'
 
@@ -45,22 +48,35 @@ const MyProperties =()=>{
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
       };
+      const handleDeleteClick = async (propertyId: number) => {
+        try {
+          // Dispatch the delete thunk action
+          await dispatch(deletePropertyThunk(propertyId));
+          toast.success("Property deleted successfully!"); // Show success toast
+        } catch (error) {
+          console.error("Error deleting property:", error);
+          toast.error("Failed to delete property. Please try again."); // Show error toast
+        }
+      };
     
       // Handle form submit (send data to backend)
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-    
+      
         // Find the original property that we're editing
         const propertyToUpdate = myProperties.find(p => p.id === editingPropertyId);
-    
-        if (!propertyToUpdate) return;
-    
+      
+        if (!propertyToUpdate) {
+          toast.error("Property not found.");
+          return;
+        }
+      
         // Merge updated fields with the existing property details
         const updatedProperty = {
           ...propertyToUpdate,  // Include all the unchanged values
           ...formData,  // Include only the updated fields
         };
-    
+      
         // The backend expects every property to have these fields
         const propertyForBackend = {
           id: updatedProperty.id,
@@ -83,16 +99,32 @@ const MyProperties =()=>{
           latitude: updatedProperty.latitude ?? null,  // Handle null values
           longitude: updatedProperty.longitude ?? null, // Handle null values
         };
-        console.log(updatedProperty)
+      
+        console.log(updatedProperty);
         console.log(propertyForBackend);
-        dispatch(updatePropertyThunk(updatedProperty));
-        
-        // Here you would call your update property service
-        // For example: await updatePropertyService(propertyForBackend);
-        setEditingPropertyId(null); // Reset the edit state after submitting
+      
+        try {
+          // Dispatch the update action
+          const res = await dispatch(updatePropertyThunk(updatedProperty));
+      
+          // Check if the update was successful
+          if (res.type === 'property/updatePropertyThunk/fulfilled') {
+            toast.success("Property updated successfully!"); // Success toast
+          } else {
+            toast.error("Failed to update property. Please try again."); // Error toast if update fails
+          }
+      
+          setEditingPropertyId(null); // Reset the edit state after submitting
+        } catch (error) {
+          console.error("Error updating property:", error);
+          toast.error("An error occurred while updating the property. Please try again."); // Error toast for catching any errors
+        }
       };
+      
       return (
         <div>
+                 <ToastContainer />
+
           {editingPropertyId === null ? (
             <div className="myProperties-card-cont">
               {myProperties.map((property) => (
@@ -101,7 +133,13 @@ const MyProperties =()=>{
                     <ListPageCard item={property} extraShow={false} />
                     <div className="property-card-buttons">
                       <button onClick={() => handleEditClick(property)}>Edit</button>
-                      <button>Delete</button>
+                      {/* <button>Delete</button> */}
+                      <button 
+              onClick={() => handleDeleteClick(property.id)} 
+             
+            >
+              Delete
+            </button>
                     </div>
                   </div>
                 </div>

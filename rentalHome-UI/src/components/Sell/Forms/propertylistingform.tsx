@@ -4,6 +4,10 @@ import * as Yup from "yup";
 import ApartmentForm from "./ApartmentForm";
 import PGHostelForm from "./PGHostelForm";
 import FlatmateForm from "./FlatmateForm";
+
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
+
 import "../sellpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -72,24 +76,37 @@ const PropertyListing: React.FC = () => {
       longitude:null,
     },
     validationSchema,
+
     onSubmit: async (values) => {
       console.log("Form Submitted values:", { ...values, images: imageFiles });
+      
       try {
-        console.log(userIdFromStore);
         const tokenUserId = getTokenData(localStorage.getItem('token'));
         const imageUrls = await uploadImagesToCloudinary(imageFiles);
         const submitValues = { ...values, images: imageUrls, userId: tokenUserId?.id };
         console.log("Cloudinary Submitted values:", submitValues);
+        
         const res = await dispatch(createPropertyThunk(submitValues));
         console.log(res);
-        if (res.type === 'property/createPropertyThunk/fulfilled') { // Check if the property creation was successful
+        
+        if (res.type === 'property/createPropertyThunk/fulfilled') {
+          toast.success("Property created successfully!"); // Success toast
           const updateRes = await dispatch(updateOwnerRole(userIdFromStore));
           console.log(updateRes);
+          
+          if (updateRes.type === 'owner/updateOwnerRole/fulfilled') {
+            toast.success("Owner role updated successfully!");
+          }
+        }
+        else {
+          toast.error("Failed to create property. Please try again."); // Error toast for property creation failure
         }
       } catch (error) {
         console.error("Error uploading images:", error);
+        toast.error("Error uploading images. Please try again."); // Error toast
       }
     },
+    
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,6 +164,8 @@ const PropertyListing: React.FC = () => {
 
   return (
     <div className="property-listing">
+           <ToastContainer />
+
       <form onSubmit={propertyForm.handleSubmit} className="property-form">
         <div className="property-type-section">
           <label>Select Property Type:</label>

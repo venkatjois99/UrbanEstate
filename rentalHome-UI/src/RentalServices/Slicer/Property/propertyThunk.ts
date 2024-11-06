@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { PostProperty } from "../../../models/postPropertyModel";
 import { Property } from "../../../models/propertyModel";
-import { createPropertyService, getPropertyService,updatePropertyService } from "../../Services/propertyService";
+import { createPropertyService, getPropertyService,updatePropertyService,deletePropertyService } from "../../Services/propertyService";
 
 export const createPropertyThunk = createAsyncThunk<PostProperty,PostProperty>(
     'property/createPropertyThunk',
@@ -27,3 +27,10 @@ export const createPropertyThunk = createAsyncThunk<PostProperty,PostProperty>(
       return response; // Return the updated property data
     }
   );
+  export const deletePropertyThunk = createAsyncThunk<void, number>(
+  'property/deletePropertyThunk',
+  async (propertyId) => {
+    await deletePropertyService(propertyId); // Call the service to delete the property
+    return; // Return nothing because we just need to signal the deletion
+  }
+);

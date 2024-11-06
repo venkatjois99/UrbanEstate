@@ -21,3 +21,23 @@ export const updatePropertyService = async (property: Property) => {
   console.log(response);
   return response.data; // Return the created property data
 };
+// In your propertyService.ts file (or wherever you're handling API calls)
+
+
+
+// Define the delete service function
+export const deletePropertyService = async (propertyId: number): Promise<void> => {
+  try {
+    // Send the DELETE request to the API with the property ID
+    const response = await axios.delete(`${API_URL}/${propertyId}`);
+    
+    console.log(response); // Optionally log the response for debugging
+    
+    // If needed, you can return some kind of success message or the response data
+    return response.data;  // You can return something if your backend sends a response
+  } catch (error) {
+    console.error("Error deleting property:", error);
+    throw error; // Propagate the error so it can be handled in the thunk or component
+  }
+};
+

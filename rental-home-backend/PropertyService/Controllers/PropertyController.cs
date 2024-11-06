@@ -38,16 +38,19 @@ namespace PropertyService.Controllers
 
         // POST: api/property
         [HttpPost]
-        public async Task<ActionResult<(int,string)>> AddProperty([FromBody] PropertyModel property)
+        public async Task<ActionResult<(int, string)>> AddProperty([FromBody] PropertyModel property)
         {
             if (property == null)
             {
-                return BadRequest(); // 400 Bad Request
+                return BadRequest(new { message = "Invalid property data." }); // 400 Bad Request with message
             }
 
-           var res = await _propertyRepository.AddProperty(property);
-            return res ; // 201 Created
+            var res = await _propertyRepository.AddProperty(property);
+
+            // Assuming res contains the property ID, we return the ID and a success message.
+            return CreatedAtAction(nameof(GetPropertyById), new { id = res.Item1 }, new { id = res.Item1, message = "Property created successfully." });
         }
+
 
         // PUT: api/property/{id}
         [HttpPut("{id}")]
@@ -55,11 +58,13 @@ namespace PropertyService.Controllers
         {
             if (id != property.Id)
             {
-                return BadRequest(); // 400 Bad Request
+                return BadRequest("ID in the URL does not match the ID in the body.");
             }
 
             await _propertyRepository.UpdateProperty(property);
-            return NoContent(); // 204 No Content
+
+            // Return a success message with HTTP 200 OK
+            return Ok(new { message = "Property updated successfully." });
         }
 
         // DELETE: api/property/{id}
@@ -69,11 +74,13 @@ namespace PropertyService.Controllers
             var property = await _propertyRepository.GetPropertyById(id);
             if (property == null)
             {
-                return NotFound(); // 404 Not Found
+                return NotFound(new { message = "Property not found." }); // 404 Not Found with a message
             }
 
             await _propertyRepository.DeleteProperty(id);
-            return NoContent(); // 204 No Content
+
+            // Return a success message with HTTP 200 OK
+            return Ok(new { message = "Property deleted successfully." });
         }
 
         // GET: api/property/type/{propertyType}
