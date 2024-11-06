@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FeedbackService.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class feedbackupd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,10 @@ namespace FeedbackService.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     FeedbackText = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

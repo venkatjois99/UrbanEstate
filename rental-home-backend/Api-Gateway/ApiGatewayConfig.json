@@ -77,6 +77,18 @@
             ],
             "UpstreamPathTemplate": "/gateway/Messages/{everything}",
             "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/Feedback/{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7043
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/Feedback/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
         }
     ]
 }

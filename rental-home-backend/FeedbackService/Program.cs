@@ -1,7 +1,9 @@
 
-using FeedbackService.DAO;
+
+using FeedbackService.Repositories;
+using FeedbackServices.Data;
 using FeedbackServices.Repositories;
-using FeedbackServices.Services;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -15,11 +17,11 @@ namespace FeedbackService
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<FeedbackDbContext>(options =>
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
-            builder.Services.AddScoped<IFeedbackService, FeedbackServices.Services.FeedbackService>();
+            builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>(); // Register the repository
+            builder.Services.AddControllers();
 
             // Define and add CORS policy
             builder.Services.AddCors(options =>
