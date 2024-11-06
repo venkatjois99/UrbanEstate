@@ -23,7 +23,7 @@ const DashboardLayout: React.FC = ({  }) => {
 
   return (
     <>
-    <NavBars />
+      <NavBars />
       {/* Navbar for smaller screens */}
       <Navbar bg="light" variant="light" expand="lg" className="d-lg-none">
         <Container fluid>
@@ -110,7 +110,7 @@ const DashboardLayout: React.FC = ({  }) => {
           </Col>
 
           {/* Main Content */}
-          <Col  className="p-4 content">
+          <Col className="p-4 content">
             <Outlet /> {/* This renders the nested routes */}
           </Col>
         </Row>
