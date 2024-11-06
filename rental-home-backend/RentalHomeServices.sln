@@ -16,6 +16,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatService", "ChatService\ChatService.csproj", "{DDC4493E-BDA7-471C-97DC-943430DC6B5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{DD90F9BF-5BE0-4837-A3E0-637D2E8782FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedbackService", "FeedbackService\FeedbackService.csproj", "{1E7AC61B-7C15-4AC2-9E2B-E85238E5994D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +52,10 @@ Global
 		{DD90F9BF-5BE0-4837-A3E0-637D2E8782FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD90F9BF-5BE0-4837-A3E0-637D2E8782FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD90F9BF-5BE0-4837-A3E0-637D2E8782FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E7AC61B-7C15-4AC2-9E2B-E85238E5994D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E7AC61B-7C15-4AC2-9E2B-E85238E5994D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E7AC61B-7C15-4AC2-9E2B-E85238E5994D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E7AC61B-7C15-4AC2-9E2B-E85238E5994D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
