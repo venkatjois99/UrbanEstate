@@ -1,8 +1,8 @@
 import "./Filter.css";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 // Define the shape of the filter form state
 const validationSchema = Yup.object().shape({
@@ -21,6 +21,17 @@ const propertyTypeOptions: any = {
 };
 
 const SearchFilter: React.FC = () => {
+  const [filteredCities, setFilteredCities] = useState<string[]>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const cities = [
+    "Mumbai",
+    "Bangalore",
+    "Pune",
+    "Chennai",
+    "Hyderabad",
+    "Delhi",
+  ];
   const navigate = useNavigate();
   // Initialize the filter form state using TypeScript types
   const SearchForm = useFormik({
@@ -34,9 +45,30 @@ const SearchFilter: React.FC = () => {
     validationSchema: validationSchema,
     onSubmit: () => {
       console.log(SearchForm.values);
-      navigate('/rent', { state: { searchCriteria: SearchForm.values } });
+      navigate("/rent", { state: { searchCriteria: SearchForm.values } });
     },
   });
+
+  const handleInputChange = (event: { target: { value: any } }) => {
+    const input = event.target.value;
+    SearchForm.setFieldValue("location", input);
+
+    if (input) {
+      setFilteredCities(
+        cities.filter((city) =>
+          city.toLowerCase().includes(input.toLowerCase())
+        )
+      );
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+  };
+
+  const handleCitySelect = (city: string) => {
+    SearchForm.setFieldValue("location", city);
+    setShowDropdown(false);
+  };
 
   return (
     <div>
@@ -53,10 +85,22 @@ const SearchFilter: React.FC = () => {
                 type="text"
                 id="city"
                 name="location"
-                placeholder="Search address, city, location"
+                placeholder="Search city"
                 value={SearchForm.values.location}
-                onChange={SearchForm.handleChange}
+                onChange={handleInputChange}
+                onFocus={() => setShowDropdown(true)}
               />
+              {showDropdown && (
+                <div className="filter-dropdown-cont">
+                  <ul className="filter-dropdown-item">
+                  {filteredCities.map((city, index) => (
+                    <li key={index} onClick={() => handleCitySelect(city)}>
+                      {city}
+                    </li>
+                  ))}
+                </ul>
+                </div>
+              )}
             </div>
             {SearchForm.errors.location && (
               <div className="error">{SearchForm.errors.location}</div>
@@ -68,19 +112,13 @@ const SearchFilter: React.FC = () => {
             id="propertyType"
             value={SearchForm.values.propertyType}
             onChange={SearchForm.handleChange}
-
           >
             {/* <option value="">Any</option> */}
-            <option value="house" >
-              House
-            </option>
-            <option value="apartment" >
-              Apartment
-            </option>
+            <option value="house">House</option>
+            <option value="apartment">Apartment</option>
             <option value="pg">Paid Guest</option>
             <option value="flatmates">Flatmates</option>
           </select>
-
         </div>
 
         <div className="bottom">
@@ -102,7 +140,8 @@ const SearchFilter: React.FC = () => {
               )}
           </select>
 
-          {(SearchForm.values.propertyType === "house" || SearchForm.values.propertyType === "apartment") && (
+          {(SearchForm.values.propertyType === "house" ||
+            SearchForm.values.propertyType === "apartment") && (
             <select
               name="furnishing"
               id="furnishing"
@@ -111,27 +150,26 @@ const SearchFilter: React.FC = () => {
               className="w2"
             >
               <option value="">Furnish Type</option>
-              <option value="furnished" >Furnished</option>
+              <option value="furnished">Furnished</option>
               <option value="semi-furnished">Semi-Furnished</option>
               <option value="unfurnished">Unfurnished</option>
-
             </select>
           )}
 
           {(SearchForm.values.propertyType === "pg" ||
             SearchForm.values.propertyType === "flatmates") && (
-              <select
-                name="gender"
-                id="gender"
-                value={SearchForm.values.gender}
-                onChange={SearchForm.handleChange}
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
+            <select
+              name="gender"
+              id="gender"
+              value={SearchForm.values.gender}
+              onChange={SearchForm.handleChange}
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Colive">Co-living</option>
-              </select>
-            )}
+            </select>
+          )}
 
           <button type="submit" className="w2">
             Search

@@ -156,9 +156,8 @@ const ListPage: React.FC = () => {
       
    
    <div className="d-flex gap-4 mt-5">
- 
      <div className="explore-near-cont">
-     <h5>Places near Banshankari</h5>
+     <h5>Featured Properties</h5>
     <p>Our Best Picks</p>
     {properties.slice(0, 3).map((property) => (
   <ListPageCard key={property.id} item={property} extraShow={false} />
