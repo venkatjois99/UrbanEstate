@@ -6,7 +6,7 @@ namespace FeedbackServices.Models
     public class Feedback
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Range(1, 5)]
         public int Rating { get; set; }

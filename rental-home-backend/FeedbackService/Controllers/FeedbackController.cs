@@ -27,7 +27,7 @@ namespace FeedbackServices.Controllers
 
         // GET: api/feedback/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Feedback>> GetFeedback(string id)
+        public async Task<ActionResult<Feedback>> GetFeedback(int id)
         {
             var feedback = await _feedbackRepository.GetFeedbackByIdAsync(id);
 
@@ -55,7 +55,7 @@ namespace FeedbackServices.Controllers
 
         // PUT: api/feedback/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<Feedback>> UpdateFeedback(string id, Feedback feedback)
+        public async Task<ActionResult<Feedback>> UpdateFeedback(int id, Feedback feedback)
         {
             if (id != feedback.Id)
             {
@@ -74,7 +74,7 @@ namespace FeedbackServices.Controllers
 
         // DELETE: api/feedback/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteFeedback(string id)
+        public async Task<ActionResult> DeleteFeedback(int id)
         {
             var existingFeedback = await _feedbackRepository.GetFeedbackByIdAsync(id);
             if (existingFeedback == null)

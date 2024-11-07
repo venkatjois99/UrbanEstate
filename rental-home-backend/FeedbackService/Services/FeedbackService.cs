@@ -16,7 +16,7 @@ namespace FeedbackServices.Repositories
             _context = context;
         }
 
-        public async Task<Feedback> GetFeedbackByIdAsync(string id)
+        public async Task<Feedback> GetFeedbackByIdAsync(int id)
         {
             return await _context.Feedbacks.FindAsync(id);
         }
@@ -40,7 +40,7 @@ namespace FeedbackServices.Repositories
             return feedback;
         }
 
-        public async Task DeleteFeedbackAsync(string id)
+        public async Task DeleteFeedbackAsync(int id)
         {
             var feedback = await GetFeedbackByIdAsync(id);
             if (feedback != null)

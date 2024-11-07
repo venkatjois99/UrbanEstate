@@ -48,3 +48,22 @@ export const getUserDetailsByIdService = async (id:string | null) =>{
     throw error; // Rethrow the error for further handling
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    // Retrieve the JWT token from localStorage
+    const token = localStorage.getItem('token');
+
+    // Set the Authorization header with the Bearer token
+    const res = await axios.get(`${url}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    // Handle error appropriately (e.g., logging or rethrowing)
+    throw error;
+  }
+};

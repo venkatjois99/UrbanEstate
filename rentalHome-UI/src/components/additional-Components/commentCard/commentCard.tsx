@@ -6,11 +6,11 @@ interface CommentCardProps {
   name: string;
   location: string;
   comment: string;
-  profileImage: string; // Added prop for profile image
+  // profileImage: string; // Added prop for profile image
   rating: number; // Added prop for rating
 }
 
-const CommentCard: React.FC<CommentCardProps> = ({ name, location, comment, profileImage, rating }) => {
+const CommentCard: React.FC<CommentCardProps> = ({ name, location, comment, rating }) => {
   const renderStars = () => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -28,7 +28,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ name, location, comment, prof
   return (
     <div className="comment-card">
       <div className="comment-card-profile">
-        <img src={profileImage} alt={name} className="comment-card-profile-image" />
+        {/* <img src={profileImage} alt={name} className="comment-card-profile-image" /> */}
         <div className="comment-card-profile-info">
           <h4>{name}</h4>
           <p>{location}</p>

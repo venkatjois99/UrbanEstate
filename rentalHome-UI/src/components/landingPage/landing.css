@@ -171,6 +171,7 @@ p {
   flex-direction: column;
   overflow: hidden;
   height: 400px; /* Adjust height as needed */
+  width: 40vw;
 }
 
 .comment-carousel {
@@ -271,9 +272,9 @@ p {
   .comment-cont{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 75%;
+    /* justify-content: center;
+    align-items: center; */
+    /* width: 75%; */
 
   }
   .info-text{

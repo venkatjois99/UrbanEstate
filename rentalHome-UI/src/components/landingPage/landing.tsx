@@ -17,6 +17,8 @@ import { AppDispatch } from "../../store/myAppStore";
 import { useDispatch, useSelector } from 'react-redux';
 import { getPropertiesThunk } from "../../RentalServices/Slicer/Property/propertyThunk";
 import { Property } from "../../models/propertyModel";
+import { Feedback } from "../../models/feedbackModel";
+import { getFeedbacks } from "../../RentalServices/Services/feedbackService";
 
 
 
@@ -24,90 +26,90 @@ import { Property } from "../../models/propertyModel";
 
 export default function Landing() {
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
-  const [selectedCity, setSelectedCity] = useState<string>(""); // State for selected city
+  // const [selectedCity, setSelectedCity] = useState<string>(""); // State for selected city
   const [selectedPropertyType, setSelectedPropertyType] = useState<string | null>(null);
-
-  const comments = [
-    {
-      name: "Alice Johnson",
-      location: "San Francisco",
-      comment:
-        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage:
-        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-      rating: 4.5,
-    },
-    {
-      name: "Bob Smith",
-      location: "New York",
-      comment:
-        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage:
-        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-      rating: 4,
-    },
-    {
-      name: "Sumanth Johnson",
-      location: "San Francisco",
-      comment:
-        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage:
-        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-      rating: 3.5,
-    },
-    {
-      name: "Bob Smith",
-      location: "New York",
-      comment:
-        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage:
-        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-      rating: 5,
-    },
-    {
-      name: "Abhishek Johnson",
-      location: "San Francisco",
-      comment:
-        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage:
-        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-      rating: 4.5,
-    },
-    {
-      name: "Sagar Smith",
-      location: "New York",
-      comment:
-        "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-      profileImage:
-        "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-      rating: 3.5,
-    },
-  ];
+  const [comments, setComments] = useState<Feedback[]>([]);
+  // const [propertiesCount,setPropertiesCount] = useState<>
+  // const comments = [
+  //   {
+  //     name: "Alice Johnson",
+  //     location: "San Francisco",
+  //     comment:
+  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+  //     profileImage:
+  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+  //     rating: 4.5,
+  //   },
+  //   {
+  //     name: "Bob Smith",
+  //     location: "New York",
+  //     comment:
+  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+  //     profileImage:
+  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+  //     rating: 4,
+  //   },
+  //   {
+  //     name: "Sumanth Johnson",
+  //     location: "San Francisco",
+  //     comment:
+  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+  //     profileImage:
+  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+  //     rating: 3.5,
+  //   },
+  //   {
+  //     name: "Bob Smith",
+  //     location: "New York",
+  //     comment:
+  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+  //     profileImage:
+  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+  //     rating: 5,
+  //   },
+  //   {
+  //     name: "Abhishek Johnson",
+  //     location: "San Francisco",
+  //     comment:
+  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+  //     profileImage:
+  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+  //     rating: 4.5,
+  //   },
+  //   {
+  //     name: "Sagar Smith",
+  //     location: "New York",
+  //     comment:
+  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
+  //     profileImage:
+  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
+  //     rating: 3.5,
+  //   },
+  // ];
 
 
   // Locations array for each city
-  const cityLocations: Record<string, LatLngExpression[]> = {
-    Bangalore: [
-      [12.9715987, 77.5945627], // Bangalore City Center
-      [12.935192, 77.6244807], // Koramangala
-      [12.914641935578215, 77.5565153360094],
-      [12.849954307349948, 77.65718400475636],
-      [13.0057, 76.096],
-    ],
-    Chennai: [
-      [13.0827, 80.2707], // Chennai City Center
-      [13.067439, 80.237617], // Anna Nagar
-      [13.0825, 80.2705], // T Nagar
-    ],
-    Delhi: [
-      [28.6139, 77.209], // Delhi City Center
-      [28.7041, 77.1025], // New Delhi
-      [28.5355, 77.391], // Noida
-    ],
-  };
+  // const cityLocations: Record<string, LatLngExpression[]> = {
+  //   Bangalore: [
+  //     [12.9715987, 77.5945627], // Bangalore City Center
+  //     [12.935192, 77.6244807], // Koramangala
+  //     [12.914641935578215, 77.5565153360094],
+  //     [12.849954307349948, 77.65718400475636],
+  //     [13.0057, 76.096],
+  //   ],
+  //   Chennai: [
+  //     [13.0827, 80.2707], // Chennai City Center
+  //     [13.067439, 80.237617], // Anna Nagar
+  //     [13.0825, 80.2705], // T Nagar
+  //   ],
+  //   Delhi: [
+  //     [28.6139, 77.209], // Delhi City Center
+  //     [28.7041, 77.1025], // New Delhi
+  //     [28.5355, 77.391], // Noida
+  //   ],
+  // };
 
   const handleCitySelect = (city: string, location: [number, number]) => {
-    setSelectedCity(city);
     setMapCenter(location); // Set the map center to the selected city location
   };
 
@@ -119,6 +121,28 @@ export default function Landing() {
     };
     fetchProperties();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchPropertiesCount = async () => {
+  //     const res = await (getPropertiesCount());
+
+  //     console.log(res.payload);
+  //   };
+  //   fetchPropertiesCount();
+  // }, []);
+
+
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+
+        const res = await getFeedbacks(); // Assuming this fetches the feedback data
+        setComments(res); // Update state with the fetched data
+
+    };
+
+    fetchFeedbacks(); // Call the function to fetch data
+  }, []);
+
 
   const handleIconClick = (type: string) => {
     setSelectedPropertyType(type);
@@ -259,16 +283,20 @@ export default function Landing() {
             <div className="comment-cont">
 
               <div className="comment-carousel">
-                {comments.concat(comments).map((comment, index) => (
-                  <CommentCard
-                    key={index}
-                    name={comment.name}
-                    location={comment.location}
-                    comment={comment.comment}
-                    profileImage={comment.profileImage}
-                    rating={comment.rating}
-                  />
-                ))}
+                {comments.length === 0 ? (
+                  <p>No feedback available.</p>
+                ) : (
+                  comments.map((comment, index) => (
+                    <CommentCard
+                      key={index}
+                      name={comment.userName}
+                      location={comment.location}
+                      comment={comment.feedbackText}
+                      // profileImage={comment.profileImage}
+                      rating={comment.rating}
+                    />
+                  ))
+                )}
               </div>
             </div>
           </div>

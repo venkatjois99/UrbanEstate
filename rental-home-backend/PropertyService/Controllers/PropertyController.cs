@@ -39,7 +39,7 @@ namespace PropertyService.Controllers
         // POST: api/property
         [HttpPost]
         public async Task<ActionResult<(int, string)>> AddProperty([FromBody] PropertyModel property)
-        {
+         {
             if (property == null)
             {
                 return BadRequest(new { message = "Invalid property data." }); // 400 Bad Request with message

@@ -41,3 +41,7 @@ export const deletePropertyService = async (propertyId: number): Promise<void> =
   }
 };
 
+export const getPropertiesCount = async ()=>{
+    const res = await axios.get(`${API_URL}/count-by-type`);
+    return res.data;
+}

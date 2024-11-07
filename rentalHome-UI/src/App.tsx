@@ -19,6 +19,8 @@ import Profile from"./components/additional-Components/Profile/profile";
 import MyChats from"./components/additional-Components/ChatBox/mychats";
 import DashboardLayout from "./components/Dashboard/dashboardLayout";
 import RateUs from "./components/Dashboard/RateUs";
+import AdminUsers from "./components/Dashboard/AdminUsers";
+import AdminProperties from "./components/Dashboard/AdminProperties";
 import Favorites from "./components/Dashboard/myFavourites/favorites";
 import MyProperties from "./components/Dashboard/myProperties/myProperties";
 
@@ -42,12 +44,15 @@ function App() {
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/loginExpired" element={<LoginExpired />} />
             <Route path="/unauthorized" element={<Unauthorized/>}/>
+
             <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route path="profile" element={<Profile />} />
-            <Route path="chat" element={<MyChats/>} />
-            <Route path="rate-us" element={<RateUs />} />
-            <Route path="my-properties" element={<MyProperties />} />
-            <Route path="favorites" element={<Favorites />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="chat" element={<MyChats/>} />
+              <Route path="rate-us" element={<RateUs />} />
+              <Route path="my-properties" element={<MyProperties />} />
+              <Route path="favorites" element={<Favorites />} />
+              <Route path="adminUsers" element={<AdminUsers />} />
+              <Route path="adminProperties" element={<AdminProperties />} />
             </Route>            
            
 

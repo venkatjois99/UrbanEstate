@@ -141,7 +141,11 @@ const MyProperties =()=>{
           toast.error("An error occurred while updating the property. Please try again."); // Error toast for catching any errors
         }
       };
-      
+      if(myProperties.length == 0){
+        return(
+          <p>No Properties</p>
+        )
+      }
       return (
         <div>
                  <ToastContainer />

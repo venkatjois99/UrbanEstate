@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Login from "../Accounts/login";
 import Register from "../Accounts/register";
-import { AppDispatch } from "../../store/myAppStore";
+import { AppDispatch,RootState } from "../../store/myAppStore";
 import { logout } from "../../RentalServices/Slicer/user/userSlicer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { getUserDetailsById } from '../../RentalServices/Slicer/user/userThunk'; // Import your thunk
+
 
 function NavBars() {
   const logoUrl = "../../../src/assets/icons/UrbanEstate.svg";
@@ -20,6 +22,8 @@ function NavBars() {
   const loginStatus = useSelector(
     (state: { user: { isLoggedIn: any } }) => state.user.isLoggedIn
   );
+  const userIdFromStore = useSelector((state: RootState) => state.user.userId);
+    const { userDetails } = useSelector((state: RootState) => state.user);
   // const loginStatus = true;
   const dispatch = useDispatch<AppDispatch>();
 
@@ -61,7 +65,12 @@ function NavBars() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  
+  useEffect(() => {
+    // Only fetch user details if userIdFromStore is available
+    if (userIdFromStore) {
+        dispatch(getUserDetailsById(userIdFromStore));
+    }
+}, [dispatch, userIdFromStore]);
 
   return (
     <>
@@ -106,7 +115,7 @@ function NavBars() {
                   
                   <NavDropdown
                     title={
-                      <span>Profile <FontAwesomeIcon icon={faUserCircle} color="grey"/></span>
+                      <span>{userDetails?.email} <FontAwesomeIcon icon={faUserCircle} color="grey"/></span>
                     }
                     id="collapsible-nav-dropdown"
                     className="header-dropdown"
@@ -114,9 +123,9 @@ function NavBars() {
                     <NavDropdown.Item href="/dashboard">
                       My Dashboard
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/profile">
+                    {/* <NavDropdown.Item href="/profile">
                       myprofile
-                    </NavDropdown.Item>
+                    </NavDropdown.Item> */}
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/" onClick={handleLogout}>
                       Logout
