@@ -189,5 +189,33 @@ namespace AccountService.Controllers
                 return StatusCode(500, "Internal server error.");
             }
         }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(string Email)
+        {
+            // Call repository to send password reset email.
+            var (statusCode, message) = await _accountRepository.ForgotPassword(Email);
+            return StatusCode(statusCode, new { Message = message });
+        }
+
+        // Endpoint to reset a user's password.
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel resetPasswordDTO)
+        {
+            // Validate the model state to ensure all required fields are present.
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            // Call repository to reset the password with the provided DTO.
+            var (statusCode, message) = await _accountRepository.ResetPassword(resetPasswordDTO);
+            if (statusCode != 200)
+            {
+                // Return error if reset fails.
+                return StatusCode(statusCode, new { Message = message });
+            }
+            // Return success message.
+            return Ok(new { Message = message });
+        }
     }
 }

@@ -17,6 +17,8 @@ namespace AccountService.Repository
         Task<string> UpdateOwnerRoleService(string id);
 
         Task<string> GetRoleByIdService(string id);
+        Task<(int, string)> ForgotPassword(string email);
+        Task<(int, string)> ResetPassword(ResetPasswordModel resetPasswordDTO);
 
     }
 }

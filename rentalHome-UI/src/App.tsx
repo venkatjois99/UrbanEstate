@@ -23,6 +23,8 @@ import AdminUsers from "./components/Dashboard/AdminUsers";
 import AdminProperties from "./components/Dashboard/AdminProperties";
 import Favorites from "./components/Dashboard/myFavourites/favorites";
 import MyProperties from "./components/Dashboard/myProperties/myProperties";
+import ForgotPassword from "./components/Accounts/ForgotPassword";
+import ResetPassword from "./components/Accounts/ResetPassword";
 
 
 function App() {
@@ -54,6 +56,8 @@ function App() {
               <Route path="adminUsers" element={<AdminUsers />} />
               <Route path="adminProperties" element={<AdminProperties />} />
             </Route>            
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
            
 
           </Routes>

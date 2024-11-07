@@ -67,3 +67,17 @@ export const getAllUsers = async () => {
     throw error;
   }
 };
+
+
+export const forgotPasswordService = async(email:string)=>{
+  try {
+    if (email === null) {
+      throw new Error("email is empty.");
+    }
+    console.log(email)
+    return await axios.post(`${url}/forgot-password?Email=${email}`)
+  } catch (error) {
+    console.error("Error reset", error);
+    throw error; // Rethrow the error for further handling
+  }
+}

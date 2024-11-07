@@ -6,6 +6,7 @@ using AccountService.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using JWTAuthentication;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace AccountService
 {
@@ -25,8 +26,9 @@ namespace AccountService
             builder.Services.AddScoped<IAccountRepository, AccountServices>();
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-              .AddEntityFrameworkStores<AccountDBContext>();
-
+              .AddEntityFrameworkStores<AccountDBContext>()
+              .AddDefaultTokenProviders();
+            builder.Services.AddTransient<IEmailSender,EmailService>();
             builder.Services.AddJwtAuthentication();
             //builder.Services.AddCors(options =>
             //{

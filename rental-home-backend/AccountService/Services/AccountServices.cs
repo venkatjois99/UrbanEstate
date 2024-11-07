@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -24,8 +25,8 @@ namespace AccountService.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
-
-        public AccountServices(AccountDBContext dbContext, IMapper mapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        private readonly IEmailSender _emailSender;
+        public AccountServices(AccountDBContext dbContext, IMapper mapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, IEmailSender emailSender)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -33,6 +34,7 @@ namespace AccountService.Services
             _roleManager = roleManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _emailSender = emailSender;
         }
 
 
@@ -232,6 +234,72 @@ namespace AccountService.Services
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<(int, string)> ForgotPassword(string email)
+        {
+            // Find the user in the Identity system by their email address.
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return (404, "User not found.");
+            }
+            // Generate a password reset token for the user.
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            // Construct the reset link URL containing the token and email.
+            var resetLink = $" http://localhost:5173/resetpassword?token={(token)}&email={email}";
+            // Send an email with the reset link to the user's email address.
+            await _emailSender.SendEmailAsync(email, "Password Reset Request",
+                $"Please reset your password by clicking this link: <a href={resetLink}>Reset Password</a>");
+            // Return a success response indicating that the reset link has been sent.
+            return (200, ("Password reset link has been sent to your email."));
+        }
+        public async Task<(int, string)> ResetPassword(ResetPasswordModel resetPasswordDTO)
+        {
+            //step1: Find the user in Identity by their email to reset their Identity password.
+            var user = await _userManager.FindByEmailAsync(resetPasswordDTO.Email);
+            if (user == null)
+            {
+                return (404, "User not found.");
+            }
 
+            // Step 2: Find user in custom user table
+            var customUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == resetPasswordDTO.Email);
+            if (customUser == null)
+            {
+                return (404, "User not found in custom user table.");
+            }
+
+            // Step 3: Check if the new password is the same as the current one (no hashing for custom table)
+            if (customUser.Password == resetPasswordDTO.NewPassword)
+            {
+                return (400, "New password cannot be the same as the current password.");
+            }
+
+            // Step 4: Reset password using the token in Identity Table
+            var result = await _userManager.ResetPasswordAsync(user, resetPasswordDTO.Token, resetPasswordDTO.NewPassword);
+            if (!result.Succeeded)
+            {
+                return (500, string.Join(", ", result.Errors.Select(e => e.Description)));
+            }
+
+            // Update password in the custom user table (plain text)
+            var customTableUpdateResult = await UpdateCustomUserPasswordAsync(customUser, resetPasswordDTO.NewPassword);
+            if (!customTableUpdateResult)
+            {
+                return (500, "Error updating password in custom user table.");
+            }
+            // Return success message if all updates succeed.
+            return (200, "Password has been successfully reset.");
+        }
+
+
+        public async Task<bool> UpdateCustomUserPasswordAsync(UserModel user, string newPassword)
+        {
+            //Assign the new password to the user.
+            user.Password = newPassword;
+            // Update the user record in the database with the new password and Save changes to the database.
+            _dbContext.Users.Update(user);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }
