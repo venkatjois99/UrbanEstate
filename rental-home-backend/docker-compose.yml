@@ -1,0 +1,79 @@
+version: "3.9"
+services:
+ sqlserver:
+   image: mcr.microsoft.com/mssql/server
+   ports:
+     - "1433:1433"
+   environment:
+    - ACCEPT_EULA=Y
+    - SA_PASSWORD=Passw0rd
+ accountservice:
+    image: ${DOCKER_REGISTRY-}accountservice
+    build:
+      context: .
+      dockerfile: AccountService/Dockerfile
+
+    ports:
+      - "5001:5001"
+    depends_on:
+      - sqlserver
+
+ api-gateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: Api-Gateway/Dockerfile
+
+    ports:
+      - "5000:5000"
+    depends_on:
+      - sqlserver
+
+
+ chatservice:
+    image: ${DOCKER_REGISTRY-}chatservice
+    build:
+      context: .
+      dockerfile: ChatService/Dockerfile
+
+    ports:
+      - "5002:5002"
+    depends_on:
+      - sqlserver
+
+
+ favouriteservice:
+    image: ${DOCKER_REGISTRY-}favouriteservice
+    build:
+      context: .
+      dockerfile: FavouriteService/Dockerfile
+
+    ports:
+      - "5003:5003"
+    depends_on:
+      - sqlserver
+
+
+ feedbackservice:
+    image: ${DOCKER_REGISTRY-}feedbackservice
+    build:
+      context: .
+      dockerfile: FeedbackService/Dockerfile
+
+    ports:
+      - "5004:5004"
+    depends_on:
+      - sqlserver
+
+
+ propertyservice:
+    image: ${DOCKER_REGISTRY-}propertyservice
+    build:
+      context: .
+      dockerfile: PropertyService/Dockerfile
+
+    ports:
+      - "5005:5005"
+    depends_on:
+      - sqlserver
+

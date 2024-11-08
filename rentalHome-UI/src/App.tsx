@@ -16,12 +16,19 @@ import ProtectedRoute from "./utils/protectedRoute";
 import 'react-toastify/dist/ReactToastify.css';
 import Profile from "./components/additional-Components/Profile/profile";
 import MyChats from "./components/additional-Components/ChatBox/mychats";
+import VerifyEmail from "./components/Accounts/RegisterVerify/verifyEmail";
+
+import Profile from"./components/additional-Components/Profile/profile";
+import MyChats from"./components/additional-Components/ChatBox/mychats";
 import DashboardLayout from "./components/Dashboard/dashboardLayout";
 import RateUs from "./components/Dashboard/RateUs";
 import AdminUsers from "./components/Dashboard/AdminUsers";
 import AdminProperties from "./components/Dashboard/AdminProperties";
 import Favorites from "./components/Dashboard/myFavourites/favorites";
 import MyProperties from "./components/Dashboard/myProperties/myProperties";
+import ForgotPassword from "./components/Accounts/forgotPassword/ForgotPassword";
+import ResetPassword from "./components/Accounts/forgotPassword/ResetPassword";
+
 import ForgotPassword from "./components/Accounts/ForgotPassword";
 import ResetPassword from "./components/Accounts/ResetPassword";
 import NavBars from './components/header/header';
@@ -55,6 +62,38 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
 
+    <>
+      <Provider store={myAppStore}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+
+            <Route path="/rent" element={<ListPage />} />
+            <Route path="/sell" element={<ProtectedRoute requiredRoles={['admin', 'owner', 'tenant']} component={<SellPage />} />} />
+            <Route path="/single/:id" element={<PropertyDetails />} />
+            {/* <Route path="/sell" element={<SellPage />} /> */}
+            <Route path="/about-us" element={<About />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/faq's" element={<Faq />} />
+            <Route path="/terms-&-conditions" element={<TermsAndConditions />} />
+            <Route path="/propertyDetails" element={<PropertyDetails />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="/loginExpired" element={<LoginExpired />} />
+            <Route path="/unauthorized" element={<Unauthorized/>}/>
+
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route path="profile" element={<Profile />} />
+              <Route path="chat" element={<MyChats/>} />
+              <Route path="rate-us" element={<RateUs />} />
+              <Route path="my-properties" element={<MyProperties />} />
+              <Route path="favorites" element={<Favorites />} />
+              <Route path="adminUsers" element={<AdminUsers />} />
+              <Route path="adminProperties" element={<AdminProperties />} />
+            </Route>            
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
+           
 
         </Routes>
       </BrowserRouter>

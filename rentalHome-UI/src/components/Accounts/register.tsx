@@ -4,22 +4,21 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import * as Yup from "yup";
-import zxcvbn from "zxcvbn";
 import "./register.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/myAppStore";
-import { addUser } from "../../RentalServices/Slicer/user/userThunk";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import emailjs from 'emailjs-com';
 
 function Register(props: any) {
   const handleClose = () => props.onClose(); // Call parent function to close
   // const navigate = useNavigate();
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showStrengthBar, setShowStrengthBar] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
+  const generateToken = () => Math.random().toString(36).substring(2) + Date.now().toString(36);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -33,9 +32,10 @@ function Register(props: any) {
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
-      phoneNumber: Yup.string()
+        phoneNumber: Yup.string()
         .matches(/^[0-9]+$/, "Phone number is not valid")
         .min(10, "Phone number must be at least 10 digits")
+        .max(10, "Phone number cannot exceed 10 digits")  // Added max validation
         .required("Phone number is required"),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
@@ -47,34 +47,37 @@ function Register(props: any) {
     onSubmit: async (values) => {
       // Remove the confirmPassword before submission
       const { confirmPassword, ...submittedValues } = values;
+      const verificationToken = generateToken();
 
-      // Here, only 'username', 'email', 'phoneNumber', and 'password' will be submitted.
-      console.log("Submitted Values:", submittedValues);
+      // Save pending registration in session storage with verification token
+      localStorage.setItem('pendingRegistration', JSON.stringify({ submittedValues, verificationToken }));
+
+      const templateParams = {
+        to_email: values.email,
+        verification_link: `http://localhost:5173/verify-email?token=${verificationToken}`,
+      };
+
       try {
-        const res = await dispatch(addUser(submittedValues));
+        setIsSubmitting(true);
+       const res = await emailjs.send(
+          'service_eyeojl5',    // Replace with your EmailJS Service ID
+          'template_fl6npoa',    // Replace with your EmailJS Template ID
+          templateParams,
+          'WA4TH73BMASrl-8QC'    // Replace with your EmailJS User ID
+        );
         console.log(res);
-      
-        if (res.type === 'user/addUser/fulfilled') {
-          toast.success('Register Success, Please Login');
-          setTimeout(() => navigate(0), 2000);
-        }
-      
-        if (res.type === 'user/addUser/rejected') {
-          // Handle rejection, such as network error or bad request
-          if (res.payload) {
-            console.log(res.payload)
-            // Display the rejection payload, which contains the error message
-            toast.error(res.payload as string);
-          } else {
-            toast.error('Network Error. Please try again.');
-          }
-        }
-      } catch (err) {
-        console.error('Error while dispatching action:', err);
-        toast.error('An unexpected error occurred. Please try again.');
+        toast.success('Verification email sent! Please check your inbox.', {
+          autoClose: 3000, // Toast will auto-close after 3 seconds
+          onClose: () => handleClose() // Close the modal after toast disappears
+        });
+        setIsSubmitting(false);
+      } catch (error) {
+        console.error('Failed to send verification email:', error);
+        toast.error('Failed to send verification email.');
+        setIsSubmitting(false);
       }
-    }      
-  });  
+    },
+  });
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -209,7 +212,7 @@ function Register(props: any) {
 
             {/* Submit Button */}
             <Button  type="submit" className="login-button ms-auto me-auto">
-              {formik.isSubmitting ? "Signing Up..." : "Sign Up"}
+            {isSubmitting ? "Sending..." : "Sign Up"}
             </Button>
           </Form>
         </Modal.Body>
