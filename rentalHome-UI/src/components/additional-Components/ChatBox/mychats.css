@@ -39,7 +39,6 @@
     background-color: #e7f3ff;
     border-left: 4px solid #007bff;
 }
-
 .chat-box-container {
     flex: 1; /* Take remaining space */
     position: relative;

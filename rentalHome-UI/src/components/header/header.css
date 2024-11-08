@@ -63,7 +63,7 @@
     border-bottom:none !important;
 }
 .header-dropdown .dropdown-menu {
-    left: -69% !important;
+    /* left: -69% !important; */
     top: 110% !important;
 }
 }

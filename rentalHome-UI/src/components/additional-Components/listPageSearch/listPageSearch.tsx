@@ -109,7 +109,7 @@ const ListPageSearch: React.FC<ListPageSearchProps> = ({ initialValues, onSearch
 
       <div className="list-page-search-filter">
         
-        {listPageForm.values.propertyType === "house" && (
+        {(listPageForm.values.propertyType === "house"|| listPageForm.values.propertyType === "apartment") && (
           <>  <h5>Furnishing</h5>
           <select
             name="furnishing"

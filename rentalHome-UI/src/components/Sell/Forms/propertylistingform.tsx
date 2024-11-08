@@ -34,7 +34,8 @@ import { LatLngExpression } from "leaflet";
 import MapSearch from "../../map/mapSearch";
 import { getTokenData } from "../../../utils/jwt";
 import { updateOwnerRole } from "../../../RentalServices/Slicer/user/userThunk";
-
+import { useNavigate } from 'react-router-dom';  
+import Swal from 'sweetalert2';
 
 
 // Validation schema for the form
@@ -48,7 +49,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const PropertyListing: React.FC = () => {
+  const navigate = useNavigate(); 
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+
   const dispatch = useDispatch<AppDispatch>();
   // const loginstatus = useSelector((state: RootState) => state.user.test);
   const userIdFromStore = useSelector((state: RootState) => state.user.userId);
@@ -81,6 +84,16 @@ const PropertyListing: React.FC = () => {
       console.log("Form Submitted values:", { ...values, images: imageFiles });
       
       try {
+        // Show the loading SweetAlert while submitting
+        Swal.fire({
+          title: 'Please wait...',
+          text: 'Your property is being posted.',
+          allowOutsideClick: false, // Prevent closing the modal while waiting
+          didOpen: () => {
+            Swal.showLoading(); // Show the loading spinner
+          },
+        });
+    
         const tokenUserId = getTokenData(localStorage.getItem('token'));
         const imageUrls = await uploadImagesToCloudinary(imageFiles);
         const submitValues = { ...values, images: imageUrls, userId: tokenUserId?.id };
@@ -90,23 +103,30 @@ const PropertyListing: React.FC = () => {
         console.log(res);
         
         if (res.type === 'property/createPropertyThunk/fulfilled') {
+          // Close the SweetAlert loading modal
+          Swal.close();
           toast.success("Property created successfully!"); // Success toast
+    
           const updateRes = await dispatch(updateOwnerRole(userIdFromStore));
           console.log(updateRes);
-          
+    
           if (updateRes.type === 'owner/updateOwnerRole/fulfilled') {
             toast.success("Owner role updated successfully!");
           }
-        }
-        else {
+          handleReset(); 
+          navigate('/');
+        } else {
+          // Close the SweetAlert loading modal
+          Swal.close();
           toast.error("Failed to create property. Please try again."); // Error toast for property creation failure
         }
       } catch (error) {
         console.error("Error uploading images:", error);
+        // Close the SweetAlert loading modal
+        Swal.close();
         toast.error("Error uploading images. Please try again."); // Error toast
       }
     },
-    
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,25 +162,7 @@ const PropertyListing: React.FC = () => {
     setMapCenter(location); // Set the map center to the selected city location
   };
 
-  //     Bangalore: [
-  //       [12.9715987, 77.5945627], // Bangalore City Center
-  //     ],
-  //     Chennai: [
-  //       [13.0827, 80.2707], // Chennai City Center
-  //     ],
-  //     Delhi: [
-  //       [28.6139, 77.209], // Delhi City Center
-  //     ],
-  //     Mumbai: [
-  //       [19.076, 72.8777], // Mumbai City Center
-  //     ],
-  //     Pune: [
-  //       [18.5204, 73.8567], // Pune City Center
-  //     ],
-  //     Hyderabad: [
-  //       [17.385, 78.4867], // Hyderabad City Center
-  //     ],
-  // };
+ 
 
   return (
     <div className="property-listing">

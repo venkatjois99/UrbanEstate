@@ -16,19 +16,22 @@ import LandingPageCard from './Card/Card'
 import { AppDispatch } from "../../store/myAppStore";
 import { useDispatch, useSelector } from 'react-redux';
 import { getPropertiesThunk } from "../../RentalServices/Slicer/Property/propertyThunk";
+import { getPropertiesCount } from "../../RentalServices/Services/propertyService";
 import { Property } from "../../models/propertyModel";
 import { Feedback } from "../../models/feedbackModel";
 import { getFeedbacks } from "../../RentalServices/Services/feedbackService";
-
-
-
-
 
 export default function Landing() {
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
   // const [selectedCity, setSelectedCity] = useState<string>(""); // State for selected city
   const [selectedPropertyType, setSelectedPropertyType] = useState<string | null>(null);
   const [comments, setComments] = useState<Feedback[]>([]);
+  const [propertyCounts, setPropertyCounts] = useState({
+    apartment: 0,
+    house: 0,
+    pg: 0,
+    flatmates:0
+  });
   // const [propertiesCount,setPropertiesCount] = useState<>
   // const comments = [
   //   {
@@ -122,14 +125,15 @@ export default function Landing() {
     fetchProperties();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchPropertiesCount = async () => {
-  //     const res = await (getPropertiesCount());
+  useEffect(() => {
+    const fetchPropertiesCount = async () => {
+      const res = await (getPropertiesCount());
 
-  //     console.log(res.payload);
-  //   };
-  //   fetchPropertiesCount();
-  // }, []);
+      console.log(res);
+      setPropertyCounts(res);
+    };
+    fetchPropertiesCount();
+  }, []);
 
 
   useEffect(() => {
@@ -166,20 +170,20 @@ export default function Landing() {
           <div className="card-search-cont">
             <div className="count-card-cont">
               <div className="count-card">
-                <p className="card-title">165+</p>
+                <p className="card-title">{propertyCounts.apartment}+</p>
                 <p className="card-text">Private Flat</p>
               </div>
               <div className="count-card">
-                <p className="card-title">165+</p>
-                <p className="card-text">PG Rooms</p>
+                <p className="card-title">{propertyCounts.house}+</p>
+                <p className="card-text">Houses</p>
               </div>
               <div className="count-card">
-                <p className="card-title">165</p>
+                <p className="card-title">{propertyCounts.pg}+</p>
+                <p className="card-text">PG Rooms </p>
+              </div>
+              <div className="count-card">
+                <p className="card-title">{propertyCounts.flatmates ? propertyCounts.flatmates:0}+</p>
                 <p className="card-text">Shared Rooms</p>
-              </div>
-              <div className="count-card">
-                <p className="card-title">165</p>
-                <p className="card-text">Hotel Rooms</p>
               </div>
             </div>
             <div className="search-cont">
@@ -261,8 +265,8 @@ export default function Landing() {
             </div>
           </div>
           <div className="landing-card-cont">
-            {filteredProperties.map((property) => (
-              <LandingPageCard key={property.id} item={property} small={false} />
+            {filteredProperties.slice(0, 6).map((property) => (
+                  <LandingPageCard key={property.id} item={property} small={false} />
             ))}
           </div>
 

@@ -4,6 +4,8 @@ import { submitFeedback } from '../../RentalServices/Services/feedbackService';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetailsById } from '../../RentalServices/Slicer/user/userThunk'; // Import your thunk
 import { RootState,AppDispatch } from '../../store/myAppStore'; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
   const RateUs: React.FC = () => {
     const [rating, setRating] = useState<number | null>(null);
@@ -39,19 +41,25 @@ import { RootState,AppDispatch } from '../../store/myAppStore';
       };
   
       try {
-        console.log(feedback)
+        console.log(feedback);
         await submitFeedback(feedback); // Call the service function
-        alert('Thank you for your feedback!');
+  
+        // Replace alert with toast notification
+        toast.success('Thank you for your feedback!');
+  
+        // Reset the form fields
         setRating(null);
         setFeedbackText('');
         setLocation('');
       } catch (error: any) {
-        alert(error.message || 'An error occurred. Please try again.');
+        // Replace alert with toast notification
+        toast.error(error.message || 'An error occurred. Please try again.');
       }
     };
   
     return (
       <div className="rate-us-container">
+           <ToastContainer />
         <h3>Rate Us</h3>
   
         {/* Location Input */}

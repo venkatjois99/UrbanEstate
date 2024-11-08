@@ -109,6 +109,9 @@ const DashboardLayout: React.FC = ({  }) => {
                   <Nav.Link as={Link} to="/dashboard/chat" active={location.pathname === '/dashboard/chat'}>
                     Chat with Tenants
                   </Nav.Link>
+                  <Nav.Link as={Link} to="/dashboard/rate-us" active={location.pathname === '/dashboard/rate-us'}>
+                    Rate Us
+                  </Nav.Link>
                 </>
               )}
             </Nav>
@@ -151,6 +154,9 @@ const DashboardLayout: React.FC = ({  }) => {
                   </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/chat" active={location.pathname === '/dashboard/chat'}>
                     Chat with Tenants
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/dashboard/rate-us" active={location.pathname === '/dashboard/rate-us'}>
+                    Rate Us
                   </Nav.Link>
                 </>
               )}
