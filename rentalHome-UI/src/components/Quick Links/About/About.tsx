@@ -1,14 +1,13 @@
 import './About.css';
-// import Header from '../Header/header';  
-// import Footer from '../Footer/footer';
- import NavBars from '../../header/header'
+import NavBars from '../../header/header'
 import Footer from '../../footer/footer';
- 
+
 const About= () => {
    
   return (
     <>
-        <NavBars />
+        {/* <NavBars /> */}
+        
         <div className="overview-wrapper">
             <div className="text-area" data-aos="fade-up" data-aos-delay="200">
                 <h1>About Us</h1>
@@ -40,7 +39,7 @@ const About= () => {
                 </p>
             </div>
         </div>
-        <Footer />
+        <Footer showExtra />
     </>
 );
 };

@@ -159,7 +159,7 @@ export default function Landing() {
 
   return (
     <>
-      <NavBars />
+      {/* <NavBars /> */}
 
       <div className="landing-cont-2">
         <div className="hero-cont">

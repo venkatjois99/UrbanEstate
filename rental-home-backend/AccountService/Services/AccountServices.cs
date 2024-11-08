@@ -37,6 +37,10 @@ namespace AccountService.Services
             _emailSender = emailSender;
         }
 
+        public AccountServices(AccountDBContext context)
+        {
+            _dbContext = context;
+        }
 
         public async Task<IEnumerable<UserDTOModel>> GetAllUsersService()
         {
@@ -110,11 +114,11 @@ namespace AccountService.Services
             return (201, "User registered successfully");
         }
 
-        public async Task<(int, string)> DeleteUserService(string id)
+        public async Task<(int, string)> DeleteUserService(string email)
         {
             // Find the user in the database by their ID
-            var deleteUser = await _userManager.FindByIdAsync(id);
-            if (deleteUser == null)
+            var deleteUser = await _userManager.FindByEmailAsync(email);
+            if (deleteUser == null) 
             {
                 return (404, "User not found"); // Return 404 if the user is not found
             }

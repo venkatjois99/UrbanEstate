@@ -65,7 +65,7 @@ const PropertyDetails = () => {
 
   return (
     <div>
-      <NavBars />
+      {/* <NavBars /> */}
       <div className="singlePage">
         <div className="imageSection">
           <Slider images={propertyItem.images} />

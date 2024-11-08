@@ -6,7 +6,7 @@ import NavBars from '../../header/header';
 const TermsAndConditions: React.FC = () => {
   return (
     <>
-    <NavBars />
+    {/* <NavBars /> */}
     <div className="terms-wrapper">
       <h2>Terms and Conditions</h2>
       <p>
@@ -27,7 +27,7 @@ const TermsAndConditions: React.FC = () => {
         For more details on how we handle user data, please refer to our <a href="/privacy-policy">privacy policy</a>.
       </p>
     </div>
-    <Footer />
+    <Footer showExtra />
     </>
   );
 };

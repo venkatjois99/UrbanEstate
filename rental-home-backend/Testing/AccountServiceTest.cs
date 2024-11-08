@@ -1,113 +1,90 @@
-﻿//using Moq;
-//using NUnit.Framework;
-//using AccountService.Controllers;
-//using AccountService.Models.ModelsDTO;
-//using AccountService.Repository;
-//using Microsoft.AspNetCore.Mvc;
-//using System;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using AccountService.Models;
+﻿using NUnit.Framework;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AccountService.Models;
+using AccountService.Services;
+using AccountService.DAO;
 
-//namespace AccountService.Tests
-//{
-//    [TestFixture]
-//    public class AccountControllerTests
-//    {
-//        private Mock<IAccountRepository> _mockAccountRepo;
-//        private AccountController _controller;
+namespace Account_Service.Tests
+{
+    [TestFixture]
+    public class UserRepoTests
+    {
+        private AccountDBContext _context;
+        private AccountServices _userRepo;
 
-//        [SetUp]
-//        public void Setup()
-//        {
-//            // Arrange: Create the mock repository and the controller
-//            _mockAccountRepo = new Mock<IAccountRepository>();
-//            _controller = new AccountController(_mockAccountRepo.Object);
-//        }
+        [SetUp]
+        public void Setup()
+        {
+            var options = new DbContextOptionsBuilder<AccountDBContext>()
+                .UseInMemoryDatabase(databaseName: "TestUsersDB")
+                .Options;
 
-//        #region GetAllUsers Tests
+            _context = new AccountDBContext(options);
 
-//        [Test]
-//        public async Task GetAllUsers_ShouldReturnOkResult_WhenUsersExist()
-//        {
-//            // Arrange: Mock the service method
-//            var mockUsers = new List<UserDTOModel>
-//            {
-//                new UserDTOModel { UserId = 1, UserName = "User1", Email = "user1@example.com" },
-//                new UserDTOModel { UserId = 2, UserName = "User2", Email = "user2@example.com" }
-//            };
+            // Seed the in-memory database with test data
+            SeedDatabase();
 
-//            _mockAccountRepo.Setup(repo => repo.GetAllUsersService()).ReturnsAsync(mockUsers);
+            _userRepo = new AccountServices(_context);
+        }
 
-//            // Act: Call the GetAllUsers action
-//            var result = await _controller.GetAllUsers();
+        private void SeedDatabase()
+        {
+            if (!_context.Users.Any())
+            {
+                var users = new List<UserModel>
+                {
+                    new UserModel { UserId = 1, UserName = "User1", Email = "user1@example.com",PhoneNumber="123",Password="Admin@12" ,UserRole = "tenant" },
+                    new UserModel { UserId = 2, UserName = "Admin", Email = "admin@example.com",PhoneNumber="1234",Password="Adin@12" ,UserRole = "admin" },
+                    new UserModel { UserId = 3, UserName = "User2", Email = "user2@example.com",PhoneNumber="1235",Password="Amin@12" ,UserRole = "owner" }
+                };
 
-//            // Assert: Verify the result
-//            var objectResult = result as ObjectResult;  // Cast to ObjectResult (the base type)
-//            Assert.IsNotNull(objectResult);
-//            Assert.AreEqual(200, objectResult.StatusCode); // Status code 200 OK
+                _context.Users.AddRange(users);
+                _context.SaveChanges();
+            }
+        }
 
-//            var users = objectResult.Value as List<UserDTOModel>;
-//            Assert.IsNotNull(users);
-//            Assert.AreEqual(2, users.Count); // Ensure there are 2 users
-//        }
+        [TearDown]
+        public void TearDown()
+        {
+            _context.Database.EnsureDeleted();
+            _context.Dispose();
+        }
 
-//        [Test]
-//        public async Task GetAllUsers_ShouldReturnNotFound_WhenNoUsersExist()
-//        {
-//            // Arrange: Mock the service method to return an empty list
-//            _mockAccountRepo.Setup(repo => repo.GetAllUsersService()).ReturnsAsync(new List<UserDTOModel>());
+        [Test]
+        public async Task GetAllUsersAsync_ShouldReturnAllUsers()
+        {
+            // Act
+            var users = await _userRepo.GetAllUsersService();
 
-//            // Act: Call the GetAllUsers action
-//            var result = await _controller.GetAllUsers();
+            // Assert
+            Assert.IsNotNull(users);
+            Assert.AreEqual(3, users.Count());
+        }
 
-//            // Assert: Verify the result
-//            var objectResult = result as ObjectResult;  // Cast to ObjectResult (the base type)
-//            Assert.IsNotNull(objectResult);
-//            Assert.AreEqual(404, objectResult.StatusCode); // Status code 404 Not Found
-//            Assert.AreEqual("No users found.", objectResult.Value); // The message should be "No users found."
-//        }
+        //[Test]
+        //public async Task GetUserByIdAsync_ExistingUserId_ShouldReturnUser()
+        //{
+        //    // Act
+        //    var user = await _userRepo.GetByIdService(1);
 
-//        #endregion
+        //    // Assert
+        //    Assert.IsNotNull(user);
+        //    Assert.AreEqual("User1", user.UserName);
+        //}
 
-//        #region GetUserById Tests
+        [Test]
+        public async Task GetUserByIdAsync_NonExistentUserId_ShouldReturnNull()
+        {
+            // Act
+            var user = await _userRepo.GetByIdService("99");
 
-//        [Test]
-//        public async Task GetUserById_ShouldReturnOkResult_WhenUserExists()
-//        {
-//            // Arrange: Mock the service method
-//            var mockUser = new UserDTOModel { UserId = 1, UserName = "User1", Email = "user1@example.com" };
-//            _mockAccountRepo.Setup(repo => repo.GetByIdService("1")).ReturnsAsync(mockUser);
+            // Assert
+            Assert.IsNull(user);
+        }
 
-//            // Act: Call the GetUserById action
-//            var result = await _controller.GetUserById("1");
-
-//            // Assert: Verify the result
-//            var objectResult = result as ObjectResult;  // Cast to ObjectResult (the base type)
-//            Assert.IsNotNull(objectResult);
-//            Assert.AreEqual(200, objectResult.StatusCode); // Status code 200 OK
-
-//            var user = objectResult.Value as UserDTOModel;
-//            Assert.IsNotNull(user);
-//            Assert.AreEqual("User1", user.UserName); // Ensure the username matches
-//        }
-
-//        [Test]
-//        public async Task GetUserById_ShouldReturnNotFound_WhenUserDoesNotExist()
-//        {
-//            // Arrange: Mock the service method to return null
-//            _mockAccountRepo.Setup(repo => repo.GetByIdService("99")).ReturnsAsync((UserDTOModel)null);
-
-//            // Act: Call the GetUserById action
-//            var result = await _controller.GetUserById("99");
-
-//            // Assert: Verify the result
-//            var objectResult = result as ObjectResult;  // Cast to ObjectResult (the base type)
-//            Assert.IsNotNull(objectResult);
-//            Assert.AreEqual(404, objectResult.StatusCode); // Status code 404 Not Found
-//            Assert.AreEqual("User with id 99 not found.", objectResult.Value); // The message should match
-//        }
-
-//        #endregion
-//    }
-//}
+    }
+}

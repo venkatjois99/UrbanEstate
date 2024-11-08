@@ -6,7 +6,7 @@ import Footer from '../../footer/footer';
 const PrivacyPolicy: React.FC = () => {
   return (
     <>
-    <NavBars></NavBars>
+    {/* <NavBars></NavBars> */}
     <div className={styles.container}>
       <h1 className={styles.title}>Privacy Policy </h1>
       <p className={`${styles.paragraph} ${styles.bold}`}>
@@ -89,7 +89,7 @@ const PrivacyPolicy: React.FC = () => {
           
       </p>
     </div>
-    <Footer></Footer>
+    <Footer showExtra></Footer>
     </>
   );
 };

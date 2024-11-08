@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
-import {getAllUsers} from '../../RentalServices/Services/userService'
+import {deleteUser, getAllUsers} from '../../RentalServices/Services/userService'
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 interface User {
   userId: number;
@@ -14,6 +17,7 @@ const AdminUsers: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // Loading state to show a loading indicator
   const [error, setError] = useState<string | null>(null); // Error state to display any potential errors
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch users using the getAllUsers function
@@ -32,21 +36,27 @@ const AdminUsers: React.FC = () => {
     fetchUsers();
   }, []); // Empty dependency array to run only once when the component mounts
 
-  const handleDelete = (userId: number) => {
-    // Handle user deletion
-    axios
-      .delete(`/api/users/${userId}`)
-      .then(() => {
-        setUsers(users.filter((user) => user.userId !== userId));
-      })
-      .catch((err) => {
-        setError('Failed to delete user. Please try again later.');
-        console.error(err);
-      });
+  const handleDelete = async (email: string) => {
+    try {
+      // Handle user deletion and await the response
+      const response = await deleteUser(email);
+      
+      if (response.status === 200) {
+        toast.success('User deleted successfully');
+        setTimeout(() => navigate(0), 1000);
+        // console.log('User deleted successfully');
+        // Optionally update state/UI here, e.g., removing the user from the list
+      } else {
+        toast.error('Error deleting user');
+      }
+    } catch (error: any) {
+      console.error('Error in handleDelete:', error);
+      toast.error(error);
+    }
   };
-
   return (
     <div>
+      <ToastContainer/>
       <h3>Users</h3>
       {loading && <p>Loading...</p>} {/* Display loading message while fetching users */}
       {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message if there's an error */}
@@ -66,7 +76,7 @@ const AdminUsers: React.FC = () => {
               <td>{user.email}</td>
               <td>{user.phoneNumber}</td>
               <td>
-                <Button variant="danger" onClick={() => handleDelete(user.userId)}>
+                <Button variant="danger" onClick={() => handleDelete(user.email)}>
                   Delete
                 </Button>
               </td>

@@ -9,7 +9,7 @@ import './sellpage.css';
 const SellPage: React.FC = () => {
   return (
     <>
-      <NavBars />
+      {/* <NavBars /> */}
       <div className="proppage">
   
           <PropertyListing />

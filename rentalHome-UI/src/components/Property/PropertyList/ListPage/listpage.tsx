@@ -109,7 +109,7 @@ const ListPage: React.FC = () => {
     : null;
   return (
     <>
-      <NavBars />
+      {/* <NavBars /> */}
       <div className="list-page">
         <div className="list-page-search-cont">
           <div className="list-page-search-holder">

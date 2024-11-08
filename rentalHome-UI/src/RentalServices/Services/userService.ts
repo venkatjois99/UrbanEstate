@@ -81,3 +81,23 @@ export const forgotPasswordService = async(email:string)=>{
     throw error; // Rethrow the error for further handling
   }
 }
+
+
+export const deleteUser = async (email: string) => {
+  try {
+    const response = await axios.delete(`${url}/${email}`);
+    console.log('User deleted:', response);
+    return response;
+  } catch (error: any) {
+    // Check for 401 Unauthorized or other errors
+    if (error.response) {
+      // The request was made, but the server responded with an error
+      console.error('Server error:', error.response);
+      throw error.response;
+    } else {
+      // Something else happened while setting up the request
+      console.error('Unexpected error:', error);
+      throw new Error('An unexpected error occurred.');
+    }
+  }
+};

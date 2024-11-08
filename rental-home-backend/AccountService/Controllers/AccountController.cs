@@ -20,7 +20,7 @@ namespace AccountService.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<ActionResult<IEnumerable<UserDTOModel>>> GetAllUsers()
         {
             try
@@ -103,12 +103,12 @@ namespace AccountService.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteUser(string id)
+        [HttpDelete("{email}")]
+        public async Task<ActionResult> DeleteUser(string email)
         {
             try
             {
-                var (statusCode, message) = await _accountRepository.DeleteUserService(id);
+                var (statusCode, message) = await _accountRepository.DeleteUserService(email);
                 if (statusCode == 404)
                 {
                     return NotFound(message);
