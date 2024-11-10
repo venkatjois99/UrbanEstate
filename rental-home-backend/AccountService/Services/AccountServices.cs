@@ -41,7 +41,6 @@ namespace AccountService.Services
         {
             _dbContext = context;
         }
-
         public async Task<IEnumerable<UserDTOModel>> GetAllUsersService()
         {
             var users = await _dbContext.Users.ToListAsync();
@@ -228,7 +227,7 @@ namespace AccountService.Services
             {
                 Issuer = _configuration["JWT:validIssuer"],
                 Audience = _configuration["JWT:validAudience"],
-                Expires = DateTime.UtcNow.AddMinutes(3),
+                Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(authSignKey, SecurityAlgorithms.HmacSha256),
                 Subject = new ClaimsIdentity(claims)
             };

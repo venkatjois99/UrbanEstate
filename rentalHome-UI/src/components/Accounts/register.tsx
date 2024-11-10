@@ -65,14 +65,14 @@ function Register(props: any) {
           templateParams,
           'WA4TH73BMASrl-8QC'    // Replace with your EmailJS User ID
         );
-        console.log(res);
+        // console.log(res);
         toast.success('Verification email sent! Please check your inbox.', {
           autoClose: 3000, // Toast will auto-close after 3 seconds
           onClose: () => handleClose() // Close the modal after toast disappears
         });
         setIsSubmitting(false);
       } catch (error) {
-        console.error('Failed to send verification email:', error);
+        // console.error('Failed to send verification email:', error);
         toast.error('Failed to send verification email.');
         setIsSubmitting(false);
       }

@@ -33,7 +33,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ propertyId, propertyUserId }) => {
                     if (response.payload && response.payload.userName) {
                         setSenderName(response.payload.userName);
                     }
-                    console.log('Fetched sender name:', response.payload.userName);
+                    // console.log('Fetched sender name:', response.payload.userName);
                 }
             } catch (error) {
                 console.error("Error fetching user details:", error);
@@ -44,7 +44,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ propertyId, propertyUserId }) => {
     }, [dispatch, userIdFromStore]);
 
     useEffect(() => {
-        console.log(senderName);
+        // console.log(senderName);
         const fetchMessages = async () => {
             try {
                 const messagesData = await getMessages(propertyId, userIdFromStore, propertyUserId);
@@ -59,7 +59,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ propertyId, propertyUserId }) => {
 
     const handleSendMessage = async () => {
         if (!senderName) {
-            console.log('Sender name is missing');
+            // console.log('Sender name is missing');
             return; // Prevent sending if senderName is empty
         }
 

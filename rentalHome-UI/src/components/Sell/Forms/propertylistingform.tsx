@@ -4,10 +4,8 @@ import * as Yup from "yup";
 import ApartmentForm from "./ApartmentForm";
 import PGHostelForm from "./PGHostelForm";
 import FlatmateForm from "./FlatmateForm";
-
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
-
 import "../sellpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -66,11 +64,10 @@ const PropertyListing: React.FC = () => {
       address: "",
       rent: 0,
       description: "",
-      images: [], // Add this line
+      images: [],
       pgSharingType: "",
       pgLivingType: "",
       availableRooms: 0,
-      // sharingType: "",
       sharedBedrooms: 0,
       furnishing: "",
       preferredFlatmate: "",
@@ -81,7 +78,7 @@ const PropertyListing: React.FC = () => {
     validationSchema,
 
     onSubmit: async (values) => {
-      console.log("Form Submitted values:", { ...values, images: imageFiles });
+      // console.log("Form Submitted values:", { ...values, images: imageFiles });
       
       try {
         // Show the loading SweetAlert while submitting
@@ -97,10 +94,10 @@ const PropertyListing: React.FC = () => {
         const tokenUserId = getTokenData(localStorage.getItem('token'));
         const imageUrls = await uploadImagesToCloudinary(imageFiles);
         const submitValues = { ...values, images: imageUrls, userId: tokenUserId?.id };
-        console.log("Cloudinary Submitted values:", submitValues);
+        // console.log("Cloudinary Submitted values:", submitValues);
         
         const res = await dispatch(createPropertyThunk(submitValues));
-        console.log(res);
+        // console.log(res);
         
         if (res.type === 'property/createPropertyThunk/fulfilled') {
           // Close the SweetAlert loading modal
@@ -108,20 +105,20 @@ const PropertyListing: React.FC = () => {
           toast.success("Property created successfully!"); // Success toast
     
           const updateRes = await dispatch(updateOwnerRole(userIdFromStore));
-          console.log(updateRes);
+          // console.log(updateRes);
     
           if (updateRes.type === 'owner/updateOwnerRole/fulfilled') {
             toast.success("Owner role updated successfully!");
           }
           handleReset(); 
-          navigate('/');
+          navigate('/dashboard/my-properties');
         } else {
           // Close the SweetAlert loading modal
           Swal.close();
           toast.error("Failed to create property. Please try again."); // Error toast for property creation failure
         }
       } catch (error) {
-        console.error("Error uploading images:", error);
+        // console.error("Error uploading images:", error);
         // Close the SweetAlert loading modal
         Swal.close();
         toast.error("Error uploading images. Please try again."); // Error toast
@@ -132,7 +129,6 @@ const PropertyListing: React.FC = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files) return;
-
     const newFiles = Array.from(files);
     setImageFiles((prev) => [...prev, ...newFiles]);
     propertyForm.setFieldValue("images", [
@@ -158,16 +154,12 @@ const PropertyListing: React.FC = () => {
     setSelectedLocation(position);
     console.log(selectedLocation);
   };
-  const handleCitySelect = (city: string, location: [number, number]) => {
+  const handleCitySelect = (location: [number, number]) => {
     setMapCenter(location); // Set the map center to the selected city location
   };
-
- 
-
   return (
     <div className="property-listing">
            <ToastContainer />
-
       <form onSubmit={propertyForm.handleSubmit} className="property-form">
         <div className="property-type-section">
           <label>Select Property Type:</label>
@@ -411,9 +403,7 @@ const PropertyListing: React.FC = () => {
                   onClick={() => handleRemoveImage(index)}
                   className="remove-button"
                 >
-                  <FontAwesomeIcon icon={faTimes} />{" "}
-                  {/* Using Font Awesome icon */}
-                </button>
+                  <FontAwesomeIcon icon={faTimes} />{" "}</button>
               </div>
             ))}
           </div>
@@ -456,5 +446,4 @@ const PropertyListing: React.FC = () => {
     </div>
   );
 };
-
 export default PropertyListing;

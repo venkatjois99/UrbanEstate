@@ -20,6 +20,7 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
   const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const userIdFromStore = useSelector((state: RootState) => state.user.userId);
+    const loginStatus = useSelector((state: RootState) => state.user.isLoggedIn);
     const favorites = useSelector((state: RootState) => state.favourites.favorites);
     
     // Check if the current property is a favorite
@@ -35,7 +36,7 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
     // Handle adding or removing favorites
     const handleFavoriteClick = (event: React.MouseEvent) => {
       event.stopPropagation();
-      console.log("clicked",userIdFromStore);
+      // console.log("clicked",userIdFromStore);
         if (!userIdFromStore) return;
 
         if (isFavorite) {
@@ -58,9 +59,9 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
        <img src={item.images ? item.images[0] : 'default-image.jpg'} className="list-img-holder" alt={item.title} />         
         </div>
         <div className="card-info-cont">
-          <h5>{item.title}</h5>
+          <h5>{extraShow ?item.title: item.title.slice(0, 20) + '...'}</h5>
           <p>{item.location}</p>
-          <p>{item.description}</p>
+          <p>{item.description.length > 50 ? item.description.slice(0, 50) + '...' : item.description}</p>
           <h5>₹{item.rent}</h5>
         </div>
        </div>
@@ -68,8 +69,8 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
           <p>
     <FontAwesomeIcon icon={faHome} color="#216B9B" />
     {item.propertyType === 'apartment' || item.propertyType === 'house' ? item.bhkType : 
-     item.propertyType === 'pg' ?` ${item.pgSharingType} sharing` : 
-     item.propertyType === 'flatmates' ? item.sharedBedrooms : ''}
+     item.propertyType === 'pg' ?` ${item.pgSharingType}` : 
+     item.propertyType === 'flatmates' ? item.sharedBedrooms+" shared Rooms" : ''}
   </p>       <p>
  
   {item.propertyType === 'apartment' || item.propertyType === 'house' ?<> <FontAwesomeIcon icon={faChair} color="#216B9B" /> {item.furnishing} </> : ''} 
@@ -78,7 +79,7 @@ const ListPageCard: React.FC<CardProps> = ({ item,extraShow }) => {
 </p>
         <p><FontAwesomeIcon icon={faCalendarAlt} color="#216B9B" /> {item.postingDate.slice(0, item.postingDate.indexOf('T'))}</p>
           </div>}
-          <FavoriteIcon onIconClick={handleFavoriteClick} isFavorited={isFavorite} className="favourite-icon" />
+         {loginStatus && <FavoriteIcon onIconClick={handleFavoriteClick} isFavorited={isFavorite} className="favourite-icon" />}
       </div>
   </div>
   );

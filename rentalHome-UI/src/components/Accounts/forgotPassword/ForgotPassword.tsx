@@ -12,13 +12,13 @@ const ForgotPassword = () => {
 
 
     try {
-        console.log(email);
+        // console.log(email);
         const res =await forgotPasswordService(email);
-        console.log(res);
+        // console.log(res);
       
       setMessage("If the email is registered, a reset link has been sent.");
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setMessage("Error: Could not send reset link.");
     }
   };

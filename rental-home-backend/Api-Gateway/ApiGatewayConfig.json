@@ -1,33 +1,3 @@
-//{
-//    "Routes": [
-//        {
-//            "DownstreamPathTemplate": "/api/Account",
-//            "DownstreamSchema": "https",
-//            "DownstreamHostAndPorts": [
-//                {
-//                    "Host": "localhost",
-//                    "Port": 7212
-//                }
-//            ],
-//            "UpstreamPathTemplate": "/gateway/Account",
-//            "UpstreamHttpMethod": [ "Get", "Post" ]
-//        },
-//        {
-//            "DownstreamPathTemplate": "/api/Account/{id}",
-//            "DownstreamSchema": "https",
-//            "DownstreamHostAndPorts": [
-//                {
-//                    "Host": "localhost",
-//                    "Port": 7212
-//                }
-//            ],
-//            "UpstreamPathTemplate": "/gateway/Account/{id}",
-//            "UpstreamHttpMethod": [ "Get" ]
-//        }
-//    ]
-
-//}
-
 {
     "Routes": [
         {

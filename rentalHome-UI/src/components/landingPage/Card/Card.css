@@ -1,22 +1,18 @@
 .landing-card{
     width: 25vw;
-    height: fit-content;
-    /* min-width: 144px;
-    min-height: 28vw; */
+    height: 30vw;
     border: 1px solid rgb(152, 152, 152);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     padding: 15px;
     gap: 1vw;
-
 }
 .landing-card.small {
-    
-    max-width: 150px;
-    max-height: 200px; 
-   
-    
+    border: none;
+    width: 150px;
+    height: 200px; 
+   padding: 0px;    
 }
 .landing-card-textContainer{
     text-align: start;

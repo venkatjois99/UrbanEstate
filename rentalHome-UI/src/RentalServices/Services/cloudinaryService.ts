@@ -14,7 +14,7 @@ const uploadImagesToCloudinary = async (files:File[]) => {
         const response = await axios.post(cloudinaryUrl, formData);
         urls.push(response.data.secure_url); // Push the secure URL to the array
       } catch (error) {
-        console.error("Error uploading image:", error);
+        // console.error("Error uploading image:", error);
         throw error; // Optional: Rethrow the error to handle it in the calling function
       }
     }

@@ -1,5 +1,3 @@
-import Carousel from "react-bootstrap/Carousel";
-import NavBars from "../header/header";
 import "./landing.css";
 import ApartmentIcon from "../../assets/icons/apartmentIcon";
 import HouseIcon from "../../assets/icons/houseIcon";
@@ -23,7 +21,6 @@ import { getFeedbacks } from "../../RentalServices/Services/feedbackService";
 
 export default function Landing() {
   const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null);
-  // const [selectedCity, setSelectedCity] = useState<string>(""); // State for selected city
   const [selectedPropertyType, setSelectedPropertyType] = useState<string | null>(null);
   const [comments, setComments] = useState<Feedback[]>([]);
   const [propertyCounts, setPropertyCounts] = useState({
@@ -32,87 +29,7 @@ export default function Landing() {
     pg: 0,
     flatmates:0
   });
-  // const [propertiesCount,setPropertiesCount] = useState<>
-  // const comments = [
-  //   {
-  //     name: "Alice Johnson",
-  //     location: "San Francisco",
-  //     comment:
-  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-  //     profileImage:
-  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-  //     rating: 4.5,
-  //   },
-  //   {
-  //     name: "Bob Smith",
-  //     location: "New York",
-  //     comment:
-  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-  //     profileImage:
-  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-  //     rating: 4,
-  //   },
-  //   {
-  //     name: "Sumanth Johnson",
-  //     location: "San Francisco",
-  //     comment:
-  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-  //     profileImage:
-  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-  //     rating: 3.5,
-  //   },
-  //   {
-  //     name: "Bob Smith",
-  //     location: "New York",
-  //     comment:
-  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-  //     profileImage:
-  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-  //     rating: 5,
-  //   },
-  //   {
-  //     name: "Abhishek Johnson",
-  //     location: "San Francisco",
-  //     comment:
-  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-  //     profileImage:
-  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-  //     rating: 4.5,
-  //   },
-  //   {
-  //     name: "Sagar Smith",
-  //     location: "New York",
-  //     comment:
-  //       "Urban Estate made finding my perfect apartment so easy! The verified listings gave me peace of mind, and the whole process was smooth from start to finish.",
-  //     profileImage:
-  //       "https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg",
-  //     rating: 3.5,
-  //   },
-  // ];
-
-
-  // Locations array for each city
-  // const cityLocations: Record<string, LatLngExpression[]> = {
-  //   Bangalore: [
-  //     [12.9715987, 77.5945627], // Bangalore City Center
-  //     [12.935192, 77.6244807], // Koramangala
-  //     [12.914641935578215, 77.5565153360094],
-  //     [12.849954307349948, 77.65718400475636],
-  //     [13.0057, 76.096],
-  //   ],
-  //   Chennai: [
-  //     [13.0827, 80.2707], // Chennai City Center
-  //     [13.067439, 80.237617], // Anna Nagar
-  //     [13.0825, 80.2705], // T Nagar
-  //   ],
-  //   Delhi: [
-  //     [28.6139, 77.209], // Delhi City Center
-  //     [28.7041, 77.1025], // New Delhi
-  //     [28.5355, 77.391], // Noida
-  //   ],
-  // };
-
-  const handleCitySelect = (city: string, location: [number, number]) => {
+  const handleCitySelect = (location: [number, number]) => {
     setMapCenter(location); // Set the map center to the selected city location
   };
 
@@ -120,7 +37,7 @@ export default function Landing() {
   useEffect(() => {
     const fetchProperties = async () => {
       const res = await dispatch(getPropertiesThunk());
-      console.log(res.payload);
+      // console.log(res.payload);
     };
     fetchProperties();
   }, []);
@@ -128,45 +45,36 @@ export default function Landing() {
   useEffect(() => {
     const fetchPropertiesCount = async () => {
       const res = await (getPropertiesCount());
-
-      console.log(res);
+      // console.log(res);
       setPropertyCounts(res);
     };
     fetchPropertiesCount();
   }, []);
 
-
   useEffect(() => {
     const fetchFeedbacks = async () => {
-
         const res = await getFeedbacks(); // Assuming this fetches the feedback data
         setComments(res); // Update state with the fetched data
-
     };
-
     fetchFeedbacks(); // Call the function to fetch data
   }, []);
-
 
   const handleIconClick = (type: string) => {
     setSelectedPropertyType(type);
   };
 
   const properties: Property[] = useSelector((state: { property: { properties: any; }; }) => state.property.properties);
-  const filteredProperties = selectedPropertyType
-    ? properties.filter(property => property.propertyType === selectedPropertyType)
-    : properties;
-
+  const filteredProperties = selectedPropertyType ? properties.filter(property => property.propertyType === selectedPropertyType): properties;
   return (
     <>
-      {/* <NavBars /> */}
-
       <div className="landing-cont-2">
         <div className="hero-cont">
+           {/*------------ Landing main container---------  */}
           <div className="header-caption">
             <h1>Find a Room, Make It Home</h1>
             <p>Discover Your Next Home Away from Home</p>
           </div>
+          {/* ------------SeacrhFilter Container */}
           <div className="card-search-cont">
             <div className="count-card-cont">
               <div className="count-card">
@@ -191,6 +99,7 @@ export default function Landing() {
             </div>
           </div>
         </div>
+        {/* -------------static information container ----------- */}
         <div className="info-text-cont">
           <div className="info-img"></div>
           <div className="info-text">
@@ -232,10 +141,8 @@ export default function Landing() {
               <div>
                 <h5>Secure Payment</h5>
                 <p>
-                  Complete your booking with secure payment options and receive
-                  instant confirmation, ensuring a smooth and trustworthy
-                  transaction.
-                </p>
+  We ensure your transaction is secure with the owner and provide support throughout the contract process, giving you peace of mind.
+</p>
               </div>
             </div>
             <div className="icon-text-cont">
@@ -243,16 +150,14 @@ export default function Landing() {
               <div>
                 <h5>Enjoy & Manage</h5>
                 <p>
-                  Move in and enjoy your new space while managing your rental
-                  details, requests, and payments effortlessly through our
-                  user-friendly platform.
-                </p>
+  Move in and enjoy your new space, while we provide ongoing support to help you manage rental details, requests, and payments effortlessly.
+</p>
               </div>
             </div>
           </div>
           <div></div>
         </div>
-
+        {/* -------------Icon search and card container------------- */}
         <div className="property-list-cont">
 
           <div>
@@ -275,17 +180,11 @@ export default function Landing() {
             <div></div>
           </div>
         </div>
+        {/* --------------Review Container -------------------- */}
         <div className="review-cont">
-
-          <div>
-            <h3>
-              What our
-              <br />
-              Customers say?
-            </h3>
-
+        <div> 
+          <h3> What our<br />Customers say?</h3>
             <div className="comment-cont">
-
               <div className="comment-carousel">
                 {comments.length === 0 ? (
                   <p>No feedback available.</p>
@@ -296,7 +195,6 @@ export default function Landing() {
                       name={comment.userName}
                       location={comment.location}
                       comment={comment.feedbackText}
-                      // profileImage={comment.profileImage}
                       rating={comment.rating}
                     />
                   ))
@@ -306,7 +204,7 @@ export default function Landing() {
           </div>
           <div className="sidebar-cont"></div>
         </div>
-
+        {/* ----------------Map and map Search container --------------- */}
         <div className="map-cont">
           <MyMap
             properties={properties} // Use all locations of selected city
@@ -320,35 +218,5 @@ export default function Landing() {
         <Footer showExtra={true} />
       </div>
     </>
-  );
-}
-
-function CarousalItemLanding() {
-  return (
-    <div className="carousal-container">
-      <Carousel slide={true} controls={false} fade>
-        <Carousel.Item>
-          <div className="img-holder bg-image-1"></div>
-          <Carousel.Caption>
-            <h2>Move-In Made Easy: Book Your Ideal Space!</h2>
-            <p>Helping renters find their perfect fit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="img-holder bg-image-2"></div>
-          <Carousel.Caption>
-            <h2>Move-In Made Easy: Book Your Ideal Space!</h2>
-            <p>Helping renters find their perfect fit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="img-holder bg-image-3"></div>
-          <Carousel.Caption>
-            <h2>Move-In Made Easy: Book Your Ideal Space!</h2>
-            <p>Helping renters find their perfect fit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    </div>
   );
 }

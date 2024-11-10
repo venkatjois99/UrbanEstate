@@ -64,19 +64,13 @@ setTimeout(() => {
     <MapContainer
     key={center ? center.toString() : 'default'}
     center={center || defaultCenter}
-      zoom={13}
+      zoom={12}
       scrollWheelZoom={true}
       className="map-container"
       >
         
    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-   {/* <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" /> */}
-
-
-
-
-      {/* Render existing positions as markers */}
       {positions.map((position, index) => (
         <Marker
           key={index}
@@ -90,9 +84,7 @@ setTimeout(() => {
             <div className="map-card-cont">
             <LandingPageCard item={properties[index]} small={true}/>
             </div>
-      {/* <a href={`/single/${properties[index].id}`}>{properties[index].title} {index + 1}</a> */}
     </Popup>
-   
         </Marker>
       ))}
 

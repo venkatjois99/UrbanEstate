@@ -12,14 +12,14 @@ const ResetPassword = () => {
   const handleResetPassword = async (e:any) => {
     e.preventDefault();
     try {
-      console.log(token);
-      console.log(email);
+      // console.log(token);
+      // console.log(email);
       const response = await axios.post('https://localhost:8080/gateway/Account/reset-password', { 
         email:email,
         token:token?.replace(/\s/g,'+'),
         newPassword:newPassword
        });
-       console.log(response);
+      //  console.log(response);
       setMessage("Your password has been reset successfully!");
     } catch (error) {
       setMessage("Error: Could not reset password.");

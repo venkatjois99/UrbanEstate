@@ -75,7 +75,7 @@ const MyProperties =()=>{
             toast.success("Property deleted successfully!"); // Show success toast
             setTimeout(() => navigate(0), 1000);
           } catch (error) {
-            console.error("Error deleting property:", error);
+            // console.error("Error deleting property:", error);
             toast.error("Failed to delete property. Please try again."); // Show error toast
           }
         }
@@ -121,8 +121,8 @@ const MyProperties =()=>{
           longitude: updatedProperty.longitude ?? null, // Handle null values
         };
       
-        console.log(updatedProperty);
-        console.log(propertyForBackend);
+        // console.log(updatedProperty);
+        // console.log(propertyForBackend);
       
         try {
           // Dispatch the update action
@@ -137,7 +137,7 @@ const MyProperties =()=>{
       
           setEditingPropertyId(null); // Reset the edit state after submitting
         } catch (error) {
-          console.error("Error updating property:", error);
+          // console.error("Error updating property:", error);
           toast.error("An error occurred while updating the property. Please try again."); // Error toast for catching any errors
         }
       };

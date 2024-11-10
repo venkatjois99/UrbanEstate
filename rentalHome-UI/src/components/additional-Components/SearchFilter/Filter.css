@@ -70,15 +70,19 @@
 }
 /* Style for the container */
 .filter-dropdown-cont {
-  background-color: white; /* White background */
-  border: 1px solid #ddd;  /* Optional border */
-  border-radius: 4px;      /* Rounded corners */           /* Full width */
-  max-height: 200px;       /* Optional max height for scrollable content */
-  overflow-y: auto;        /* Enables scrolling if content overflows */
-  position: absolute;      /* Position it absolutely */
-  z-index: 1000;     
-  bottom: 1vw;      /* Keeps it above other content */
-  width: 27vw;
+  position: relative;
+  left: 12;   /* Aligns it to the left of the input */
+  width: 27vw; /* Ensure it matches the width of the input */
+  max-height: 50px; /* Optional: restricts the height for scrolling */
+  overflow: hidden;
+    background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px 0; /* Padding for space around items */
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds shadow */
+  z-index: 10; /* Makes sure the dropdown is above other content */
 }
 
 /* Remove bullets from list items */
@@ -93,11 +97,11 @@
 .filter-dropdown-item li {
   padding: 10px;
   cursor: pointer;
-  border-bottom: 1px solid #f0f0f0; /* Optional subtle divider between items */
+  border-bottom: 1px solid #f0f0f0; /* Divider between items */
 }
 
 /* Hover effect for each item */
 .filter-dropdown-item li:hover {
   text-decoration: underline; /* Underline on hover */
-  background-color: #f7f7f7;  /* Optional hover background color */
+  background-color: #f7f7f7;  /* Hover background color */
 }

@@ -8,7 +8,6 @@
 .landing-cont-2 h3{
   font-weight: 700;
 }
-
 /*------------------- landing container holder----------------------------- */
 .hero-cont {
   background-image: url(../../assets/Hero.svg);
@@ -19,7 +18,6 @@
   margin: 5vh;
   border-radius: 30px;
 }
-
 .header-caption {
   margin: 5vh;
   display: flex;
@@ -48,22 +46,17 @@
   border-radius: 12px;
   width: 8vw;
 }
-
 .card-title {
   font-size: 3vw;
   font-weight: 700;
 }
-
 .card-text {
   font-size: smaller;
 }
-
 .search-cont{
   margin: 8vw 0 0 3vw;
 }
-
 /* -------------------info text ---------------------*/
-
 .info-text-cont {
   display: flex;
   align-items: center;
@@ -94,46 +87,6 @@
     gap: 15px;
     align-items: start;
 }
-
-/* -----------------Carousal component styles ------------------------------- */
-.carousal-container {
-  width: calc(100% - 10vh);
-  margin: 0 auto; /* Centers it horizontally */
-  box-sizing: border-box; /* Ensure margins are included in width calculation */
-}
-.img-holder {
-  height: 500px; /* Set the height of the div */
-  width: 100%; /* Make it responsive to the container */
-  background-size: cover; /* Ensure the background image covers the div */
-  background-position: center; /* Center the background image */
-  border-radius: 16px;
-}
-.carousel-caption {
-  position: absolute !important;
-  top: 20%;
-  left: 50%;
-  text-align: center !important; /* Center the text inside the caption */
-}
-h2 {
-  font-weight: bold;
-  margin: 0; /* Remove default margins */
-}
-p {
-  margin: 0; /* Remove default margins */
-}
-
-.bg-image-1 {
-  background-image: url("src/assets/Background1.svg");
-}
-
-.bg-image-2 {
-  background-image: url("src/assets/Background2.svg");
-}
-
-.bg-image-3 {
-  background-image: url("src/assets/Background3.svg");
-}
-
 /* ---------------------- property list styles ----------------------- */
 .property-list-cont {
   display: flex;
@@ -148,7 +101,6 @@ p {
   align-items: center;
   gap: 1vw;
 }
-
 .icon {
   width: 110px;
   color: black;
@@ -157,7 +109,6 @@ p {
 .icon:active {
   color: #216B9B;
 }
-
 .card-cont {
   text-align: start;
 }
@@ -165,7 +116,6 @@ p {
 .review-cont{
   width: 89vw;
   display: flex;
-
 }
 .comment-cont {
   display: flex;
@@ -174,14 +124,11 @@ p {
   height: 400px; /* Adjust height as needed */
   width: 40vw;
 }
-
 .comment-carousel {
-
   display: flex;
   flex-direction: column;
   animation: scroll 40s linear infinite;
 }
-
 @keyframes scroll {
   0% {
     transform: translateY(0);
@@ -197,33 +144,26 @@ p {
   background-repeat: no-repeat;
   width: 90%;
   height: 40vw;
-
 }
-
 /* landingCard */
 .landing-card-cont {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
   gap: 20px; /* space between cards */
 }
-
 .landing-card-cont > * {
   height: 300px; /* adjust height as needed */
 }
-
 /*------------------------------ map style------------------------------- */
 .map-cont{
   margin: 5vh;
   height: 35vw;
   width: 86vw;
   border-radius: 20px;
-  /* box-shadow:  3px 6px 10px rgba(0, 0, 0, 0.4); */
 }
-
 .map-search-container {
   position: relative;
   z-index: 1000 !important;
- 
   width: 33vw;
   top: -11vw;
   }
@@ -231,7 +171,6 @@ p {
   @media (max-width:600px){
     .map-search-container {
       width: 100%;
-     
       }
       .map-cont{
         border: none;
@@ -245,7 +184,6 @@ p {
       }
   }
 
-
 @media (max-width: 992px) {
   .card-text {
     font-size: 2vw;
@@ -258,8 +196,6 @@ p {
   .count-card-cont {
     margin: 0 0 0 5vh;
   }
-
-  
   .info-text-cont, .icon-text-cont,.review-cont
   {
     display: flex;
@@ -273,10 +209,6 @@ p {
   .comment-cont{
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
-    /* width: 75%; */
-
   }
   .info-text{
     width: 90%;

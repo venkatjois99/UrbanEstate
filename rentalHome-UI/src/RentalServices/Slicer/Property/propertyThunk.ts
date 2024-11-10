@@ -23,7 +23,7 @@ export const createPropertyThunk = createAsyncThunk<PostProperty,PostProperty>(
     'property/updatePropertyThunk',
     async (propertyData) => {
       const response = await updatePropertyService(propertyData);
-      console.log(response) // Call your update service
+      // console.log(response) // Call your update service
       return response; // Return the updated property data
     }
   );

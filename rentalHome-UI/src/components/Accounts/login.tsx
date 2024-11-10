@@ -33,7 +33,7 @@ function Login(props: any) {
           password: password
         };
         var res = await dispatch(validateUser(formData));
-        console.log(res);
+        // console.log(res);
         if (res.type == 'user/validateUser/fulfilled') {
           toast.success('Login successful!');
           // localStorage.setItem("token",res.payload);
@@ -50,7 +50,7 @@ function Login(props: any) {
         }
 
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         toast.error('Login failed. Please try again.');
         setIsSigningIn(false);
         setErrorMessage('Error signing in');
@@ -119,25 +119,9 @@ function Login(props: any) {
             <p>   Don't have an account?  <a className="login-footer" onClick={handleRegisterClick}>
               Sign-up.
             </a></p>
-            {/* <div className="login-divider">
-              <div className="line"></div>
-              <span>OR</span>
-              <div className="line"></div>
-            </div>
-            <div className='google-signin-cont'>
-            <button
-              disabled={isSigningIn}
-              onClick={onGoogleSignIn}
-             className='google-signin-button'
-            >
-              <img src='src\assets\icons\googleSignIn.svg' width={20}></img>
-            Continue with Google
-            </button>
-            </div> */}
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          {/* Add any footer actions if needed */}
         </Modal.Footer>
       </Modal>
       <Register show={showRegisterModal} onClose={handleCloseRegisterModal} />

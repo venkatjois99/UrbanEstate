@@ -50,7 +50,7 @@ const AdminUsers: React.FC = () => {
         toast.error('Error deleting user');
       }
     } catch (error: any) {
-      console.error('Error in handleDelete:', error);
+      // console.error('Error in handleDelete:', error);
       toast.error(error);
     }
   };

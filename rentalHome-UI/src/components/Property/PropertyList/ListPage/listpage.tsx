@@ -1,18 +1,15 @@
 import "./listpage.css";
-import NavBars from "../../../header/header";
 import MyMap from "../../../map/myMap";
 import { LatLngExpression } from "leaflet";
 import { useState,useEffect } from "react";
 import Footer from "../../../footer/footer";
 import ListPageCard from "../../../additional-Components/listPageCard/listPageCard";
 import ListPageSearch from "../../../additional-Components/listPageSearch/listPageSearch";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { getPropertiesThunk } from '../../../../RentalServices/Slicer/Property/propertyThunk';
 import { AppDispatch } from "../../../../store/myAppStore";
 import { useLocation } from "react-router-dom";
 import { Property } from "../../../../models/propertyModel";
-
-// Define the type for each item in the list dat
 
 const ListPage: React.FC = () => {
 
@@ -58,7 +55,7 @@ const ListPage: React.FC = () => {
       matches = matches && property.propertyType === searchCriteria.propertyType;
     }
     if (searchCriteria.bhkType) {
-      matches = matches && property.bhkType === searchCriteria.bhkType;
+      matches = matches && (property.bhkType === searchCriteria.bhkType || property.pgSharingType === searchCriteria.bhkType || property.sharedBedrooms == searchCriteria.bhkType);
     }
     if (searchCriteria.minPrice !== undefined && searchCriteria.minPrice !== null) {
       matches = matches && property.rent >= searchCriteria.minPrice;
@@ -109,7 +106,6 @@ const ListPage: React.FC = () => {
     : null;
   return (
     <>
-      {/* <NavBars /> */}
       <div className="list-page">
         <div className="list-page-search-cont">
           <div className="list-page-search-holder">

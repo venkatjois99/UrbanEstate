@@ -49,7 +49,7 @@ function NavBars() {
   };
 
   useEffect(() => {
-    console.log(loginStatus);
+    // console.log(loginStatus);
     const handleScroll = () => {
       const offset = window.scrollY;
       if (offset > 50) {

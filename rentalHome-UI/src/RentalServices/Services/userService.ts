@@ -5,7 +5,7 @@ const url = "https://localhost:8080/gateway/Account";
 export const addNewUser = async (newUser: RegisterUser) => {
   try {
     const response = await axios.post(`${url}/Register`, newUser);
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (error:any) {
     // Check for 401 Unauthorized or other errors
@@ -32,7 +32,7 @@ export const updateOwnerRoleService = async (id: string | null) => {
     return await axios.put(`${url}/updateOwnerRole/${id}`);
   } catch (error) {
     // Handle the error as needed (e.g., log it, rethrow it, etc.)
-    console.error("Error updating owner role:", error);
+    // console.error("Error updating owner role:", error);
     throw error; // Rethrow the error for further handling
   }
 };
@@ -44,7 +44,7 @@ export const getUserDetailsByIdService = async (id:string | null) =>{
     }
     return await axios.get(`${url}/GetById/${id}`);
   } catch (error) {
-    console.error("Error updating owner role:", error);
+    // console.error("Error updating owner role:", error);
     throw error; // Rethrow the error for further handling
   }
 };
@@ -74,10 +74,10 @@ export const forgotPasswordService = async(email:string)=>{
     if (email === null) {
       throw new Error("email is empty.");
     }
-    console.log(email)
+    // console.log(email)
     return await axios.post(`${url}/forgot-password?Email=${email}`)
   } catch (error) {
-    console.error("Error reset", error);
+    // console.error("Error reset", error);
     throw error; // Rethrow the error for further handling
   }
 }
@@ -86,17 +86,17 @@ export const forgotPasswordService = async(email:string)=>{
 export const deleteUser = async (email: string) => {
   try {
     const response = await axios.delete(`${url}/${email}`);
-    console.log('User deleted:', response);
+    // console.log('User deleted:', response);
     return response;
   } catch (error: any) {
     // Check for 401 Unauthorized or other errors
     if (error.response) {
       // The request was made, but the server responded with an error
-      console.error('Server error:', error.response);
+      // console.error('Server error:', error.response);
       throw error.response;
     } else {
       // Something else happened while setting up the request
-      console.error('Unexpected error:', error);
+      // console.error('Unexpected error:', error);
       throw new Error('An unexpected error occurred.');
     }
   }

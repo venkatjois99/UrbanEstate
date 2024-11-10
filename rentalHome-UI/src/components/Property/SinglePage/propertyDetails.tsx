@@ -1,4 +1,4 @@
-import { FaRupeeSign, FaPhone, FaHeart, FaPaperPlane, FaCalendarAlt, FaBed, FaChair } from 'react-icons/fa';
+import { FaRupeeSign, FaHeart, FaCalendarAlt, FaBed } from 'react-icons/fa';
 import Slider from '../../additional-Components/ImageSlider/slider';
 import Footer from '../../footer/footer';
 import './propertyDetails.css'
@@ -7,7 +7,6 @@ import { Property } from '../../../models/propertyModel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChair, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from "react";
-import NavBars from '../../header/header';
 import ChatBox from '../../../components/additional-Components/ChatBox/chatBox';
 import { getUserDetailsByIdService } from '../../../RentalServices/Services/userService'; // Import the service
 import { UserModelDTO } from '../../../models/registerUserModel'
@@ -21,7 +20,7 @@ const PropertyDetails = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-
+  
   const location = useLocation();
   const propertyItem: Property = location.state?.property;
 
@@ -65,7 +64,6 @@ const PropertyDetails = () => {
 
   return (
     <div>
-      {/* <NavBars /> */}
       <div className="singlePage">
         <div className="imageSection">
           <Slider images={propertyItem.images} />
@@ -105,21 +103,12 @@ const PropertyDetails = () => {
               <p className="address">{propertyItem.address}</p>
               <p className="description">{propertyItem.description}</p>
             </div>
-
-            {/* Buttons */}
-            <div className="buttonSection">
-              <button className="btn-singlePage favourite">
-                <FaHeart /> Add to Favourites
-              </button>
-            </div>
           </div>
-
           {/* Right Section */}
           <div className="rightSection">
             <div>
               <ChatBox propertyId={propertyItem.id} propertyUserId={propertyItem.userId} />
             </div>
-
             {/* Owner Profile */}
             <div className="ownerProfile">
               <h4>Owner: {owner.userName}</h4>

@@ -1,9 +1,5 @@
 import './Card.css';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { ApartmentItem } from "../../../assets/dummyData/dummyData";
+import React from 'react';
 import { Property } from "../../../models/propertyModel";
 import { useNavigate } from 'react-router-dom';
 
@@ -27,18 +23,12 @@ const LandingPageCard: React.FC<CardProps> = ({ item, small }) => {
                     <img key={index} className='property-image' src={image} alt={item.title} />
                 ))}                    {!small && ( <div className='land-card-location'><img src='src/assets/icons/landing-location-logo.svg' width={20} height={20} />{item.location}</div>)}
 
-                {/* Favorite Icon inside the image
-                <div className="favIcon" onClick={handleFavoriteClick}>
-                    <FontAwesomeIcon
-                        icon={faHeart}
-                        style={{ color: isFavorite ? '#31a6f5' : 'white' }}
-                    />
-                </div> */}
             </div>
             <div className="landing-card-textContainer">
                 <h6 className="land-card-title">
-                    {item.title}
+                    {small ? item.title.slice(0,10)+"..":item.title}
                 </h6>
+                    {small ? item.propertyType : ""}
                 {!small && (
                     <p className="land-card-item">
                         {item.address}

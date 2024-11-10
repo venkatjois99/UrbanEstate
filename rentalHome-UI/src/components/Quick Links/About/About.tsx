@@ -1,13 +1,10 @@
 import './About.css';
-import NavBars from '../../header/header'
 import Footer from '../../footer/footer';
 
 const About= () => {
    
   return (
     <>
-        {/* <NavBars /> */}
-        
         <div className="overview-wrapper">
             <div className="text-area" data-aos="fade-up" data-aos-delay="200">
                 <h1>About Us</h1>

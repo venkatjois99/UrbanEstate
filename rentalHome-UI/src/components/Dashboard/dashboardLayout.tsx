@@ -1,15 +1,10 @@
 import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import { Link, useLocation,Outlet } from 'react-router-dom';
 import './dashboardLayout.css';
-import NavBars from '../header/header';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/myAppStore";
 import React, { useEffect } from 'react';
 import { initializeUserFromToken } from '../../RentalServices/Slicer/user/userThunk';
-
-
-
-
 
 const DashboardLayout: React.FC = ({  }) => {
   const location = useLocation();
@@ -24,7 +19,6 @@ const DashboardLayout: React.FC = ({  }) => {
   if (role === 'admin') {
     return (
       <>
-        {/* <NavBars /> */}
         {/* Navbar for smaller screens */}
         <Navbar bg="light" variant="light" expand="lg" className="d-lg-none">
           <Container fluid>
@@ -71,7 +65,6 @@ const DashboardLayout: React.FC = ({  }) => {
 
   return (
     <>
-      {/* <NavBars /> */}
       {/* Navbar for smaller screens */}
       <Navbar bg="light" variant="light" expand="lg" className="d-lg-none">
         <Container fluid>

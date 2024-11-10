@@ -36,7 +36,7 @@ export const validateUser = createAsyncThunk(
   async (user: LoginModel, { rejectWithValue }) => {
     try {
       const response = await validateLogin(user);
-      console.log(response);
+      // console.log(response);
       const token = response.data;
       if (!token) {
         return null;
@@ -57,7 +57,7 @@ export const validateUser = createAsyncThunk(
 );
 export const updateOwnerRole= createAsyncThunk("user/updateOwnerRole",async (userId:string|null) =>{
     const response = await updateOwnerRoleService(userId)
-    console.log(response);
+    // console.log(response);
     
     return response.data;
 })

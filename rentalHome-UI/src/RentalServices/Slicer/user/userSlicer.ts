@@ -55,7 +55,7 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(addUser.fulfilled, (state) => {
-            console.log("fulfilled");
+            // console.log("fulfilled");
             state.isRegistered = true;
             state.registerStatus = 'success'; // Update the status
         })
@@ -67,12 +67,12 @@ const userSlice = createSlice({
             state.registerStatus = 'failed';
         })
             .addCase(validateUser.fulfilled, (state, action) => {
-                console.log(action.payload)
+                // console.log(action.payload)
                 if (action.payload) {
                     state.isLoggedIn=true;
                     localStorage.setItem("token", action.payload.token); // If you want to store the token as well
                 }
-                console.log(state.userId);
+                // console.log(state.userId);
             })
             .addCase(validateUser.pending, (state) => {
                 state.loginStatus = 'pending';
@@ -87,12 +87,12 @@ const userSlice = createSlice({
                 state.ownerRoleStatus = 'pending'; // Set the status to pending
             })
             .addCase(updateOwnerRole.fulfilled, (state, action) => {
-                console.log("Owner role updated:", action.payload);
+                // console.log("Owner role updated:", action.payload);
                 state.role = action.payload.role; // Update the role in state
                 state.ownerRoleStatus = 'fulfilled'; // Set status to fulfilled
             })
             .addCase(updateOwnerRole.rejected, (state) => {
-                console.error("Failed to update owner role");
+                // console.error("Failed to update owner role");
                 state.ownerRoleStatus = 'rejected'; // Set status to rejected
             })
             .addCase(getUserDetailsById.pending, (state) => {

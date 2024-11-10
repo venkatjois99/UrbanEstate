@@ -31,7 +31,7 @@ const VerifyEmail: React.FC = () => {
 
       if (storedData) {
         const { verificationToken, ...userDetails } = JSON.parse(storedData);
-        console.log(userDetails.submittedValues)
+        // console.log(userDetails.submittedValues)
         // Check if the token matches the stored token
         if (verificationToken === token) {
           completeRegistration(userDetails.submittedValues);

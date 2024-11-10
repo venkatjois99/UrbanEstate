@@ -35,7 +35,7 @@ const AdminProperties: React.FC = () => {
         toast.success("Property deleted successfully!"); // Show success toast
         setTimeout(() => navigate(0), 1000);
       } catch (error) {
-        console.error("Error deleting property:", error);
+        // console.error("Error deleting property:", error);
         toast.error("Failed to delete property. Please try again."); // Show error toast
       }
     }

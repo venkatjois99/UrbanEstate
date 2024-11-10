@@ -17,7 +17,7 @@ const propertyTypeOptions: any = {
   house: ["1 BHK", "2 BHK", "3 BHK", "4 BHK"],
   apartment: ["1 BHK", "2 BHK", "3 BHK", "4 BHK"],
   pg: ["1 Sharing", "2 Sharing", "3 Sharing", "4 Sharing"],
-  flatmates: ["Shared Room", "Separate Room"],
+  flatmates: [1, 2,3,4],
 };
 
 const SearchFilter: React.FC = () => {
@@ -44,7 +44,7 @@ const SearchFilter: React.FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: () => {
-      console.log(SearchForm.values);
+      // console.log(SearchForm.values);
       navigate("/rent", { state: { searchCriteria: SearchForm.values } });
     },
   });

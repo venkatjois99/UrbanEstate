@@ -19,7 +19,7 @@ export const getTokenData = (token: string | null) => {
 
   try {
     const decodedToken = jwtDecode<JwtToken>(token); // Use your defined interface
-    console.log(decodedToken)
+    // console.log(decodedToken)
     // Check if the token is expired
     const isExpired = decodedToken.exp * 1000 < Date.now(); 
 
@@ -34,7 +34,7 @@ export const getTokenData = (token: string | null) => {
       exp:decodedToken.exp,
     };
   } catch (error) {
-    console.error("Invalid token:", error);
+    // console.error("Invalid token:", error);
     return null;
   }
 };

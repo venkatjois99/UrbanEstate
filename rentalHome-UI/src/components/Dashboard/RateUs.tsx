@@ -41,7 +41,7 @@ import 'react-toastify/dist/ReactToastify.css';
       };
   
       try {
-        console.log(feedback);
+        // console.log(feedback);
         await submitFeedback(feedback); // Call the service function
   
         // Replace alert with toast notification

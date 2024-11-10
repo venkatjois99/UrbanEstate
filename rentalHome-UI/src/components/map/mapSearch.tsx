@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import './mapSearch.css'
 
-// interface MapSearchProps {
-//   onCitySelect: (city: string) => void;
-// }
-
 interface MapSearchProps {
-  onCitySelect: (city: string, location: [number, number]) => void;
+  onCitySelect: ( location: [number, number]) => void;
 }
 
 const MapSearch: React.FC<MapSearchProps> = ({ onCitySelect }) => {
@@ -36,7 +32,6 @@ const MapSearch: React.FC<MapSearchProps> = ({ onCitySelect }) => {
 
         // Extract city data with names and coordinates for dropdown suggestions
         const citiesData = response.data
-        // .slice(0, 3) // Limit to 4 results
         .map((place: any) => ({
           name: place.display_name,
           lat: parseFloat(place.lat),
@@ -57,14 +52,14 @@ const MapSearch: React.FC<MapSearchProps> = ({ onCitySelect }) => {
   const handleCitySelect = (city: string, lat: number, lon: number) => {
     setSelectedCity(city);
     setShowDropdown(false);
-    onCitySelect(city, [lat, lon]); // Pass the selected city and its coordinates to parent
+    onCitySelect( [lat, lon]); // Pass the selected city and its coordinates to parent
   };
 
   return (
     <div className="dropdown-container" >
       <div className="text-cont-m">
         <h5>See What’s near you</h5>
-        <a className="link-cont">See All
+        <a href="/rent" className="link-cont">See All
           <img src="src/assets/icons/footerSearchArrow.svg" alt="arrow" />
         </a>
       </div>

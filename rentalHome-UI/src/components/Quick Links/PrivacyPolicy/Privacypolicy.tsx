@@ -1,12 +1,10 @@
 import React from 'react';
 import styles from './PrivacyPolicy.module.css';
-import NavBars from '../../header/header';
 import Footer from '../../footer/footer';
 
 const PrivacyPolicy: React.FC = () => {
   return (
     <>
-    {/* <NavBars></NavBars> */}
     <div className={styles.container}>
       <h1 className={styles.title}>Privacy Policy </h1>
       <p className={`${styles.paragraph} ${styles.bold}`}>
@@ -52,7 +50,6 @@ const PrivacyPolicy: React.FC = () => {
           <strong>For Legal Reasons:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities.
         </li>
       </ul>
-
       <h2 className={styles.sectionTitle}>5. Security of Your Information</h2>
       <p className={styles.paragraph}>
         We implement reasonable security measures to protect your information. However, no method of transmission over the Internet or method of electronic storage is 100% secure.
