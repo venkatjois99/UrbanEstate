@@ -12,6 +12,7 @@ import { logout } from "../../RentalServices/Slicer/user/userSlicer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { getUserDetailsById } from '../../RentalServices/Slicer/user/userThunk'; // Import your thunk
+import ProfileCard from "../additional-Components/Profile/profile";
 
 
 function NavBars() {
@@ -19,6 +20,7 @@ function NavBars() {
   const [showLoginModal, setShowLoginModal] = useState(false); // Manage modal state
   const [showRegisterModal, setShowRegisterModal] = useState(false); // Manage modal state
   const [scrolled, setScrolled] = useState(false);
+  const [showProfileCard, setShowProfileCard] = useState(false); 
   const loginStatus = useSelector(
     (state: { user: { isLoggedIn: any } }) => state.user.isLoggedIn
   );
@@ -115,7 +117,7 @@ function NavBars() {
                   
                   <NavDropdown
                     title={
-                      <span>{userDetails?.email} <FontAwesomeIcon icon={faUserCircle} color="grey"/></span>
+                      <span >{userDetails?.email} <FontAwesomeIcon icon={faUserCircle} color="grey"/></span>
                     }
                     id="collapsible-nav-dropdown"
                     className="header-dropdown"
@@ -123,14 +125,26 @@ function NavBars() {
                     <NavDropdown.Item href="/dashboard">
                       My Dashboard
                     </NavDropdown.Item>
-                    {/* <NavDropdown.Item href="/profile">
-                      myprofile
-                    </NavDropdown.Item> */}
+                    <NavDropdown.Item 
+                     onMouseEnter={() => setShowProfileCard(true)}  // Show card on hover
+                     onMouseLeave={() => setShowProfileCard(false)} 
+                    >
+                      My profile
+                    </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/" onClick={handleLogout}>
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>
+                  {showProfileCard && userDetails && (
+                      <div className="profile-card-container">
+                        <ProfileCard
+                          userName={userDetails.userName}
+                          email={userDetails.email}
+                          phoneNumber={userDetails.phoneNumber}
+                        />
+                      </div>
+                    )}
                   </>
                 )}
               </div>

@@ -72,3 +72,9 @@
     content: none !important; /* Removes the arrow */
     border: none !important;  /* Removes the border style */
 }
+
+.profile-card-container{
+    position: absolute;
+    right: 41vw;
+    top:4vw;
+}

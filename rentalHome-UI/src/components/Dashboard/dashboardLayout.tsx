@@ -74,9 +74,6 @@ const DashboardLayout: React.FC = ({  }) => {
             <Nav className="flex-column">
               {role === 'tenant' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
-                    My Profile
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/favorites" active={location.pathname === '/dashboard/favorites'}>
                     Favorites
                   </Nav.Link>
@@ -90,9 +87,6 @@ const DashboardLayout: React.FC = ({  }) => {
               )}
               {role === 'owner' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
-                    My Profile
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/my-properties" active={location.pathname === '/dashboard/my-properties'}>
                     View My Properties
                   </Nav.Link>
@@ -120,9 +114,6 @@ const DashboardLayout: React.FC = ({  }) => {
             <Nav className="flex-column">
               {role === 'tenant' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
-                    My Profile
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/favorites" active={location.pathname === '/dashboard/favorites'}>
                     Favorites
                   </Nav.Link>
@@ -136,9 +127,6 @@ const DashboardLayout: React.FC = ({  }) => {
               )}
               {role === 'owner' && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard/profile" active={location.pathname === '/dashboard/myProfile'}>
-                    My Profile
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard/my-properties" active={location.pathname === '/dashboard/my-properties'}>
                     View My Properties
                   </Nav.Link>
