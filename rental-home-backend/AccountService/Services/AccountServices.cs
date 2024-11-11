@@ -227,7 +227,7 @@ namespace AccountService.Services
             {
                 Issuer = _configuration["JWT:validIssuer"],
                 Audience = _configuration["JWT:validAudience"],
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(20),
                 SigningCredentials = new SigningCredentials(authSignKey, SecurityAlgorithms.HmacSha256),
                 Subject = new ClaimsIdentity(claims)
             };
