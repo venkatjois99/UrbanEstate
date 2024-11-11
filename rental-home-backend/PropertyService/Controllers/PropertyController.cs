@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using PropertyService.Models;
 using PropertyService.Repository;
 
+using PropertyService.Exceptions; // Include this to use the custom exception
+
 namespace PropertyService.Controllers
 {
     [Route("api/[controller]")]
@@ -16,103 +18,138 @@ namespace PropertyService.Controllers
             _propertyRepository = propertyRepository;
         }
 
-        // GET: api/property
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PropertyModel>>> GetAllProperties()
         {
-            var properties = await _propertyRepository.GetAllProperties();
-            return Ok(properties);
+            try
+            {
+                var properties = await _propertyRepository.GetAllProperties();
+                return Ok(properties);
+            }
+            catch (PropertyServiceException ex)
+            {
+                return StatusCode(ex.StatusCode, new { message = ex.ErrorMessage });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
 
-        // GET: api/property/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<PropertyModel>> GetPropertyById(int id)
         {
-            var property = await _propertyRepository.GetPropertyById(id);
-            if (property == null)
+            try
             {
-                return NotFound(); // 404 Not Found
+                var property = await _propertyRepository.GetPropertyById(id);
+                return Ok(property);
             }
-            return Ok(property); // 200 OK
+            catch (PropertyServiceException ex)
+            {
+                return StatusCode(ex.StatusCode, new { message = ex.ErrorMessage });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
 
-        // POST: api/property
         [HttpPost]
         public async Task<ActionResult<(int, string)>> AddProperty([FromBody] PropertyModel property)
-         {
-            if (property == null)
+        {
+            try
             {
-                return BadRequest(new { message = "Invalid property data." }); // 400 Bad Request with message
+                var res = await _propertyRepository.AddProperty(property);
+                return CreatedAtAction(nameof(GetPropertyById), new { id = res.Item1 }, new { id = res.Item1, message = "Property created successfully." });
             }
-
-            var res = await _propertyRepository.AddProperty(property);
-
-            // Assuming res contains the property ID, we return the ID and a success message.
-            return CreatedAtAction(nameof(GetPropertyById), new { id = res.Item1 }, new { id = res.Item1, message = "Property created successfully." });
+            catch (PropertyServiceException ex)
+            {
+                return StatusCode(ex.StatusCode, new { message = ex.ErrorMessage });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
 
-
-        // PUT: api/property/{id}
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateProperty(int id, [FromBody] PropertyModel property)
         {
-            if (id != property.Id)
+            try
             {
-                return BadRequest("ID in the URL does not match the ID in the body.");
+                if (id != property.Id)
+                {
+                    return BadRequest("ID in the URL does not match the ID in the body.");
+                }
+
+                await _propertyRepository.UpdateProperty(property);
+                return Ok(new { message = "Property updated successfully." });
             }
-
-            await _propertyRepository.UpdateProperty(property);
-
-            // Return a success message with HTTP 200 OK
-            return Ok(new { message = "Property updated successfully." });
+            catch (PropertyServiceException ex)
+            {
+                return StatusCode(ex.StatusCode, new { message = ex.ErrorMessage });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
 
-        // DELETE: api/property/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProperty(int id)
         {
-            var property = await _propertyRepository.GetPropertyById(id);
-            if (property == null)
+            try
             {
-                return NotFound(new { message = "Property not found." }); // 404 Not Found with a message
+                await _propertyRepository.DeleteProperty(id);
+                return Ok(new { message = "Property deleted successfully." });
             }
-
-            await _propertyRepository.DeleteProperty(id);
-
-            // Return a success message with HTTP 200 OK
-            return Ok(new { message = "Property deleted successfully." });
+            catch (PropertyServiceException ex)
+            {
+                return StatusCode(ex.StatusCode, new { message = ex.ErrorMessage });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
 
-        // GET: api/property/type/{propertyType}
         [HttpGet("type/{propertyType}")]
         public async Task<ActionResult<IEnumerable<PropertyModel>>> GetPropertiesByType(string propertyType)
-         {
-            var properties = await _propertyRepository.GetPropertiesByType(propertyType);
-            return Ok(properties);
+        {
+            try
+            {
+                var properties = await _propertyRepository.GetPropertiesByType(propertyType);
+                return Ok(properties);
+            }
+            catch (PropertyServiceException ex)
+            {
+                return StatusCode(ex.StatusCode, new { message = ex.ErrorMessage });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
+
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<PropertyModel>>> GetPropertiesByUserId(string userId)
         {
-            var properties = await _propertyRepository.GetPropertiesByUserId(userId);
-            if (properties == null || !properties.Any())
+            try
             {
-                return NotFound();
+                var properties = await _propertyRepository.GetPropertiesByUserId(userId);
+                return Ok(properties);
             }
-            return Ok(properties);
-        }
-        // GET: api/property/search
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<PropertyModel>>> SearchProperties([FromQuery] PropertySearchParameters searchParameters)
-        {
-            var properties = await _propertyRepository.SearchProperties(searchParameters);
-            if (properties == null || !properties.Any())
+            catch (PropertyServiceException ex)
             {
-                return NotFound(); // 404 Not Found
+                return StatusCode(ex.StatusCode, new { message = ex.ErrorMessage });
             }
-            return Ok(properties); // 200 OK
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
-        // GET: api/property/count-by-type
-        [HttpGet("count-by-type")]
+// GET: api/property/count-by-type
+            [HttpGet("count-by-type")]
         public async Task<ActionResult<Dictionary<string, int>>> GetPropertyCountByType()
         {
             var propertyCountByType = await _propertyRepository.GetPropertyCountByType();
