@@ -89,13 +89,13 @@ const PropertyDetails = () => {
                   </div>
                   <div className="iconItem">
                     <FaBed color="#216B9B" /> <span> {propertyItem.propertyType === 'apartment' || propertyItem.propertyType === 'house' ? propertyItem.bhkType :
-                      propertyItem.propertyType === 'pg' ? ` ${propertyItem.pgSharingType} sharing` :
+                      propertyItem.propertyType === 'pg' ? ` ${propertyItem.pgSharingType} ` :
                         propertyItem.propertyType === 'flatmates' ? `${propertyItem.sharedBedrooms} Room` : ''}</span>
                   </div>
                   <div className="iconItem">
                     {propertyItem.propertyType === 'apartment' || propertyItem.propertyType === 'house' ? <> <FontAwesomeIcon icon={faChair} color="#216B9B" /> {propertyItem.furnishing} </> : ''}
                     {propertyItem.propertyType === 'pg' ? <><FontAwesomeIcon icon={faUsers} color="#216B9B" /> {propertyItem.pgLivingType}</> : ''}
-                    {propertyItem.propertyType === 'flatmates' ? <><FontAwesomeIcon icon={faUsers} color="#216B9B" />{propertyItem.preferredFlatmate} Gender </> : ''}
+                    {propertyItem.propertyType === 'flatmates' ? <><FontAwesomeIcon icon={faUsers} color="#216B9B" />{propertyItem.preferredFlatmate}  </> : ''}
                   </div>
                 </div>
               </div>
