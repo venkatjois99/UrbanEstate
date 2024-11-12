@@ -48,7 +48,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ propertyId, propertyUserId }) => {
         const fetchMessages = async () => {
             try {
                 const messagesData = await getMessages(propertyId, userIdFromStore, propertyUserId);
-                console.log("Fetched messages:", messagesData);
+                // console.log("Fetched messages:", messagesData);
                 setMessages(messagesData);
             } catch (error) {
                 console.error("Error fetching messages:", error);
